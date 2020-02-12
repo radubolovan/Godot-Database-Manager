@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://table.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/roboto_14.tres" type="DynamicFont" id=2]
+[ext_resource path="res://error_dlg.tscn" type="PackedScene" id=3]
 
 [node name="table" type="Control"]
 anchor_right = 1.0
@@ -20,7 +21,6 @@ __meta__ = {
 }
 
 [node name="structure" type="Tabs" parent="tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -82,3 +82,5 @@ margin_right = 1592.0
 margin_top = 4.0
 margin_right = 1592.0
 margin_bottom = 4.0
+
+[node name="error_dlg" parent="." instance=ExtResource( 3 )]

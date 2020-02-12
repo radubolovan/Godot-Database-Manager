@@ -111,6 +111,8 @@ class cTable:
 			if(m_data[idx].get_row_idx() == row_idx):
 				m_data[idx].remove(idx)
 				m_rows_count -= 1
+	func get_rows_count():
+		return m_rows_count
 	func update_data(prop_id, row_idx, data):
 		# print("#1: cTable::update_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
 		for idx in range(0, m_data.size()):

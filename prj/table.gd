@@ -11,11 +11,6 @@ var m_data = []
 
 var m_add_data_button = null
 
-"""
-- add data to tables
-- incarca json-ul (load database)
-"""
-
 func _ready():
 	$tabs/structure/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
 
@@ -41,6 +36,19 @@ func set_table(table):
 		$tabs/data/data_holder/data_header.add_child(lbl)
 
 		disable_add_button = false
+
+	for idx in range(0, table.get_rows_count()):
+		var row = HBoxContainer.new()
+		$tabs/data/data_holder/data_container.add_child(row)
+		var data = table.get_data_by_row_idx(idx)
+		for jdx in range(0, data.size()):
+			var cell = load("res://table_cell.tscn").instance()
+			cell.set_text(data[jdx].get_data())
+			cell.set_prop_id(data[jdx].get_prop_id())
+			cell.set_row_idx(idx)
+			cell.connect("update_cell_data", self, "on_update_data")
+			row.add_child(cell)
+
 	create_add_button(disable_add_button)
 
 func clear_current():
@@ -128,14 +136,15 @@ func create_add_button(disable):
 func clear_data():
 	for idx in range(0, $tabs/data/data_holder/data_header.get_child_count()):
 		$tabs/data/data_holder/data_header.get_child(idx).queue_free()
-	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()-1):
+
+	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
 		var row = $tabs/data/data_holder/data_container.get_child(idx)
 		for jdx in range(0, row.get_child_count()):
-			row.get_child(jdx).disconnect("update_cell_data", self, "on_update_data")
+			# row.get_child(jdx).disconnect("update_cell_data", self, "on_update_data")
 			row.get_child(jdx).queue_free()
 		row.queue_free()
-	if(null != m_add_data_button):
-		m_add_data_button.set_disabled(true)
+
+	m_add_data_button = null
 
 func on_plus_button():
 	var rows = $tabs/data/data_holder/data_container.get_child_count()

@@ -37,7 +37,7 @@ rect_min_size = Vector2( 60, 0 )
 text = "999"
 editable = false
 
-[node name="Label3" type="Label" parent="align"]
+[node name="Label2" type="Label" parent="align"]
 margin_left = 84.0
 margin_top = 3.0
 margin_right = 124.0
@@ -51,7 +51,7 @@ margin_right = 428.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 300, 0 )
 
-[node name="Label2" type="Label" parent="align"]
+[node name="Label3" type="Label" parent="align"]
 margin_left = 432.0
 margin_top = 3.0
 margin_right = 465.0
