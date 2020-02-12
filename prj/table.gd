@@ -1,87 +1,161 @@
 extends Control
 
-#const c_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-#const c_chars = "ABCDE"
-
-# var m_header = null
-# var m_rows = []
+signal new_property
+signal change_property
+signal delete_property
+signal new_data_row
+signal update_data
 
 var m_props = []
+var m_data = []
+
+var m_add_data_button = null
+
+"""
+- add data to tables
+- incarca json-ul (load database)
+"""
 
 func _ready():
 	$tabs/structure/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
 
+func set_table(table):
+	clear_current()
+	var disable_add_button = true
+	for idx in range(0, table.get_props_count()):
+		var prop = load("res://table_property.tscn").instance()
+		m_props.push_back(prop)
+
+		var prop_id = table.get_prop_id(idx)
+		var prop_type = table.get_prop_type(idx)
+		var prop_name = table.get_prop_name(idx)
+
+		$tabs/structure/properties.add_child(prop)
+		prop.setup(table.get_prop_id(idx), table.get_prop_type(idx), table.get_prop_name(idx))
+		prop.connect("update_property", self, "on_update_property")
+		prop.connect("delete_property", self, "on_delete_property")
+
+		var lbl = load("res://data_label.tscn").instance()
+		lbl.set_prop_id(prop_id)
+		lbl.set_text(prop_name)
+		$tabs/data/data_holder/data_header.add_child(lbl)
+
+		disable_add_button = false
+	create_add_button(disable_add_button)
+
+func clear_current():
+	clear_structure()
+	clear_data()
+
+func clear_structure():
+	for idx in range(0, $tabs/structure/properties.get_child_count()):
+		var prop = $tabs/structure/properties.get_child(idx)
+		prop.disconnect("update_property", self, "on_update_property")
+		prop.disconnect("delete_property", self, "on_delete_property")
+		prop.queue_free()
+	m_props.clear()
+
 func on_new_property_btn_pressed():
+	# add prop to structure
 	var prop_id = m_props.size()
 	var prop = load("res://table_property.tscn").instance()
 
 	m_props.push_back(prop)
-	$tabs/structure/tables.add_child(prop)
+	$tabs/structure/properties.add_child(prop)
 
-	prop.setup(prop_id, str(prop_id + 1), g_types.e_column_type_int)
+	var prop_name = "property_" + str(prop_id + 1)
+	var prop_type = g_types.e_column_type_int
+	#var prop_name = ""
+
+	prop.setup(prop_id, prop_type, prop_name)
+	prop.connect("update_property", self, "on_update_property")
 	prop.connect("delete_property", self, "on_delete_property")
+
+	# add prop to data
+	var lbl = load("res://data_label.tscn").instance()
+	lbl.set_prop_id(prop_id)
+	lbl.set_text(prop_name)
+	$tabs/data/data_holder/data_header.add_child(lbl)
+
+	# last row is the "+" button
+	var rows = $tabs/data/data_holder/data_container.get_child_count()
+	for idx in range(0, rows-1):
+		var row = $tabs/data/data_holder/data_container.get_child(idx)
+		var cell = load("res://table_cell.tscn").instance()
+		cell.set_text("")
+		cell.set_prop_id(prop_id)
+		cell.set_row_idx(idx)
+		cell.connect("update_cell_data", self, "on_update_data")
+		row.add_child(cell)
+
+	if(null != m_add_data_button):
+		m_add_data_button.set_disabled(false)
+
+	emit_signal("new_property", prop_id, prop_type, prop_name)
+
+func on_update_property(prop_id, prop_type, prop_name):
+	# update data header
+	for idx in range(0, $tabs/data/data_holder/data_header.get_child_count()):
+		if($tabs/data/data_holder/data_header.get_child(idx).get_prop_id() == prop_id):
+			$tabs/data/data_holder/data_header.get_child(idx).set_text(prop_name)
+	emit_signal("change_property", prop_id, prop_type, prop_name)
 
 func on_delete_property(prop_id):
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_id() == prop_id):
-			$tabs/structure/tables.remove_child(m_props[idx])
+			m_props[idx].disconnect("update_property", self, "on_update_property")
+			m_props[idx].disconnect("delete_property", self, "on_delete_property")
+			$tabs/structure/properties.remove_child(m_props[idx])
 			m_props.remove(idx)
 			break
-
+	# recreate properties' ids
 	for idx in range(0, m_props.size()):
 		m_props[idx].set_id(idx)
+	emit_signal("delete_property", prop_id)
 
-	#create_header()
-	#$table/new_column_btn.connect("pressed", self, "on_add_column_btn_pressed")
+func create_add_button(disable):
+	if(null != m_add_data_button):
+		m_add_data_button.set_disabled(disable)
+		return
+	var row = HBoxContainer.new()
+	m_add_data_button = Button.new()
+	m_add_data_button.set_text("+")
+	m_add_data_button.connect("pressed", self, "on_plus_button")
+	m_add_data_button.set_disabled(disable)
+	row.add_child(m_add_data_button)
+	$tabs/data/data_holder/data_container.add_child(row)
 
-	#$tabs.add_tab("Structure")
-	#$tabs.add_tab("Data")
+func clear_data():
+	for idx in range(0, $tabs/data/data_holder/data_header.get_child_count()):
+		$tabs/data/data_holder/data_header.get_child(idx).queue_free()
+	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()-1):
+		var row = $tabs/data/data_holder/data_container.get_child(idx)
+		for jdx in range(0, row.get_child_count()):
+			row.get_child(jdx).disconnect("update_cell_data", self, "on_update_data")
+			row.get_child(jdx).queue_free()
+		row.queue_free()
+	if(null != m_add_data_button):
+		m_add_data_button.set_disabled(true)
 
-	"""
-	add_column(0, " ")
-	for idx in range(0, c_chars.length()):
-		add_column(idx+1, c_chars[idx])
+func on_plus_button():
+	var rows = $tabs/data/data_holder/data_container.get_child_count()
+	var last_row = $tabs/data/data_holder/data_container.get_child(rows - 1)
 
-	var begin = OS.get_ticks_msec()
-	var rows = 101
-	for idx in range(0, rows):
-		add_row()
-	var total = OS.get_ticks_msec() - begin
-	# print(str( (c_chars.length() + 1) * (rows + 1) ) + " cells created in " + str(int(float(total) / 1000.0)) + " seconds")
-	"""
+	last_row.remove_child(m_add_data_button)
 
-"""
-func create_header():
-	m_header = HBoxContainer.new()
-	#$table/val.add_child(m_header)
+	for idx in range(0, m_props.size()):
+		var cell = load("res://table_cell.tscn").instance()
+		cell.set_text("")
+		cell.set_prop_id(idx)
+		cell.set_row_idx(rows - 1)
+		cell.connect("update_cell_data", self, "on_update_data")
+		last_row.add_child(cell)
 
-func add_row():
-	var row = g_types.cRow.new()
-	row.m_id = m_rows.size()
+	last_row = HBoxContainer.new()
+	last_row.add_child(m_add_data_button)
+	$tabs/data/data_holder/data_container.add_child(last_row)
 
-	var the_row = HBoxContainer.new()
-	for idx in range(0, m_header.get_child_count()):
-		var cell = row.add_column(idx, "")
-		the_row.add_child(cell)
+	emit_signal("new_data_row")
 
-	m_rows.push_back(the_row)
-	$table/val.add_child(the_row)
-
-func add_column(idx, column_name):
-	var lbl = load("res://table_label.tscn").instance()
-	if(idx == 0):
-		lbl.set_custom_minimum_size(Vector2(20, 20))
-	else:
-		lbl.set_custom_minimum_size(Vector2(100, 20))
-	lbl.set_align(Label.ALIGN_CENTER)
-	lbl.set_valign(Label.VALIGN_CENTER)
-	lbl.set_text(column_name)
-	#m_header.add_child(lbl)
-
-	var column = g_types.cColumn.new()
-	column.m_name = column_name
-
-func on_add_column_btn_pressed():
-	$new_column_dlg.refresh()
-	$new_column_dlg.popup_centered()
-"""
+func on_update_data(prop_id, row_idx, new_text):
+	emit_signal("update_data", prop_id, row_idx, new_text)

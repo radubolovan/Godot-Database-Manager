@@ -23,6 +23,13 @@ margin_bottom = 23.0
 custom_fonts/font = ExtResource( 2 )
 text = "New Table"
 
+[node name="save_db_btn" type="Button" parent="menu"]
+margin_left = 81.0
+margin_right = 186.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 2 )
+text = "Save Database"
+
 [node name="tables_lbl" type="Label" parent="."]
 margin_top = 33.0
 margin_right = 150.0
@@ -54,3 +61,10 @@ margin_right = 1600.22
 margin_bottom = 900.0
 
 [node name="new_table_dlg" parent="." instance=ExtResource( 4 )]
+
+[node name="error_dlg" type="AcceptDialog" parent="."]
+margin_right = 223.0
+margin_bottom = 89.0
+popup_exclusive = true
+window_title = "Error"
+dialog_autowrap = true
