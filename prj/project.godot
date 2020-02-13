@@ -8,26 +8,15 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Node",
-"class": "Database",
-"language": "GDScript",
-"path": "res://db/db.gd"
-}, {
-"base": "Node",
-"class": "Table",
-"language": "GDScript",
-"path": "res://db/tbl.gd"
-} ]
+_global_script_classes=[  ]
 _global_script_class_icons={
-"Database": "",
-"Table": ""
+
 }
 
 [application]
 
 config/name="ADatabase"
-run/main_scene="res://database.tscn"
+run/main_scene="res://db_test.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -42,6 +31,10 @@ gdscript/warnings/enable=false
 
 window/size/width=1600
 window/size/height=900
+
+[editor_plugins]
+
+enabled=PoolStringArray( "godo_db_manager" )
 
 [memory]
 

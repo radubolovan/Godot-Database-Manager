@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/godo_db_manager/table.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/godo_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/godo_db_manager/db_interface.gd" type="Script" id=3]
+[ext_resource path="res://addons/godo_db_manager/dlgs/new_table_dlg.tscn" type="PackedScene" id=4]
+
+[node name="db_interface" type="Control"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="dlg" type="WindowDialog" parent="."]
+margin_right = 1600.0
+margin_bottom = 900.0
+rect_min_size = Vector2( 300, 100 )
+window_title = "Godot Database Manager"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" type="HBoxContainer" parent="dlg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 0.00012207
+margin_bottom = -877.0
+rect_min_size = Vector2( 1600, 23 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="new_table_btn" type="Button" parent="dlg/menu"]
+margin_right = 78.0
+margin_bottom = 23.0
+text = "New Table"
+
+[node name="save_db_btn" type="Button" parent="dlg/menu"]
+margin_left = 82.0
+margin_right = 186.0
+margin_bottom = 23.0
+text = "Save Database"
+
+[node name="tables_lbl" type="Label" parent="dlg"]
+margin_top = 25.0
+margin_right = 150.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 150, 18 )
+text = "Tables:"
+align = 1
+
+[node name="tables_container" type="ItemList" parent="dlg"]
+margin_top = 50.0
+margin_right = 150.0
+margin_bottom = 900.0
+rect_min_size = Vector2( 150, 850 )
+
+[node name="table" parent="dlg" instance=ExtResource( 1 )]
+visible = false
+margin_left = 150.0
+margin_top = 50.0
+margin_right = 0.00012207
+margin_bottom = 6.10352e-05
+
+[node name="new_table_dlg" parent="dlg" instance=ExtResource( 4 )]
+
+[node name="error_dlg" parent="dlg" instance=ExtResource( 2 )]

@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="error_dlg" type="AcceptDialog"]
+margin_right = 223.0
+margin_bottom = 89.0
+popup_exclusive = true
+window_title = "Error"
+dialog_autowrap = true

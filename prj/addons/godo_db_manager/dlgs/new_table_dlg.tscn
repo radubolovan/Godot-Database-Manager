@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/godo_db_manager/dlgs/new_table_dlg.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/roboto_14.tres" type="DynamicFont" id=2]
+
+[node name="new_table_dlg" type="AcceptDialog"]
+margin_right = 412.0
+margin_bottom = 71.0
+focus_next = NodePath("table_info/table_edt")
+focus_mode = 1
+popup_exclusive = true
+window_title = "New table"
+script = ExtResource( 1 )
+
+[node name="table_info" type="HBoxContainer" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 404.0
+margin_bottom = 35.0
+alignment = 1
+
+[node name="table_lbl" type="Label" parent="table_info"]
+margin_left = 2.0
+margin_top = 5.0
+margin_right = 89.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 2 )
+text = "Table name:    "
+
+[node name="table_edt" type="LineEdit" parent="table_info"]
+margin_left = 93.0
+margin_right = 393.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 300, 20 )
+custom_fonts/font = ExtResource( 2 )
