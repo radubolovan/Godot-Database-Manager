@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://addons/godo_db_manager/table.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/fonts/roboto_14.tres" type="DynamicFont" id=2]
-[ext_resource path="res://error_dlg.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/godot_db_manager/table.gd" type="Script" id=3]
 
 [node name="table" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 1450, 0 )
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -83,4 +83,4 @@ margin_top = 4.0
 margin_right = 1592.0
 margin_bottom = 4.0
 
-[node name="error_dlg" parent="." instance=ExtResource( 3 )]
+[node name="error_dlg" parent="." instance=ExtResource( 1 )]

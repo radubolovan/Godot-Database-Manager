@@ -1,3 +1,4 @@
+tool
 extends LineEdit
 
 signal update_cell_data

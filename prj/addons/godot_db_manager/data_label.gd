@@ -1,3 +1,4 @@
+tool
 extends Label
 
 var m_prop_id = -1

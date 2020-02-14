@@ -1,12 +1,12 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://addons/godo_db_manager/table.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/godo_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/godo_db_manager/db_interface.gd" type="Script" id=3]
-[ext_resource path="res://addons/godo_db_manager/dlgs/new_table_dlg.tscn" type="PackedScene" id=4]
+[ext_resource path="res://addons/godot_db_manager/table.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/godot_db_manager/dlgs/new_table_dlg.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/godot_db_manager/db_interface.gd" type="Script" id=4]
 
 [node name="db_interface" type="Control"]
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -41,6 +41,12 @@ margin_right = 186.0
 margin_bottom = 23.0
 text = "Save Database"
 
+[node name="load_db_btn" type="Button" parent="dlg/menu"]
+margin_left = 190.0
+margin_right = 295.0
+margin_bottom = 23.0
+text = "Load Database"
+
 [node name="tables_lbl" type="Label" parent="dlg"]
 margin_top = 25.0
 margin_right = 150.0
@@ -62,6 +68,16 @@ margin_top = 50.0
 margin_right = 0.00012207
 margin_bottom = 6.10352e-05
 
-[node name="new_table_dlg" parent="dlg" instance=ExtResource( 4 )]
+[node name="new_table_dlg" parent="dlg" instance=ExtResource( 2 )]
 
-[node name="error_dlg" parent="dlg" instance=ExtResource( 2 )]
+[node name="error_dlg" parent="dlg" instance=ExtResource( 3 )]
+
+[node name="load_db_dlg" type="FileDialog" parent="dlg"]
+margin_right = 601.0
+margin_bottom = 365.0
+window_title = "Open a File"
+mode = 0
+filters = PoolStringArray( "*.JSON" )
+__meta__ = {
+"_edit_use_anchors_": false
+}

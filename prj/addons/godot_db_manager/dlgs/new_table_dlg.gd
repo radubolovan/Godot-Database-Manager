@@ -1,3 +1,4 @@
+tool
 extends AcceptDialog
 
 signal create_new_table

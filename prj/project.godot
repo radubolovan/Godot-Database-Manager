@@ -19,10 +19,6 @@ config/name="ADatabase"
 run/main_scene="res://db_test.tscn"
 config/icon="res://icon.png"
 
-[autoload]
-
-g_types="*res://types.gd"
-
 [debug]
 
 gdscript/warnings/enable=false
@@ -34,7 +30,7 @@ window/size/height=900
 
 [editor_plugins]
 
-enabled=PoolStringArray( "godo_db_manager" )
+enabled=PoolStringArray( "godot_db_manager" )
 
 [memory]
 

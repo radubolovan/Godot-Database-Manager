@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/fonts/roboto_14.tres" type="DynamicFont" id=1]
-[ext_resource path="res://table_cell.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot_db_manager/table_cell.gd" type="Script" id=2]
+
 
 [node name="table_cell" type="LineEdit"]
 anchor_right = 1.0

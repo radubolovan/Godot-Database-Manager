@@ -1,3 +1,4 @@
+tool
 extends Control
 
 signal new_property
@@ -18,7 +19,7 @@ func set_table(table):
 	clear_current()
 	var disable_add_button = true
 	for idx in range(0, table.get_props_count()):
-		var prop = load("res://table_property.tscn").instance()
+		var prop = load("res://addons/godot_db_manager/table_property.tscn").instance()
 		m_props.push_back(prop)
 
 		var prop_id = table.get_prop_id(idx)
@@ -30,19 +31,22 @@ func set_table(table):
 		prop.connect("update_property", self, "on_update_property")
 		prop.connect("delete_property", self, "on_delete_property")
 
-		var lbl = load("res://data_label.tscn").instance()
+		var lbl = load("res://addons/godot_db_manager/data_label.tscn").instance()
 		lbl.set_prop_id(prop_id)
 		lbl.set_text(prop_name)
 		$tabs/data/data_holder/data_header.add_child(lbl)
 
 		disable_add_button = false
 
+	var rows_count = table.get_rows_count()
+	# print("Table \"" + table.get_name() + "\" has " + str(rows_count) + " rows")
+
 	for idx in range(0, table.get_rows_count()):
 		var row = HBoxContainer.new()
 		$tabs/data/data_holder/data_container.add_child(row)
 		var data = table.get_data_by_row_idx(idx)
 		for jdx in range(0, data.size()):
-			var cell = load("res://table_cell.tscn").instance()
+			var cell = load("res://addons/godot_db_manager/table_cell.tscn").instance()
 			cell.set_text(data[jdx].get_data())
 			cell.set_prop_id(data[jdx].get_prop_id())
 			cell.set_row_idx(idx)
@@ -66,13 +70,13 @@ func clear_structure():
 func on_new_property_btn_pressed():
 	# add prop to structure
 	var prop_id = m_props.size()
-	var prop = load("res://table_property.tscn").instance()
+	var prop = load("res://addons/godot_db_manager/table_property.tscn").instance()
 
 	m_props.push_back(prop)
 	$tabs/structure/properties.add_child(prop)
 
 	var prop_name = "property_" + str(prop_id + 1)
-	var prop_type = g_types.e_column_type_int
+	var prop_type = 0 # integer
 	#var prop_name = ""
 
 	prop.setup(prop_id, prop_type, prop_name)
@@ -80,7 +84,7 @@ func on_new_property_btn_pressed():
 	prop.connect("delete_property", self, "on_delete_property")
 
 	# add prop to data
-	var lbl = load("res://data_label.tscn").instance()
+	var lbl = load("res://addons/godot_db_manager/data_label.tscn").instance()
 	lbl.set_prop_id(prop_id)
 	lbl.set_text(prop_name)
 	$tabs/data/data_holder/data_header.add_child(lbl)
@@ -89,7 +93,7 @@ func on_new_property_btn_pressed():
 	var rows = $tabs/data/data_holder/data_container.get_child_count()
 	for idx in range(0, rows-1):
 		var row = $tabs/data/data_holder/data_container.get_child(idx)
-		var cell = load("res://table_cell.tscn").instance()
+		var cell = load("res://addons/godot_db_manager/table_cell.tscn").instance()
 		cell.set_text("")
 		cell.set_prop_id(prop_id)
 		cell.set_row_idx(idx)
@@ -110,7 +114,7 @@ func on_update_property(prop_id, prop_type, prop_name):
 
 func on_delete_property(prop_id):
 	for idx in range(0, m_props.size()):
-		if(m_props[idx].get_id() == prop_id):
+		if(m_props[idx].get_prop_id() == prop_id):
 			m_props[idx].disconnect("update_property", self, "on_update_property")
 			m_props[idx].disconnect("delete_property", self, "on_delete_property")
 			$tabs/structure/properties.remove_child(m_props[idx])
@@ -118,7 +122,7 @@ func on_delete_property(prop_id):
 			break
 	# recreate properties' ids
 	for idx in range(0, m_props.size()):
-		m_props[idx].set_id(idx)
+		m_props[idx].set_prop_id(idx)
 	emit_signal("delete_property", prop_id)
 
 func create_add_button(disable):
@@ -153,7 +157,7 @@ func on_plus_button():
 	last_row.remove_child(m_add_data_button)
 
 	for idx in range(0, m_props.size()):
-		var cell = load("res://table_cell.tscn").instance()
+		var cell = load("res://addons/godot_db_manager/table_cell.tscn").instance()
 		cell.set_text("")
 		cell.set_prop_id(idx)
 		cell.set_row_idx(rows - 1)
