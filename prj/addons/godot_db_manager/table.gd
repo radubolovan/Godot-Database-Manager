@@ -123,6 +123,25 @@ func on_delete_property(prop_id):
 	# recreate properties' ids
 	for idx in range(0, m_props.size()):
 		m_props[idx].set_prop_id(idx)
+	# update header data
+	for idx in range(0, $tabs/data/data_holder/data_header.get_child_count()):
+		var lbl = $tabs/data/data_holder/data_header.get_child(idx)
+		var lbl_prop_id = lbl.get_prop_id()
+		if(lbl_prop_id == prop_id):
+			lbl.queue_free()
+		elif(lbl_prop_id > prop_id):
+			lbl.set_prop_id(lbl_prop_id-1)
+	# update container data
+	var rows = $tabs/data/data_holder/data_container.get_child_count()
+	for idx in range(0, rows-1):
+		var row = $tabs/data/data_holder/data_container.get_child(idx)
+		for jdx in range(0, row.get_child_count()):
+			var cell = row.get_child(jdx)
+			var cell_prop_id = cell.get_prop_id()
+			if(cell_prop_id == prop_id):
+				cell.queue_free()
+			elif(cell_prop_id > prop_id):
+				cell.set_prop_id(cell_prop_id-1)
 	emit_signal("delete_property", prop_id)
 
 func create_add_button(disable):

@@ -28,9 +28,11 @@ func change_prop(prop_id, prop_type, prop_name):
 			break
 
 func delete_prop(prop_id):
+	print("db_table::delete_prop(" + str(prop_id) + ")")
 	var prop_found = false
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_id() == prop_id):
+			print("Removing prop with id " + str(prop_id))
 			m_props.remove(idx)
 			prop_found = true
 			break
@@ -40,6 +42,7 @@ func delete_prop(prop_id):
 	# remove the data
 	for idx in range(m_data.size() - 1, 0, -1):
 		if(m_data[idx].get_prop_id() == prop_id):
+			print("Removing data: " + m_data[idx].get_data())
 			m_data.remove(idx)
 	# recreate properties' ids
 	for idx in range(0, m_props.size()):

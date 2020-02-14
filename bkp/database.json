@@ -1,0 +1,1 @@
+{"tables":[{"name":"res","props":[{"name":"id","type":"0"},{"name":"Name","type":"1"},{"name":"Path","type":"1"}],"data":["1","Food","res://resources/food.png","2","Ice","res://resources/ice.png","3","Iron","res://resources/iron.png"]}]}
