@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://assets/fonts/roboto_14.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/godot_db_manager/dlgs/new_db_dlg.gd" type="Script" id=2]
 
 [node name="new_db_dlg" type="AcceptDialog"]
@@ -24,16 +23,14 @@ margin_bottom = 35.0
 alignment = 1
 
 [node name="db_lbl" type="Label" parent="db_info"]
-margin_left = 10.0
-margin_top = 5.0
-margin_right = 81.0
-margin_bottom = 22.0
-custom_fonts/font = ExtResource( 1 )
+margin_left = 6.0
+margin_top = 6.0
+margin_right = 85.0
+margin_bottom = 20.0
 text = "DB name:    "
 
 [node name="db_edt" type="LineEdit" parent="db_info"]
-margin_left = 85.0
-margin_right = 385.0
+margin_left = 89.0
+margin_right = 389.0
 margin_bottom = 27.0
 rect_min_size = Vector2( 300, 20 )
-custom_fonts/font = ExtResource( 1 )

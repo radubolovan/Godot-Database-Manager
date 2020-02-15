@@ -1,8 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://assets/fonts/roboto_14.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/godot_db_manager/table_property.gd" type="Script" id=2]
-
 
 [node name="table_property" type="Control"]
 anchor_right = 1.0
@@ -24,51 +22,50 @@ __meta__ = {
 }
 
 [node name="Label1" type="Label" parent="align"]
-margin_top = 3.0
-margin_right = 16.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 1 )
+margin_top = 5.0
+margin_right = 19.0
+margin_bottom = 19.0
 text = "ID:"
 
 [node name="prop_id" type="LineEdit" parent="align"]
-margin_left = 20.0
-margin_right = 80.0
+margin_left = 23.0
+margin_right = 83.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 60, 0 )
 text = "999"
 editable = false
 
 [node name="Label2" type="Label" parent="align"]
-margin_left = 84.0
-margin_top = 3.0
-margin_right = 124.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 1 )
+margin_left = 87.0
+margin_top = 5.0
+margin_right = 129.0
+margin_bottom = 19.0
 text = "Name:"
 
 [node name="prop_name" type="LineEdit" parent="align"]
-margin_left = 128.0
-margin_right = 428.0
+margin_left = 133.0
+margin_right = 433.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 300, 0 )
 
 [node name="Label3" type="Label" parent="align"]
-margin_left = 432.0
-margin_top = 3.0
-margin_right = 465.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 1 )
+margin_left = 437.0
+margin_top = 5.0
+margin_right = 471.0
+margin_bottom = 19.0
 text = "Type:"
 
 [node name="prop_type" type="OptionButton" parent="align"]
-margin_left = 469.0
-margin_right = 619.0
+margin_left = 475.0
+margin_right = 625.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 150, 0 )
+text = "Integer"
+items = [ "Integer", null, false, 0, null, "String", null, false, 1, null ]
+selected = 0
 
 [node name="close_button" type="Button" parent="align"]
-margin_left = 623.0
-margin_right = 644.0
+margin_left = 629.0
+margin_right = 649.0
 margin_bottom = 24.0
-custom_fonts/font = ExtResource( 1 )
 text = "X"
