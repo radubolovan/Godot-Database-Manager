@@ -1,6 +1,10 @@
 tool
 extends Control
 
+const default_db_name = "database"
+
+var m_current_db_name = ""
+
 var m_current_table_idx = -1
 var m_tables = []
 
@@ -9,10 +13,22 @@ var m_ctrl_pressed = false
 var m_is_saving = false
 var m_closing = false
 
+var m_autosave_on_close_enabled = false
+
 func _ready():
+	m_current_db_name = ""
+	setup_connections()
+	update_buttons()
+
+func setup_connections():
+	$dlg/menu/new_db_btn.connect("pressed", self, "on_new_database")
+	$dlg/new_db_dlg.add_cancel("Cancel")
+	$dlg/new_db_dlg.connect("create_new_db", self, "on_create_db")
+	
 	$dlg/menu/save_db_btn.connect("pressed", self, "on_save_database_btn_pressed")
 	$dlg/menu/load_db_btn.connect("pressed", self, "on_load_database_btn_pressed")
 	$dlg/menu/new_table_btn.connect("pressed", self, "on_new_table_btn_pressed")
+	$dlg/menu/autosave_on_load.connect("toggled", self, "on_toggle_autosave_on_close")
 
 	$dlg/new_table_dlg.add_cancel("Cancel")
 	$dlg/new_table_dlg.connect("create_new_table", self, "on_table_created")
@@ -27,19 +43,27 @@ func _ready():
 
 	$dlg/load_db_dlg.connect("file_selected", self, "on_file_selected")
 
-	#$dlg.get_close_button().connect("pressed", self, "on_close")
-	$dlg.connect("popup_hide", self, "on_dlg_hide")
+	$dlg.connect("popup_hide", self, "on_close_dlg")
+
+func update_buttons():
+	var disable_buttons = m_current_db_name.empty()
+	$dlg/menu/save_db_btn.set_disabled(disable_buttons)
+	$dlg/menu/autosave_on_load.set_disabled(disable_buttons)
+	$dlg/menu/new_table_btn.set_disabled(disable_buttons)
 
 func _input(event):
 	if(event is InputEventKey):
 		if(event.scancode == KEY_CONTROL):
 			m_ctrl_pressed = event.is_pressed()
 		elif(event.scancode == KEY_S):
-			if(event.is_pressed()):
-				if(m_ctrl_pressed):
-					if(!m_is_saving):
-						m_is_saving = true
-						on_save_database_btn_pressed()
+			if(!m_current_db_name.empty()):
+				if(event.is_pressed()):
+					if(m_ctrl_pressed):
+						if(!m_is_saving):
+							m_is_saving = true
+							on_save_database_btn_pressed()
+					else:
+						m_is_saving = false
 				else:
 					m_is_saving = false
 			else:
@@ -49,13 +73,24 @@ func _input(event):
 				if(m_ctrl_pressed):
 					if(!m_closing):
 						m_closing = true
-						print("closinggggggg")
-						# hide()
-						# queue_free()
+						$dlg.hide()
 				else:
 					m_closing = false
 			else:
 				m_closing = false
+
+func on_new_database():
+	$dlg/new_db_dlg/db_info/db_edt.set_text("")
+	$dlg/new_db_dlg.popup_centered()
+
+func on_create_db(db_name):
+	m_current_db_name = "res://"
+	if(db_name.ends_with(".json")):
+		m_current_db_name += db_name
+	else:
+		m_current_db_name += db_name + ".json"
+		$dlg/menu/current_db_name.set_text("DB path: " + m_current_db_name)
+	update_buttons()
 
 func on_save_database_btn_pressed():
 	var text = "{"
@@ -89,20 +124,23 @@ func on_save_database_btn_pressed():
 	text += "]}"
 
 	var save_file = File.new()
-	save_file.open("res://database.json", File.WRITE)
+	save_file.open(m_current_db_name, File.WRITE)
 	save_file.store_string(text)
 	save_file.close()
 
 func on_load_database_btn_pressed():
 	$dlg/load_db_dlg.popup_centered()
 
-func on_close():
-	print("fucking close")
+func on_toggle_autosave_on_close(btn_pressed):
+	m_autosave_on_close_enabled = btn_pressed
 
-func on_dlg_hide():
-	print("fucking hide")
+func on_close_dlg():
+	if(m_autosave_on_close_enabled):
+		# automatic save DB when closing the dialog
+		on_save_database_btn_pressed()
 
 func on_file_selected(file_path):
+	$dlg/menu/current_db_name.set_text("DB path: " + file_path)
 	var file = File.new()
 	file.open(file_path, File.READ)
 	var content = file.get_as_text()
@@ -121,6 +159,9 @@ func on_file_selected(file_path):
 		m_tables.push_back(table)
 
 		var props_count = tables[idx]["props"].size()
+		if(props_count == 0):
+			continue
+
 		for jdx in range(0, props_count):
 			table.add_prop(jdx, int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
 

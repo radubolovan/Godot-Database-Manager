@@ -1,0 +1,41 @@
+- implement the name of the current database
+	- on init, name should be empty - DONE
+	- click "new DB" button to set the name of the DB
+		- open up a dialog to set up the DB name - DONE
+		- handle the database name from dialog - DONE
+		- set the "DB name" on the menu - DONE
+		- enable buttons - DONE
+	- if the name is empty
+		- "save DB" btn should be disabled - DONE
+		- Ctrl+s should not be available - DONE
+		- "new Table" btn should be disabled - DONE
+		- "Autosave on load" btn should be disabled - DONE
+	- if the name is not empty
+		- "save DB" btn should be enabled - DONE
+		- Ctrl+s should be available - DONE
+		- "new Table" btn should be enabled - DONE
+		- "Autosave on load" btn should be enabled - DONE
+	
+- refactor db_interface.db
+	- improve code for handle input: make separate functions
+	- make comments on all functions; explain them
+
+- improve interface
+	- change the "ItemsList" of the tables into something else; each table entrance should also have 2 buttons. Unfortunately "ItemsList" class can have only strings as children
+		- delete table
+		- edit table
+	- improve the menu / top buttons
+	- move "autosave on close" into a "properties" / "options" area
+	- reimplement the layout so the dialog can be resized (at least maximized)
+
+- improve "new DB" dialog:
+	- handle DB name properly
+		- check for special characters
+		- implement unicode support
+
+- clean up:
+	- remove "dlgs" directory from the example project
+	
+BUGS:
+	- fix "delete" property
+
