@@ -80,8 +80,11 @@ func _input(event):
 				m_closing = false
 
 func on_new_database():
-	$dlg/new_db_dlg/db_info/db_edt.set_text("")
-	$dlg/new_db_dlg.popup_centered()
+	if(!m_current_db_name.empty()):
+		$dlg/confirm_new_db_dlg.popup_centered()
+	else:
+		$dlg/new_db_dlg/db_info/db_edt.set_text("")
+		$dlg/new_db_dlg.popup_centered()
 
 func on_create_db(db_name):
 	m_current_db_name = "res://"
@@ -129,7 +132,10 @@ func on_save_database_btn_pressed():
 	save_file.close()
 
 func on_load_database_btn_pressed():
-	$dlg/load_db_dlg.popup_centered()
+	if(!m_current_db_name.empty()):
+		$dlg/confirm_new_db_dlg.popup_centered()
+	else:
+		$dlg/load_db_dlg.popup_centered()
 
 func on_toggle_autosave_on_close(btn_pressed):
 	m_autosave_on_close_enabled = btn_pressed
