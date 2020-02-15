@@ -28,25 +28,35 @@ func change_prop(prop_id, prop_type, prop_name):
 			break
 
 func delete_prop(prop_id):
-	print("db_table::delete_prop(" + str(prop_id) + ")")
+	# print("db_table::delete_prop(" + str(prop_id) + ")")
 	var prop_found = false
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_id() == prop_id):
-			print("Removing prop with id " + str(prop_id))
+			# print("Removing prop with id " + str(prop_id))
 			m_props.remove(idx)
 			prop_found = true
 			break
 	if(!prop_found):
 		print("ERROR: cTable::delete_prop( " + str(prop_id) + " ) - property not found !")
 		return
+
 	# remove the data
-	for idx in range(m_data.size() - 1, 0, -1):
+	# this is very ugly, but I can't erase a subarray from an array in GDscript :(
+	# backup what needs to be saved only
+	var tmp_data = []
+	for idx in range(0, m_data.size()):
 		if(m_data[idx].get_prop_id() == prop_id):
-			print("Removing data: " + m_data[idx].get_data())
-			m_data.remove(idx)
+			continue
+		tmp_data.push_back(m_data[idx])
+	# clear and restore data
+	m_data.clear()
+	for idx in range(0, tmp_data.size()):
+		m_data.push_back(tmp_data[idx])
+
 	# recreate properties' ids
 	for idx in range(0, m_props.size()):
 		m_props[idx].set_prop_id(idx)
+
 	# recreate properties' ids from data
 	for idx in range(0, m_data.size()):
 		var p_id = m_data[idx].get_prop_id()

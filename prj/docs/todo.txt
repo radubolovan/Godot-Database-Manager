@@ -17,7 +17,7 @@
 		- "Autosave on load" btn should be enabled - DONE
 	
 - refactor db_interface.db
-	- improve code for handle input: make separate functions
+	- improve code for handle input: make separate functions for each case
 	- make comments on all functions; explain them
 
 - improve interface
@@ -37,5 +37,6 @@
 	- remove "dlgs" directory from the example project
 	
 BUGS:
-	- fix "delete" property
+	- update buttons after loading a database - DONE
+	- fix "delete" property - DONE
 

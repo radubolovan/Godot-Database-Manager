@@ -140,6 +140,7 @@ func on_close_dlg():
 		on_save_database_btn_pressed()
 
 func on_file_selected(file_path):
+	m_current_db_name = file_path
 	$dlg/menu/current_db_name.set_text("DB path: " + file_path)
 	var file = File.new()
 	file.open(file_path, File.READ)
@@ -178,6 +179,8 @@ func on_file_selected(file_path):
 	$dlg/tables_container.select(m_current_table_idx)
 	if(m_tables.size() > 0):
 		$dlg/table.set_table(m_tables[m_current_table_idx])
+
+	update_buttons()
 
 func deserialize_database(dictionary):
 	var tables = dictionary["tables"]
