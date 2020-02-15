@@ -1,6 +1,12 @@
 tool
 extends Control
 
+enum {
+	e_action_none = -1
+	e_action_new_db = 0,
+	e_action_load_db = 1
+}
+
 const default_db_name = "database"
 
 var m_current_db_name = ""
@@ -15,7 +21,10 @@ var m_closing = false
 
 var m_autosave_on_close_enabled = false
 
+var m_action = e_action_none
+
 func _ready():
+	m_action = e_action_none
 	m_current_db_name = ""
 	setup_connections()
 	update_buttons()
@@ -24,7 +33,9 @@ func setup_connections():
 	$dlg/menu/new_db_btn.connect("pressed", self, "on_new_database")
 	$dlg/new_db_dlg.add_cancel("Cancel")
 	$dlg/new_db_dlg.connect("create_new_db", self, "on_create_db")
-	
+
+	$dlg/confirm_new_db_dlg.connect("confirm_new_database", self, "on_confirm_new_database")
+
 	$dlg/menu/save_db_btn.connect("pressed", self, "on_save_database_btn_pressed")
 	$dlg/menu/load_db_btn.connect("pressed", self, "on_load_database_btn_pressed")
 	$dlg/menu/new_table_btn.connect("pressed", self, "on_new_table_btn_pressed")
@@ -81,10 +92,18 @@ func _input(event):
 
 func on_new_database():
 	if(!m_current_db_name.empty()):
+		m_action = e_action_new_db
 		$dlg/confirm_new_db_dlg.popup_centered()
 	else:
 		$dlg/new_db_dlg/db_info/db_edt.set_text("")
 		$dlg/new_db_dlg.popup_centered()
+
+func on_confirm_new_database():
+	if(m_action == e_action_new_db):
+		$dlg/new_db_dlg/db_info/db_edt.set_text("")
+		$dlg/new_db_dlg.popup_centered()
+	else:
+		$dlg/load_db_dlg.popup_centered()
 
 func on_create_db(db_name):
 	m_current_db_name = "res://"
@@ -94,6 +113,10 @@ func on_create_db(db_name):
 		m_current_db_name += db_name + ".json"
 		$dlg/menu/current_db_name.set_text("DB path: " + m_current_db_name)
 	update_buttons()
+	m_tables.clear()
+	$dlg/tables_container.clear()
+	$dlg/table.clear_current()
+	$dlg/table.hide()
 
 func on_save_database_btn_pressed():
 	var text = "{"
@@ -133,6 +156,7 @@ func on_save_database_btn_pressed():
 
 func on_load_database_btn_pressed():
 	if(!m_current_db_name.empty()):
+		m_action = e_action_load_db
 		$dlg/confirm_new_db_dlg.popup_centered()
 	else:
 		$dlg/load_db_dlg.popup_centered()

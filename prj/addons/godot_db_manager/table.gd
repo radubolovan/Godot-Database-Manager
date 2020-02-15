@@ -75,8 +75,7 @@ func on_new_property_btn_pressed():
 	m_props.push_back(prop)
 	$tabs/structure/properties.add_child(prop)
 
-	#var prop_name = "property_" + str(prop_id + 1)
-	var prop_name = ""
+	var prop_name = "property_" + str(prop_id + 1)
 	var prop_type = 0 # integer
 
 	prop.setup(prop_id, prop_type, prop_name)
