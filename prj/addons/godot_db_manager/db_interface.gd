@@ -126,9 +126,10 @@ func on_save_database_btn_pressed():
 		text += "\"name\":\"" + m_tables[idx].get_name() + "\","
 		text += "\"props\":["
 		for jdx in range(0, m_tables[idx].get_props_count()):
+			var db_prop = m_tables[idx].get_prop_at(jdx)
 			text += "{"
-			text += "\"name\":\"" + str(m_tables[idx].get_prop_name(jdx)) + "\","
-			text += "\"type\":\"" + str(m_tables[idx].get_prop_type(jdx)) + "\""
+			text += "\"name\":\"" + str(db_prop.get_prop_name()) + "\","
+			text += "\"type\":\"" + str(db_prop.get_prop_type()) + "\""
 			text += "}"
 			if(jdx < m_tables[idx].get_props_count() - 1):
 				text += ","
@@ -185,7 +186,7 @@ func on_file_selected(file_path):
 	for idx in range(0, tables.size()):
 		$dlg/tables_container.add_item(tables[idx]["name"])
 
-		var table = load("res://addons/godot_db_manager/db_table.gd").new()
+		var table = load("res://addons/godot_db_manager/core/db_table.gd").new()
 		table.set_name(tables[idx]["name"])
 		m_tables.push_back(table)
 
@@ -234,7 +235,7 @@ func on_table_created(table_name):
 	$dlg/tables_container.add_item(table_name)
 	$dlg/tables_container.select(m_current_table_idx)
 
-	var table = load("res://addons/godot_db_manager/db_table.gd").new()
+	var table = load("res://addons/godot_db_manager/core/db_table.gd").new()
 	table.set_name(table_name)
 	m_tables.push_back(table)
 
@@ -299,4 +300,4 @@ func get_table_name(idx):
 	return m_tables[idx].get_name()
 
 func on_update_data(prop_id, row_idx, data):
-	m_tables[m_current_table_idx].update_data(prop_id, row_idx, data)
+	m_tables[m_current_table_idx].edit_data(prop_id, row_idx, data)

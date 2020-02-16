@@ -22,9 +22,11 @@ func set_table(table):
 		var prop = load("res://addons/godot_db_manager/table_property.tscn").instance()
 		m_props.push_back(prop)
 
-		var prop_id = table.get_prop_id(idx)
-		var prop_type = table.get_prop_type(idx)
-		var prop_name = table.get_prop_name(idx)
+		var db_prop = table.get_prop_at(idx)
+
+		var prop_id = db_prop.get_prop_id(idx)
+		var prop_type = db_prop.get_prop_type(idx)
+		var prop_name = db_prop.get_prop_name(idx)
 
 		$tabs/structure/properties.add_child(prop)
 		prop.setup(table.get_prop_id(idx), table.get_prop_type(idx), table.get_prop_name(idx))

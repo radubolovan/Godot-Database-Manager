@@ -1,4 +1,7 @@
-tool
+"""
+Database Table class
+"""
+
 extends Node
 
 var m_name = ""
@@ -6,33 +9,40 @@ var m_props = []
 var m_data = []
 var m_rows_count = 0
 
-func set_name(name):
+# sets the table name
+func set_table_name(name: String) -> void :
 	m_name = name
 
-func get_name():
+# gets the table name
+func get_table_name() -> String :
 	return m_name
 
-func add_prop(prop_id, prop_type, prop_name):
+# adds a property in the table structure
+func add_prop(prop_id : int, prop_type : int, prop_name : String) -> void :
 	# print("add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
-	var prop = load("res://addons/godot_db_manager/db_prop.gd").new()
+	var prop = load("res://addons/godot_db_manager/core/db_prop.gd").new()
 	prop.set_prop_id(prop_id)
 	prop.set_prop_type(prop_type)
 	prop.set_prop_name(prop_name)
 	m_props.push_back(prop)
 
-func change_prop(prop_id, prop_type, prop_name):
+# edits a property in the table structure
+func edit_prop(prop_id : int, prop_type : int, prop_name: String) -> void :
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_id() == prop_id):
 			m_props[idx].set_prop_type(prop_type)
 			m_props[idx].set_prop_name(prop_name)
-			break
+			return
+	print("ERROR: cTable::edit_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ") - property not found")
 
-func delete_prop(prop_id):
+# deletes a property and all the data from the table have the same property
+func delete_prop(prop_id : int) -> void :
 	# print("db_table::delete_prop(" + str(prop_id) + ")")
 	var prop_found = false
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_id() == prop_id):
 			# print("Removing prop with id " + str(prop_id))
+			m_props[idx].free()
 			m_props.remove(idx)
 			prop_found = true
 			break
@@ -63,41 +73,33 @@ func delete_prop(prop_id):
 		if(p_id > prop_id):
 			m_data[idx].set_prop_id(p_id + 1)
 
-func get_props_count():
+# returns the properties count
+func get_props_count() -> int :
 	return m_props.size()
 
-func get_prop_id(idx):
+# returns the property at index or null if the index is out of bounds
+func get_prop_at(idx : int) -> Object :
 	if(idx < 0 || idx > m_props.size()-1):
-		print("ERROR: cTable::get_prop_id( " + str(idx) + " ) - max props: " + str(m_props.size()))
-		return 0
-	return m_props[idx].get_prop_id()
+		print("ERROR: cTable::get_prop_id( " + str(idx) + " ) - index out of bounds; max properties: " + str(m_props.size()))
+		return null
+	return m_props[idx]
 
-func get_prop_type(idx):
-	if(idx < 0 || idx > m_props.size()-1):
-		print("ERROR: cTable::get_prop_type( " + str(idx) + " ) - max props: " + str(m_props.size()))
-		return 0
-	return m_props[idx].get_prop_type()
-
-func get_prop_name(idx):
-	if(idx < 0 || idx > m_props.size()-1):
-		print("ERROR: cTable::get_prop_name( " + str(idx) + " ) - max props: " + str(m_props.size()))
-		return ""
-	return m_props[idx].get_prop_name()
-
-func add_blank_row():
+# adds a row with blank data
+func add_blank_row() -> void:
 	for idx in range(0, m_props.size()):
-		var data = load("res://addons/godot_db_manager/db_data.gd").new()
+		var data = load("res://addons/godot_db_manager/core/db_data.gd").new()
 		data.set_prop_id(m_props[idx].get_prop_id())
 		data.set_row_idx(m_rows_count)
 		m_data.push_back(data)
 	m_rows_count += 1
 
-func add_row(row_idx, data_array):
+# adds a row with data
+func add_row(row_idx : int, data_array : Array) -> void:
 	if(data_array.size() != m_props.size()):
-		print("ERROR: cTable::add_row( " + str(data_array) + " ) - cannot add row; props count = " + str(m_props.size()) + "and data size = " + str(data_array.size()))
+		print("ERROR: cTable::add_row( " + str(data_array) + " ) - cannot add row; properties count = " + str(m_props.size()) + "and data size = " + str(data_array.size()))
 		return
 	for idx in range(0, m_props.size()):
-		var data = load("res://addons/godot_db_manager/db_data.gd").new()
+		var data = load("res://addons/godot_db_manager/core/db_data.gd").new()
 		# print("adding data: [" + str(m_props[idx].get_prop_id()) + ", " + str(row_idx) + ", " + data_array[idx] + "]")
 		# print("setting prop id: " + str(m_props[idx].get_prop_id()))
 		data.set_prop_id(m_props[idx].get_prop_id())
@@ -106,57 +108,66 @@ func add_row(row_idx, data_array):
 		m_data.push_back(data)
 	m_rows_count += 1
 
-func remove_row(row_idx):
+# removes a row
+func remove_row(row_idx : int) -> void:
 	for idx in range(m_data.size()-1, 0, -1):
 		if(m_data[idx].get_row_idx() == row_idx):
 			m_data[idx].remove(idx)
 			m_rows_count -= 1
 
-func get_rows_count():
+# returns the rows count
+func get_rows_count() -> int:
 	return m_rows_count
 
-func update_data(prop_id, row_idx, data):
-	# print("#1: cTable::update_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
+# edits the data
+func edit_data(prop_id : int, row_idx : int, data : String) -> void:
+	# print("#1: cTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
 	for idx in range(0, m_data.size()):
 		# print("checking ( " + str(m_data[idx].get_row_idx()) + ", " + str(m_data[idx].get_prop_id()) + " )")
 		if(m_data[idx].get_row_idx() == row_idx && m_data[idx].get_prop_id() == prop_id):
-			# print("#2: cTable::update_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
+			# print("#2: cTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
 			m_data[idx].set_data(data)
-			break
+			return
+	print("ERROR: cTable::edit_data(" + str(prop_id) + ", " + str(row_idx) + ", " + data + ") - can't find data to edit")
 
-func get_data_size():
+# returns data count
+func get_data_size() -> int:
 	return m_data.size()
 
-func get_data_at(idx):
+# returns the data from at index
+func get_data_at(idx : int) -> String:
 	if(idx < 0 || idx >= m_data.size()):
-		print("ERROR: cTable::get_data_at( " + str(idx) + " ) - max data size: " + str(m_data.size()))
+		print("ERROR: cTable::get_data_at( " + str(idx) + ") - max data size: " + str(m_data.size()))
 		return ""
 	return m_data[idx].get_data()
 
-func get_data(prop_id, row_idx):
+# returns the data from an index
+func get_data(prop_id : int, row_idx : int) -> String:
 	for idx in range(m_data.size()-1, 0, -1):
 		if(m_data[idx].get_row_idx() == row_idx && m_data[idx].get_prop_id() == prop_id):
 			return m_data[idx].get_data()
-	print("ERROR: cTable::get_data( " + str(prop_id) + ", " + str(row_idx) +  " )")
+	print("ERROR: cTable::get_data(" + str(prop_id) + ", " + str(row_idx) +  ")")
 	return ""
 
-func get_data_by_prop_id(prop_id):
+# returns an array of data by property id
+func get_data_by_prop_id(prop_id : int) -> Array:
 	var data = []
 	for idx in range(0, m_data.size()):
 		if(m_data[idx].get_prop_id() == prop_id):
 			data.push_back(m_data[idx])
 	if(data.size() == 0):
-		print("ERROR: cTable::get_data_by_prop_id( " + str(prop_id) + " )")
+		print("ERROR: cTable::get_data_by_prop_id(" + str(prop_id) + ") - property not found")
 	return data
 
-func get_data_by_prop_name(prop_name):
+# returns an array of data by property name
+func get_data_by_prop_name(prop_name : String) -> Array:
 	var prop_id = -1
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_name() == prop_name):
 			prop_id = m_props[idx].get_prop_id()
 			break
 	if(prop_id == -1):
-		print("ERROR: cTable::get_data_by_prop_name( " + prop_name + " )")
+		print("ERROR: cTable::get_data_by_prop_name(" + prop_name + ") - property not found")
 		return []
 	return get_data_by_prop_id(prop_id)
 
@@ -166,27 +177,44 @@ func get_data_by_row_idx(row_idx):
 		if(m_data[idx].get_row_idx() == row_idx):
 			data.push_back(m_data[idx])
 	if(data.size() == -1):
-		print("ERROR: cTable::get_data_by_row_idx( " + str(row_idx) + " )")
+		print("ERROR: cTable::get_data_by_row_idx(" + str(row_idx) + ")")
 	return data
 
-# example:
-# select * from users where user_id = 1
-# get_row_by_data("id", 1)
-func get_row_by_data(prop_name, data_value):
+# returns an array of data by a property name and a data value
+# similar to: select * from users where user_id = 1
+func get_row_by_data(prop_name : String, data_value : String) -> Array:
 	var prop_id = -1
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_name() == prop_name):
 			prop_id = m_props[idx].get_prop_id()
 			break
+	var row = []
+	if(prop_id == -1):
+		print("ERROR: cTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - property not found")
+		return row
 	var row_idx = -1
 	for idx in range(0, m_data.size()):
 		if(m_data[idx].get_prop_id() == prop_id && m_data[idx].get_data() == data_value):
 			row_idx = m_data[idx].get_row_idx()
 			break
-	var row = []
+	if(row_idx == -1):
+		print("ERROR: cTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - data not found")
+		return row
 	for idx in range(0, m_data.size()):
 		if(m_data[idx].get_row_idx() == row_idx):
 			row.push_back(m_data[idx])
 	if(row.size() == -1):
-		print("ERROR: cTable::get_row_by_data( " + prop_name + ", " + str(data_value) + " )")
+		print("ERROR: cTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - data not found")
 	return row
+
+# clears the table's structure and data
+func clear() -> void:
+	# clear data
+	for idx in range(0, m_data.size()):
+		m_data[idx].free()
+	m_data.clear()
+
+	# clear properties
+	for idx in range(0, m_props.size()):
+		m_props[idx].free()
+	m_props.clear()
