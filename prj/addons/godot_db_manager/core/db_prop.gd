@@ -4,6 +4,7 @@ DB Property class
 
 extends Object
 
+# find a way not to do this in all files
 var m_prop_type = preload("res://addons/godot_db_manager/core/db_type.gd").new()
 
 var m_id : int  = -1

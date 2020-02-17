@@ -4,6 +4,8 @@ extends Control
 signal delete_property
 signal edit_property
 
+var m_prop_type = preload("res://addons/godot_db_manager/core/db_type.gd").new()
+
 var m_id : int = -1
 var m_type : int = 0
 var m_name : String = ""
@@ -11,8 +13,9 @@ var m_name : String = ""
 func _ready() -> void:
 	$align/prop_name.connect("text_changed", self, "on_name_changed")
 
-	$align/prop_type.add_item("Integer")
-	$align/prop_type.add_item("String")
+	for idx in range(0, m_prop_type.e_data_types_count):
+		$align/prop_type.add_item(m_prop_type.get_data_name(idx))
+
 	$align/prop_type.connect("item_selected", self, "on_type_changed")
 
 	$align/close_button.connect("pressed", self, "on_delete_button_pressed")
