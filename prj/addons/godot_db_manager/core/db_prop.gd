@@ -4,13 +4,10 @@ DB Property class
 
 extends Object
 
-enum {
-	e_prop_type_int = 0,
-	e_prop_type_string
-}
+var m_prop_type = preload("res://addons/godot_db_manager/core/db_type.gd").new()
 
 var m_id : int  = -1
-var m_type : int = e_prop_type_int
+var m_type : int = m_prop_type.e_prop_type_int
 var m_name : String = ""
 
 # sets the property id
