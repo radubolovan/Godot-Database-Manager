@@ -18,13 +18,21 @@ func get_table_name() -> String :
 	return m_name
 
 # adds a property in the table structure
-func add_prop(prop_id : int, prop_type : int, prop_name : String) -> void :
+# prop_id must be unique
+# returns true if the property is unique and can be added, otherwise false
+func add_prop(prop_id : int, prop_type : int, prop_name : String) -> bool :
+	# check if the property is unique by its id
+	for idx in range(0, m_props.size()):
+		if(m_props[idx].get_prop_id() == prop_id):
+			return false
+
 	# print("add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
 	var prop = load("res://addons/godot_db_manager/core/db_prop.gd").new()
 	prop.set_prop_id(prop_id)
 	prop.set_prop_type(prop_type)
 	prop.set_prop_name(prop_name)
 	m_props.push_back(prop)
+	return true
 
 # edits a property in the table structure
 func edit_prop(prop_id : int, prop_type : int, prop_name: String) -> void :
@@ -94,16 +102,16 @@ func add_blank_row() -> void:
 	m_rows_count += 1
 
 # adds a row with data
-func add_row(row_idx : int, data_array : Array) -> void:
+func add_row(data_array : Array) -> void:
 	if(data_array.size() != m_props.size()):
 		print("ERROR: cTable::add_row( " + str(data_array) + " ) - cannot add row; properties count = " + str(m_props.size()) + "and data size = " + str(data_array.size()))
 		return
 	for idx in range(0, m_props.size()):
 		var data = load("res://addons/godot_db_manager/core/db_data.gd").new()
-		# print("adding data: [" + str(m_props[idx].get_prop_id()) + ", " + str(row_idx) + ", " + data_array[idx] + "]")
+		# print("adding data: [" + str(m_props[idx].get_prop_id()) + ", " + data_array[idx] + "]")
 		# print("setting prop id: " + str(m_props[idx].get_prop_id()))
 		data.set_prop_id(m_props[idx].get_prop_id())
-		data.set_row_idx(row_idx)
+		data.set_row_idx(m_rows_count)
 		data.set_data(data_array[idx])
 		m_data.push_back(data)
 	m_rows_count += 1

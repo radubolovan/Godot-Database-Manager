@@ -168,7 +168,7 @@ func on_file_selected(file_path : String) -> void:
 			var row_data = []
 			for kdx in range(0, props_count):
 				row_data.push_back(tables[idx]["data"][jdx * props_count + kdx])
-			table.add_row(jdx, row_data)
+			table.add_row(row_data)
 
 	# refresh interface
 	$dlg/table.show()

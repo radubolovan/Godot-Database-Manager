@@ -1,8 +1,8 @@
 - make an example scene to test the database functionality
-	- create database
-	- create 2 tables
-	- add properties (columns) in both tables
-	- add data to both tables
+	- create database - DONE
+	- create 2 tables - DONE
+	- add properties (columns) in both tables - DONE
+	- add data to both tables - DONE
 	- save database
 	- load database
 
@@ -26,6 +26,3 @@
 	- handle DB name properly
 		- check for special characters
 		- implement unicode support
-
-- clean up:
-	- remove "dlgs" directory from the example project
