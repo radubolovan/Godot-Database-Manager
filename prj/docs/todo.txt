@@ -1,3 +1,15 @@
+- make an example scene to test the database functionality
+	- create database
+	- create 2 tables
+	- add properties (columns) in both tables
+	- add data to both tables
+	- save database
+	- load database
+
+- add property types:
+	- bool
+	- float
+
 - refactor db_interface.db
 	- improve code for handle input: make separate functions for each case
 	- make comments on all functions; explain them

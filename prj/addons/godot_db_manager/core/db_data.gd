@@ -1,4 +1,8 @@
-extends Node
+"""
+DB Data class
+"""
+
+extends Object
 
 var m_prop_id : int = -1
 var m_row_idx : int  = -1

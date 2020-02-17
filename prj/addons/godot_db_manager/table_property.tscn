@@ -61,7 +61,7 @@ margin_right = 625.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 150, 0 )
 text = "Integer"
-items = [ "Integer", null, false, 0, null, "String", null, false, 1, null ]
+items = [ "Integer", null, false, 0, null, "String", null, false, 1, null, "Integer", null, false, 2, null, "String", null, false, 3, null ]
 selected = 0
 
 [node name="close_button" type="Button" parent="align"]

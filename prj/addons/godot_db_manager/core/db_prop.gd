@@ -1,4 +1,8 @@
-extends Node
+"""
+DB Property class
+"""
+
+extends Object
 
 enum {
 	e_prop_type_int = 0,

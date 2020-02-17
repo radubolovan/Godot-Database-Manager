@@ -2,7 +2,7 @@
 Database Table class
 """
 
-extends Node
+extends Object
 
 var m_name = ""
 var m_props = []
