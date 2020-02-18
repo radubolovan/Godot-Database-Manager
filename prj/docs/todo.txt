@@ -11,6 +11,7 @@
 	- float - DONE
 
 - refactor db_interface.db
+	- when pressing the "CTRL+S" in the GDScript editor, it gets notified in the addon as well; investigate how to fix this
 	- improve code for handle input: make separate functions for each case
 	- make comments on all functions; explain them
 

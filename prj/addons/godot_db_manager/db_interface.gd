@@ -64,6 +64,8 @@ func update_menu_buttons() -> void:
 	$dlg/menu/autosave_on_load.set_disabled(disable_buttons)
 	$dlg/menu/new_table_btn.set_disabled(disable_buttons)
 
+# these are not working properly; when pressing the "CTRL+S" in the GDScript editor, it gets notified in here as well
+"""
 func _input(event) -> void:
 	if(event is InputEventKey):
 		if(event.scancode == KEY_CONTROL):
@@ -91,6 +93,7 @@ func _input(event) -> void:
 					m_closing = false
 			else:
 				m_closing = false
+"""
 
 func on_new_database() -> void:
 	if(!m_current_db_name.empty()):
