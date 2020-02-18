@@ -19,6 +19,11 @@ config/name="ADatabase"
 run/main_scene="res://db_test.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+g_types="*res://addons/godot_db_manager/core/db_type.gd"
+gd_types="*res://addons/godot_db_manager/core/db_type.gd"
+
 [debug]
 
 gdscript/warnings/enable=false

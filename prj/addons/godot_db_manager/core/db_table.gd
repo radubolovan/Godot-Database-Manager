@@ -4,8 +4,6 @@ Database Table class
 
 extends Object
 
-var m_prop_type = preload("res://addons/godot_db_manager/core/db_type.gd").new()
-
 var m_name = ""
 var m_props = []
 var m_data = []
@@ -114,13 +112,13 @@ func add_row(data_array : Array) -> void:
 		# print("setting prop id: " + str(m_props[idx].get_prop_id()))
 		data.set_prop_id(m_props[idx].get_prop_id())
 		data.set_row_idx(m_rows_count)
-		if(m_props[idx].get_prop_type() == m_prop_type.e_prop_type_bool):
+		if(m_props[idx].get_prop_type() == gd_types.e_prop_type_bool):
 			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == m_prop_type.e_prop_type_int):
+		elif(m_props[idx].get_prop_type() == gd_types.e_prop_type_int):
 			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == m_prop_type.e_prop_type_float):
+		elif(m_props[idx].get_prop_type() == gd_types.e_prop_type_float):
 			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == m_prop_type.e_prop_type_string):
+		elif(m_props[idx].get_prop_type() == gd_types.e_prop_type_string):
 			data.set_data(data_array[idx])
 		m_data.push_back(data)
 	m_rows_count += 1

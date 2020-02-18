@@ -16,9 +16,9 @@ func test_database():
 	var resources_tbl = m_database.add_table("resources")
 
 	# add properties to "resources" table
-	resources_tbl.add_prop(0, m_prop_type.e_prop_type_int, "ID")
-	resources_tbl.add_prop(1, m_prop_type.e_prop_type_string, "name")
-	resources_tbl.add_prop(2, m_prop_type.e_prop_type_string, "path")
+	resources_tbl.add_prop(0, gd_types.e_prop_type_int, "ID")
+	resources_tbl.add_prop(1, gd_types.e_prop_type_string, "name")
+	resources_tbl.add_prop(2, gd_types.e_prop_type_string, "path")
 
 	# add data to "resources" table
 	var data = [
@@ -34,8 +34,8 @@ func test_database():
 	var users_tbl = m_database.add_table("users")
 
 	# add properties to "users" table
-	users_tbl.add_prop(0, m_prop_type.e_prop_type_int, "ID")
-	users_tbl.add_prop(1, m_prop_type.e_prop_type_string, "name")
+	users_tbl.add_prop(0, gd_types.e_prop_type_int, "ID")
+	users_tbl.add_prop(1, gd_types.e_prop_type_string, "name")
 
 	# add data to "users" table
 	data = [
