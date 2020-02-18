@@ -1,0 +1,1 @@
+{"tables":[{"name":"resources","props":[{"name":"ID","type":"0"},{"name":"name","type":"1"},{"name":"path","type":"1"}],"data":["0","Silver","res://resources/silver.png","1","Gold","res://resources/gold.png","2","Diamond","res://resources/diamond.png"]},{"name":"users","props":[{"name":"ID","type":"0"},{"name":"name","type":"1"}],"data":["0","User_1","1","User_2","2","User_3"]}]}
