@@ -24,7 +24,7 @@ Title: should be explicit as much as possible. Add "[IMPROVEMENT]" tag in the ti
 Description: must NOT be blank; add as much words as possible explaining the request of the improvement
 Add links to screenshots / movies if possible.
 
-3) Ask to become a colaborator:
+3) Ask to become a collaborator:
 Send an e-mail to the owner of the project
 
 Current version: 0.1_alpha
