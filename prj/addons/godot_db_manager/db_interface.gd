@@ -31,7 +31,7 @@ func _ready() -> void:
 	update_menu_buttons()
 
 func setup_connections() -> void:
-	$dlg/menu/new_db_btn.connect("pressed", self, "on_new_database")
+	$dlg/menu/new_db_btn.connect("pressed", self, "on_new_database_btn_pressed")
 	$dlg/new_db_dlg.add_cancel("Cancel")
 	$dlg/new_db_dlg.connect("create_new_db", self, "on_create_db")
 
@@ -95,7 +95,9 @@ func _input(event) -> void:
 				m_closing = false
 """
 
-func on_new_database() -> void:
+# called when "New DB" button is pressed
+func on_new_database_btn_pressed() -> void:
+	# check if there's already a database working on
 	if(!m_current_db_name.empty()):
 		m_action = e_action_new_db
 		$dlg/confirm_new_db_dlg.popup_centered()
@@ -103,46 +105,63 @@ func on_new_database() -> void:
 		$dlg/new_db_dlg/db_info/db_edt.set_text("")
 		$dlg/new_db_dlg.popup_centered()
 
+# called when confirm to create a new database or load one
 func on_confirm_new_database() -> void:
+	# check if a database should be loaded or created
 	if(m_action == e_action_new_db):
 		$dlg/new_db_dlg/db_info/db_edt.set_text("")
 		$dlg/new_db_dlg.popup_centered()
 	else:
 		$dlg/load_db_dlg.popup_centered()
 
+# called when creating a new database
 func on_create_db(db_name : String) -> void:
-	m_current_db_name = "res://"
-	if(db_name.ends_with(".json")):
-		m_current_db_name += db_name
-	else:
-		m_current_db_name += db_name + ".json"
-		$dlg/menu/current_db_name.set_text("DB path: " + m_current_db_name)
-	update_menu_buttons()
 	m_database.clear()
+	m_current_db_name = db_name
+	m_database.set_db_name(m_current_db_name)
+	$dlg/menu/current_db_name.set_text("DB path: " + m_database.get_db_path())
+	update_menu_buttons()
 	$dlg/tables_container.clear()
 	$dlg/table.clear_current()
 	$dlg/table.hide()
 
+# called when the "Save DB" button is pressed
 func on_save_database_btn_pressed() -> void:
-	m_database.save_db(m_current_db_name)
+	m_database.save_db()
 
+# called when the "Load DB" button is pressed
 func on_load_database_btn_pressed() -> void:
+	# check if there's already a database working on
 	if(!m_current_db_name.empty()):
 		m_action = e_action_load_db
 		$dlg/confirm_new_db_dlg.popup_centered()
 	else:
 		$dlg/load_db_dlg.popup_centered()
 
+# enables / disables to autosave the database when the tool is closed
 func on_toggle_autosave_on_close(btn_pressed : bool) -> void:
 	m_autosave_on_close_enabled = btn_pressed
 
+# called when closing the tool
 func on_close_dlg() -> void:
 	if(m_autosave_on_close_enabled):
 		# automatic save DB when closing the dialog
 		on_save_database_btn_pressed()
 
+# called when select a file to be loaded as an database
 func on_file_selected(file_path : String) -> void:
 	m_current_db_name = file_path
+
+	# remove the ".json"
+	m_current_db_name.erase(m_current_db_name.length()-5, 5)
+
+	# remve the path related substring
+	var idx = m_current_db_name.find_last("/")
+	m_current_db_name.erase(0, idx+1)
+
+	m_database.clear()
+	m_database.set_db_name(m_current_db_name)
+
 	$dlg/menu/current_db_name.set_text("DB path: " + file_path)
 	var file = File.new()
 	file.open(file_path, File.READ)
@@ -151,7 +170,6 @@ func on_file_selected(file_path : String) -> void:
 	var dictionary = JSON.parse(content).result
 
 	# refresh tables in the database
-	m_database.clear()
 	$dlg/tables_container.clear()
 	var tables = dictionary["tables"]
 	for idx in range(0, tables.size()):

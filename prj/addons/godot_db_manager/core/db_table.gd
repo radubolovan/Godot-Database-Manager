@@ -24,6 +24,7 @@ func add_prop(prop_id : int, prop_type : int, prop_name : String) -> bool :
 	# check if the property is unique by its id
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_id() == prop_id):
+			print("ERROR: cTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ") - prop_id already exists")
 			return false
 
 	# print("add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
@@ -32,6 +33,33 @@ func add_prop(prop_id : int, prop_type : int, prop_name : String) -> bool :
 	prop.set_prop_type(prop_type)
 	prop.set_prop_name(prop_name)
 	m_props.push_back(prop)
+
+	# adding blank data to all existing rows
+	if(m_data.size() > 0):
+		var new_data_array = []
+		var data_idx = 0
+		var row_idx = 0
+		while(true):
+			var data = m_data[data_idx]
+			row_idx = data.get_row_idx()
+			if(data.get_prop_id() + 1 == prop_id):
+				new_data_array.push_back(data)
+				var new_data = load("res://addons/godot_db_manager/core/db_data.gd").new()
+				new_data.set_prop_id(prop_id)
+				new_data.set_row_idx(row_idx)
+				new_data.set_data("empty")
+				new_data_array.push_back(new_data)
+			else:
+				new_data_array.push_back(data)
+	
+			data_idx += 1
+			if(data_idx >= m_data.size()):
+				break
+
+		m_data.clear()
+		for idx in range(0, new_data_array.size()):
+			m_data.push_back(new_data_array[idx])
+
 	return true
 
 # edits a property in the table structure
