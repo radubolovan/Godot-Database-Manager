@@ -1,16 +1,17 @@
 extends Control
 
-var m_prop_type = preload("res://addons/godot_db_manager/core/db_type.gd").new()
+const c_db_name = "database"
 
 var m_database = null
 
 func _ready():
-	test_new_database()
+	#test_new_database()
+	test_load_database()
 
-func test_new_database():
+func test_new_database() -> void:
 	# create a database and set its name
 	m_database = load("res://addons/godot_db_manager/core/database.gd").new()
-	m_database.set_db_name("database")
+	m_database.set_db_name(c_db_name)
 
 	# create "resources" table
 	var resources_tbl = m_database.add_table("resources")
@@ -48,3 +49,11 @@ func test_new_database():
 	users_tbl.add_row(data[2])
 
 	m_database.save_db()
+
+func test_load_database() -> void:
+	# create a database and set its name
+	m_database = load("res://addons/godot_db_manager/core/database.gd").new()
+	m_database.set_db_name(c_db_name)
+	
+	# load database
+	m_database.load_db()

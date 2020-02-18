@@ -97,6 +97,10 @@ func clear() -> void :
 
 # serialization
 func save_db() -> void :
+	if(m_db_name.empty()):
+		print("ERROR: save_db() - current database doen't have a name")
+		return
+
 	var text = "{"
 	text += "\"tables\":["
 	for idx in range(0, m_tables.size()):
@@ -134,9 +138,13 @@ func save_db() -> void :
 	save_file.close()
 
 # deserialization
-func load_db(db_path: String) -> void :
+func load_db() -> void :
+	if(m_db_name.empty()):
+		print("ERROR: load_db() - current database doen't have a name")
+		return
+
 	var file = File.new()
-	file.open(db_path, File.READ)
+	file.open(get_db_path(), File.READ)
 	var content = file.get_as_text()
 	file.close()
 	var dictionary = JSON.parse(content).result

@@ -4,11 +4,11 @@
 	- add properties (columns) in both tables - DONE
 	- add data to both tables - DONE
 	- save database - DONE
-	- load database
+	- load database - DONE
 
 - add property types:
-	- bool
-	- float
+	- bool - DONE
+	- float - DONE
 
 - refactor db_interface.db
 	- improve code for handle input: make separate functions for each case
