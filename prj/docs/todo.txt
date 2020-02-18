@@ -3,7 +3,7 @@
 	- create 2 tables - DONE
 	- add properties (columns) in both tables - DONE
 	- add data to both tables - DONE
-	- save database
+	- save database - DONE
 	- load database
 
 - add property types:

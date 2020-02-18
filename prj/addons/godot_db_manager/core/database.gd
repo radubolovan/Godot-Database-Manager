@@ -17,7 +17,7 @@ const c_forbidden_characters = "`@#$%^&*\\|;:'\",<.>/?"
 var m_db_type = e_db_type_json
 
 # the name of the database
-var m_name : String = ""
+var m_db_name : String = ""
 
 # tables in the database
 var m_tables : Array = []
@@ -36,16 +36,16 @@ func set_db_name(name : String) -> bool :
 	if(!check_db_name(name)):
 		print("ERROR: the name of the database \"" + name + "\" contains invalid characters")
 		return false
-	m_name = name
+	m_db_name = name
 	return true
 
 # returns the name of the database
 func get_db_name() -> String :
-	return m_name
+	return m_db_name
 
 # returns the path of the database
 func get_db_path() -> String :
-	var path = "res://" + m_name
+	var path = "res://" + m_db_name
 	if(m_db_type == e_db_type_json):
 		path += ".json"
 	return path
@@ -96,7 +96,7 @@ func clear() -> void :
 	m_tables.clear()
 
 # serialization
-func save_db(db_filename) -> void :
+func save_db() -> void :
 	var text = "{"
 	text += "\"tables\":["
 	for idx in range(0, m_tables.size()):
@@ -129,7 +129,7 @@ func save_db(db_filename) -> void :
 	text += "]}"
 
 	var save_file = File.new()
-	save_file.open(db_filename, File.WRITE)
+	save_file.open(get_db_path(), File.WRITE)
 	save_file.store_string(text)
 	save_file.close()
 

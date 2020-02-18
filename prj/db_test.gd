@@ -5,9 +5,9 @@ var m_prop_type = preload("res://addons/godot_db_manager/core/db_type.gd").new()
 var m_database = null
 
 func _ready():
-	test_database()
+	test_new_database()
 
-func test_database():
+func test_new_database():
 	# create a database and set its name
 	m_database = load("res://addons/godot_db_manager/core/database.gd").new()
 	m_database.set_db_name("database")
@@ -46,3 +46,5 @@ func test_database():
 	users_tbl.add_row(data[0])
 	users_tbl.add_row(data[1])
 	users_tbl.add_row(data[2])
+
+	m_database.save_db()
