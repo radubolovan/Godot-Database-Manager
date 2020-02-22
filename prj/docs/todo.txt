@@ -1,4 +1,5 @@
 2.0 features:
+	- add default font
 	- improve menu
 		- File
 			- New Database
@@ -12,6 +13,8 @@
 			- make the main_window as TabContainer
 				- make each Tab be the interface for each database
 					- make the tables list more friendly
+						- improve title
+							- Add "+" button to add a new table
 						- add scroll bars
 						- add editable table name to each item
 						- add "X" (remove table) for each item. The table should be removed after the user accept.
