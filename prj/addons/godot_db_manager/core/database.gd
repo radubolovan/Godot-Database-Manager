@@ -159,7 +159,7 @@ func load_db() -> void :
 			continue
 	
 		for jdx in range(0, props_count):
-				table.add_prop(jdx, int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
+				table.add_prop(int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
 	
 		var data_count = tables[idx]["data"].size()
 		for jdx in range(0, data_count / props_count):

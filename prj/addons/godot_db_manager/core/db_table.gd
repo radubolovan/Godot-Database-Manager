@@ -19,13 +19,15 @@ func get_table_name() -> String :
 
 # adds a property in the table structure
 # prop_id must be unique
-# returns true if the property is unique and can be added, otherwise false
-func add_prop(prop_id : int, prop_type : int, prop_name : String) -> bool :
+# returns prop ID if the property is unique and can be added, otherwise -1
+func add_prop(prop_type : int, prop_name : String) -> int :
+	var prop_id = m_props.size()
+
 	# check if the property is unique by its id
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_id() == prop_id):
 			print("ERROR: cTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ") - prop_id already exists")
-			return false
+			return -1
 
 	# print("add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
 	var prop = load("res://addons/godot_db_manager/core/db_prop.gd").new()
@@ -60,7 +62,7 @@ func add_prop(prop_id : int, prop_type : int, prop_name : String) -> bool :
 		for idx in range(0, new_data_array.size()):
 			m_data.push_back(new_data_array[idx])
 
-	return true
+	return prop_id
 
 # edits a property in the table structure
 func edit_prop(prop_id : int, prop_type : int, prop_name: String) -> void :

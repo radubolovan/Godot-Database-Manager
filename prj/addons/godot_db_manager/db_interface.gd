@@ -182,7 +182,7 @@ func on_file_selected(file_path : String) -> void:
 			continue
 
 		for jdx in range(0, props_count):
-			table.add_prop(jdx, int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
+			table.add_prop(int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
 
 		var data_count = tables[idx]["data"].size()
 		for jdx in range(0, data_count / props_count):
@@ -230,11 +230,12 @@ func on_select_table(table_idx : int) -> void:
 	m_current_table_idx = table_idx
 	$dlg/table.set_table(table)
 
-func on_new_property(prop_id : int, prop_type : int, prop_name : String) -> void:
+# aici
+func on_new_property(prop_type : int, prop_name : String) -> int:
 	var table = m_database.get_table_at(m_current_table_idx)
 	if(null == table):
-		return
-	table.add_prop(prop_id, prop_type, prop_name)
+		return -1
+	return table.add_prop(prop_type, prop_name)
 
 func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> void:
 	var table = m_database.get_table_at(m_current_table_idx)
