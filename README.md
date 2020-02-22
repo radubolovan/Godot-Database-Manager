@@ -28,7 +28,7 @@ Here is a template
 Send an e-mail to the owner of the project
 
 Current version: 1.0_RC1
-- Warning: this is an alpha version. When using this tool, make sure to backup JSON files provided by this tool.
+- Warning: this is not a final(stable) version. When using this tool, make sure to backup JSON files provided by this tool.
 
 TODO:
 see "todo.txt" file for more info
