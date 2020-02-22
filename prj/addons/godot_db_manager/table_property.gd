@@ -11,9 +11,11 @@ var m_name : String = ""
 func _ready() -> void:
 	$align/prop_name.connect("text_changed", self, "on_name_changed")
 
+	$align/prop_type.clear()
 	for idx in range(0, gd_types.e_data_types_count):
 		$align/prop_type.add_item(gd_types.get_data_name(idx))
 
+	$align/prop_type.connect("pressed", self, "on_show_types")
 	$align/prop_type.connect("item_selected", self, "on_type_changed")
 
 	$align/close_button.connect("pressed", self, "on_delete_button_pressed")
@@ -53,6 +55,12 @@ func set_prop_name(name : String) -> void:
 # returns property name
 func get_prop_name() -> String:
 	return m_name
+
+# called everytime the option button get pressed
+func on_show_types():
+	$align/prop_type.clear()
+	for idx in range(0, gd_types.e_data_types_count):
+		$align/prop_type.add_item(gd_types.get_data_name(idx))
 
 # called everytime the name of the property is changed
 func on_name_changed(new_text : String) -> void:
