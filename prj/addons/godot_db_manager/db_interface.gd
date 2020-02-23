@@ -13,6 +13,7 @@ func _ready() -> void:
 	$dlg/menu.connect("save_database_as", self, "on_menu_save_database_as")
 
 	# new database connections
+	$dlg/new_db_dlg.connect("create_new_db", self, "on_new_database")
 
 # called when a menu is about to be shown
 func on_show_menu():
@@ -38,3 +39,8 @@ func on_menu_save_database():
 # called when saving a database as another from the menu
 func on_menu_save_database_as():
 	print("on_menu_save_database_as")
+
+func on_new_database(db_name):
+	var db_interface = load("res://addons/godot_db_manager/db_editor.tscn").instance()
+	db_interface.set_name(db_name)
+	$dlg/databases.add_child(db_interface)
