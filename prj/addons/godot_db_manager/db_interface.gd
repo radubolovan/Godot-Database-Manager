@@ -1,13 +1,18 @@
 tool
 extends Control
 
+var m_databases = []
+
 func _ready() -> void:
+	# menu connections
 	$dlg/menu.connect("menu_about_to_show", self, "on_show_menu")
-	$dlg/menu.connect("menu_about_to_show", self, "on_hide_menu")
+	$dlg/menu.connect("menu_hide", self, "on_hide_menu")
 	$dlg/menu.connect("new_database", self, "on_menu_new_database")
 	$dlg/menu.connect("load_database", self, "on_menu_load_database")
 	$dlg/menu.connect("save_database", self, "on_menu_save_database")
 	$dlg/menu.connect("save_database_as", self, "on_menu_save_database_as")
+
+	# new database connections
 
 # called when a menu is about to be shown
 func on_show_menu():

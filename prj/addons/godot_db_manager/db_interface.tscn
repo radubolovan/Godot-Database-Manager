@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/godot_db_manager/db_interface.gd" type="Script" id=4]
 [ext_resource path="res://addons/godot_db_manager/dlgs/new_db_dlg.tscn" type="PackedScene" id=5]
-[ext_resource path="res://addons/godot_db_manager/dlgs/confirm_new_db_dlg.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/godot_db_manager/menu.tscn" type="PackedScene" id=7]
 
 [node name="db_interface" type="Control"]
@@ -19,6 +18,7 @@ margin_right = 1600.0
 margin_bottom = 900.0
 rect_min_size = Vector2( 300, 100 )
 window_title = "Godot Database Manager"
+resizable = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -28,17 +28,15 @@ margin_right = 0.00012207
 margin_bottom = -872.0
 
 [node name="databases" type="TabContainer" parent="dlg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_top = 28.0
-margin_right = 1600.0
-margin_bottom = 900.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="new_db_dlg" parent="dlg" instance=ExtResource( 5 )]
 visible = false
-
-[node name="confirm_new_db_dlg" parent="dlg" instance=ExtResource( 6 )]
 
 [node name="error_dlg" parent="dlg" instance=ExtResource( 3 )]
 

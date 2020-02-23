@@ -10,9 +10,6 @@ enum {
 	e_db_type_binary = 1 # binary database - to be designed / implemented
 }
 
-# characters that should not be part of the database name
-const c_forbidden_characters = "`@#$%^&*\\|;:'\",<.>/?"
-
 # database type
 var m_db_type = e_db_type_json
 
@@ -22,18 +19,10 @@ var m_db_name : String = ""
 # tables in the database
 var m_tables : Array = []
 
-# checks the name of the database
-func check_db_name(name : String) -> bool :
-	for idx in range(0, name.length()):
-		for jdx in range(0, c_forbidden_characters.length()):
-			if(name[idx] == c_forbidden_characters[jdx]):
-				return false
-	return true
-
 # set the name of the database
 # the name of the database should not contain special characters
 func set_db_name(name : String) -> bool :
-	if(!check_db_name(name)):
+	if(!g_constants.check_db_name(name)):
 		print("ERROR: the name of the database \"" + name + "\" contains invalid characters")
 		return false
 	m_db_name = name

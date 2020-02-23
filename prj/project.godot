@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 gd_types="*res://addons/godot_db_manager/core/db_type.gd"
+g_constants="*res://addons/godot_db_manager/constants.gd"
 
 [debug]
 

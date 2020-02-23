@@ -1,13 +1,13 @@
 2.0 features:
-	- add default font
-	- improve menu
+	- add default font - DONE
+	- improve menu - DONE
 		- File
-			- New Database
-			- Load Database
-			- Save Database
-			- Save as ...
+			- New Database - DONE
+			- Load Database - DONE
+			- Save Database - DONE
+			- Save as ... - DONE
 		- Options
-			- Autosave on close (checkbox)
+			- Autosave on close (checkbox) - DONE
 	- improve layout
 		- add multiple databases support
 			- make the main_window as TabContainer
@@ -39,6 +39,6 @@
 									- make LinkToDataDialog
 										- brouse database tables
 	- improve "new DB" dialog:
-		- handle DB name properly
-			- check for special characters
+		- handle DB name properly - DONE
+			- check for special characters - DONE
 			- implement unicode support (if not already supported)
