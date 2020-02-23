@@ -1,6 +1,9 @@
 tool
 extends Control
 
+signal menu_about_to_show
+signal menu_hide
+
 signal new_database
 signal load_database
 signal save_database
@@ -29,13 +32,16 @@ func _ready() -> void:
 	$layout/File.get_popup().add_item("Save DB", e_file_save_id)
 	$layout/File.get_popup().add_item("Save DB As ...", e_file_save_as_id)
 	$layout/File.get_popup().connect("id_pressed", self, "on_file_id_pressed")
+	$layout/File.get_popup().connect("popup_hide", self, "on_hide_menu")
 
 	$layout/Options.connect("about_to_show", self, "on_about_to_show_options_menu")
 	$layout/Options.get_popup().add_check_item("Autosave on close", e_option_autosave_on_close_id)
 	$layout/Options.get_popup().connect("id_pressed", self, "on_options_id_pressed")
+	$layout/Options.get_popup().connect("popup_hide", self, "on_hide_menu")
 
 # called before showing the file menu
 func on_about_to_show_file_menu() -> void:
+	emit_signal("menu_about_to_show")
 	for idx in range(0, $layout/File.get_popup().get_item_count()):
 		var item_id = $layout/File.get_popup().get_item_id(idx)
 		if(item_id == e_file_new_id):
@@ -76,6 +82,7 @@ func on_file_id_pressed(id : int) -> void:
 
 # called before showing the option menu
 func on_about_to_show_options_menu() -> void:
+	emit_signal("menu_about_to_show")
 	for idx in range(0, $layout/Options.get_popup().get_item_count()):
 		var item_id = $layout/Options.get_popup().get_item_id(idx)
 		if(item_id == e_option_autosave_on_close_id):
@@ -89,3 +96,6 @@ func enable_autosave_on_close(enable) -> void:
 func on_options_id_pressed(id : int) -> void:
 	if(id == e_option_autosave_on_close_id):
 		enable_autosave_on_close(!m_check_autosave_on_load)
+
+func on_hide_menu():
+	emit_signal("menu_hide")
