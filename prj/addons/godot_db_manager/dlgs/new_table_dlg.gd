@@ -7,6 +7,9 @@ func _ready():
 	connect("confirmed", self, "on_ok_btn_pressed")
 	$table_info/table_edt.connect("text_entered", self, "on_text_confirmed")
 
+func set_init_name(name):
+	$table_info/table_edt.set_text("name")
+
 func on_text_confirmed(text):
 	handle_table_name()
 	hide()

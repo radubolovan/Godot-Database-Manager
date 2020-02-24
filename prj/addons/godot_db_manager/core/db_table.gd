@@ -30,7 +30,7 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 			return -1
 
 	# print("add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
-	var prop = load("res://addons/godot_db_manager/core/db_prop.gd").new()
+	var prop = load(g_constants.c_addon_main_path + "core/db_prop.gd").new()
 	prop.set_prop_id(prop_id)
 	prop.set_prop_type(prop_type)
 	prop.set_prop_name(prop_name)
@@ -46,7 +46,7 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 			row_idx = data.get_row_idx()
 			if(data.get_prop_id() + 1 == prop_id):
 				new_data_array.push_back(data)
-				var new_data = load("res://addons/godot_db_manager/core/db_data.gd").new()
+				var new_data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()
 				new_data.set_prop_id(prop_id)
 				new_data.set_row_idx(row_idx)
 				new_data.set_data("empty")
@@ -125,7 +125,7 @@ func get_prop_at(idx : int) -> Object :
 # adds a row with blank data
 func add_blank_row() -> void:
 	for idx in range(0, m_props.size()):
-		var data = load("res://addons/godot_db_manager/core/db_data.gd").new()
+		var data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()
 		data.set_prop_id(m_props[idx].get_prop_id())
 		data.set_row_idx(m_rows_count)
 		m_data.push_back(data)
@@ -137,7 +137,7 @@ func add_row(data_array : Array) -> void:
 		print("ERROR: cTable::add_row( " + str(data_array) + " ) - cannot add row; properties count = " + str(m_props.size()) + "and data size = " + str(data_array.size()))
 		return
 	for idx in range(0, m_props.size()):
-		var data = load("res://addons/godot_db_manager/core/db_data.gd").new()
+		var data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()
 		# print("adding data: [" + str(m_props[idx].get_prop_id()) + ", " + data_array[idx] + "]")
 		# print("setting prop id: " + str(m_props[idx].get_prop_id()))
 		data.set_prop_id(m_props[idx].get_prop_id())

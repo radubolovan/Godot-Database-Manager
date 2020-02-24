@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/db_editor.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot_db_manager/tables_list.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/godot_db_manager/dlgs/new_table_dlg.tscn" type="PackedScene" id=3]
 
 [node name="db_editor" type="Tabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+tab_align = 0
+tab_close_display_policy = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -18,11 +21,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="container" type="HBoxContainer" parent="main_window"]
+[node name="tables_panel" type="HBoxContainer" parent="main_window"]
+margin_right = 158.0
 margin_bottom = 600.0
 
-[node name="tables_list" parent="main_window/container" instance=ExtResource( 2 )]
+[node name="tables_list" parent="main_window/tables_panel" instance=ExtResource( 2 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_right = 0.0
+margin_right = 158.0
 margin_bottom = 600.0
+
+[node name="new_table_dlg" parent="." instance=ExtResource( 3 )]

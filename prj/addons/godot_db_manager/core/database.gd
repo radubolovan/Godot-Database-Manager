@@ -45,8 +45,8 @@ func add_table(name : String) -> Object :
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_name() == name):
 			print("Warning: table with name \"" + name + "\" already exists")
-			return m_tables[idx]
-	var table = load("res://addons/godot_db_manager/core/db_table.gd").new()
+			return null
+	var table = load(g_constants.c_addon_main_path + "core/db_table.gd").new()
 	table.set_table_name(name)
 	m_tables.push_back(table)
 	return table

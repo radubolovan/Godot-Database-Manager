@@ -10,7 +10,7 @@ func _ready():
 
 func test_new_database() -> void:
 	# create a database and set its name
-	m_database = load("res://addons/godot_db_manager/core/database.gd").new()
+	m_database = load(g_constants.c_addon_main_path + "core/database.gd").new()
 	m_database.set_db_name(c_db_name)
 
 	# create "resources" table
@@ -52,7 +52,7 @@ func test_new_database() -> void:
 
 func test_load_database() -> void:
 	# create a database and set its name
-	m_database = load("res://addons/godot_db_manager/core/database.gd").new()
+	m_database = load(g_constants.c_addon_main_path + "core/database.gd").new()
 	m_database.set_db_name(c_db_name)
 	
 	# load database
