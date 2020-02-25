@@ -3,6 +3,7 @@ extends Control
 
 var m_databases = []
 
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# menu connections
 	$dlg/menu.connect("menu_about_to_show", self, "on_show_menu")
@@ -25,7 +26,7 @@ func on_hide_menu() -> void:
 
 # called when creating a new database from the menu
 func on_menu_new_database() -> void:
-	$dlg/new_db_dlg/db_info/db_edt.set_text("")
+	$dlg/new_db_dlg/v_layout/db_info/db_edt.set_text("")
 	$dlg/new_db_dlg.popup_centered()
 
 # called when loading a database from the menu
@@ -52,4 +53,6 @@ func on_new_database(db_name : String) -> void:
 
 	var db_interface = load(g_constants.c_addon_main_path + "db_editor.tscn").instance()
 	db_interface.set_name(db_name)
+	db_interface.set_dirty(true)
+	db_interface.set_database(db)
 	$dlg/databases.add_child(db_interface)

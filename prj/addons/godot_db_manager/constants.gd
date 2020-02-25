@@ -1,6 +1,9 @@
 tool
 extends Node
 
+# invalid id to initialize integer properties
+const c_invalid_id = -1
+
 # characters that should not be part of the database name
 const c_invalid_characters = "`~!@#$%^&*()=+[]{}\\|;:'\",<.>/?"
 

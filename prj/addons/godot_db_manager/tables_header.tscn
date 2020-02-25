@@ -1,34 +1,50 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_20.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/godot_db_manager/tables_header.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot_db_manager/assets/tex/2_0_buttons.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 2, 2, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 2, 28, 24, 2 )
 
 [node name="tables_header" type="Control"]
-anchor_right = 0.081
+anchor_right = 0.1
 anchor_bottom = 0.033
-margin_right = 0.399994
-margin_bottom = 0.299999
-rect_min_size = Vector2( 130, 30 )
+margin_right = -30.0
+margin_bottom = -5.7
+rect_min_size = Vector2( 160, 30 )
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 30.0 ],
 "_edit_use_anchors_": false,
-"_edit_vertical_guides_": [ 130.0 ]
+"_edit_vertical_guides_": [ 160.046 ]
 }
 
-[node name="add_table_btn" type="Button" parent="."]
-anchor_right = 0.014
-anchor_bottom = 0.033
-margin_right = 0.599998
-margin_bottom = 0.299999
-custom_fonts/font = ExtResource( 1 )
-text = "+"
+[node name="add_table_btn" type="TextureButton" parent="."]
+anchor_right = 0.15
+anchor_bottom = 0.8
+margin_bottom = -1.90735e-06
+texture_normal = SubResource( 1 )
 
 [node name="tables_lbl" type="Label" parent="."]
-margin_left = 25.0
-margin_right = 130.0
-margin_bottom = 30.0
+anchor_left = 0.187
+anchor_right = 1.0
+anchor_bottom = 0.8
+margin_left = 0.079998
+margin_bottom = -1.90735e-06
 custom_fonts/font = ExtResource( 1 )
-text = "Tables"
+text = "Tables        "
 align = 1
-valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="line" type="Sprite" parent="."]
+position = Vector2( 0, 26 )
+scale = Vector2( 6.66029, 1 )
+texture = SubResource( 2 )
+centered = false

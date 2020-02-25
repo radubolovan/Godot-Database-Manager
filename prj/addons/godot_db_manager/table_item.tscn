@@ -14,8 +14,8 @@ region = Rect2( 54, 2, 24, 24 )
 
 [node name="table_item" type="Control"]
 anchor_right = 0.1
-anchor_bottom = 0.022
-margin_bottom = 4.2
+anchor_bottom = 0.027
+margin_bottom = -0.300001
 rect_min_size = Vector2( 160, 24 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -30,7 +30,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="elems"]
+[node name="table_name" type="Label" parent="elems"]
 margin_top = 2.0
 margin_right = 100.0
 margin_bottom = 21.0

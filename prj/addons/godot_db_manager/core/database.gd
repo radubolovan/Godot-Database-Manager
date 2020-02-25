@@ -25,6 +25,7 @@ func set_db_name(name : String) -> bool :
 	if(!g_constants.check_db_name(name)):
 		print("ERROR: the name of the database \"" + name + "\" contains invalid characters")
 		return false
+	print("cDatabase::set_db_name(" + name + ")")
 	m_db_name = name
 	return true
 
@@ -46,10 +47,26 @@ func add_table(name : String) -> Object :
 		if(m_tables[idx].get_table_name() == name):
 			print("Warning: table with name \"" + name + "\" already exists")
 			return null
+
+	var table_id = generate_new_table_id()
+
+	print("cDatabase::add_table(" + name + ")")
 	var table = load(g_constants.c_addon_main_path + "core/db_table.gd").new()
+	table.set_table_id(table_id)
 	table.set_table_name(name)
 	m_tables.push_back(table)
 	return table
+
+# generates a new table id
+func generate_new_table_id():
+	if(m_tables.size() == 0):
+		return 0
+	var table_id = 0
+	for idx in range(0, m_tables.size()):
+		var current_table_id = m_tables[idx].get_table_id()
+		if(current_table_id > table_id):
+			table_id = current_table_id
+	return table_id + 1
 
 # returns the count of the tables in the database
 func get_tables_count() -> int :
@@ -80,6 +97,7 @@ func get_table_by_name(name: String) -> Object :
 
 # deletes all the tables
 func clear() -> void :
+	print("cDatabase::clear()")
 	for idx in range(0, m_tables.size()):
 		m_tables[idx].clear()
 	m_tables.clear()
@@ -90,6 +108,7 @@ func save_db() -> void :
 		print("ERROR: save_db() - current database doen't have a name")
 		return
 
+	print("cDatabase::save_db()")
 	var text = "{"
 	text += "\"tables\":["
 	for idx in range(0, m_tables.size()):

@@ -1,24 +1,40 @@
 tool
-extends AcceptDialog
+extends WindowDialog
 
 signal create_new_table
 
+var m_table_id = g_constants.c_invalid_id
+
+# Called when the node enters the scene tree for the first time.
 func _ready():
-	connect("confirmed", self, "on_ok_btn_pressed")
-	$table_info/table_edt.connect("text_entered", self, "on_text_confirmed")
+	$v_layout/buttons/ok_btn.connect("pressed", self, "on_ok_btn_pressed")
+	$v_layout/table_info/table_edt.connect("text_entered", self, "on_text_confirmed")
 
-func set_init_name(name):
-	$table_info/table_edt.set_text("name")
+# sets the table id
+func set_table_id(table_id : int) -> void:
+	m_table_id = table_id
 
-func on_text_confirmed(text):
+# returns the table id
+func get_table_id() -> int:
+	return m_table_id
+
+# sets the table name
+func set_init_name(table_name : String) -> void:
+	# print("cNewTableDlg::set_init_name(" + name + ")")
+	$v_layout/table_info/table_edt.set_text(table_name)
+
+# called when the user presses the ENTER key
+func on_text_confirmed(text : String) -> void:
 	handle_table_name()
 	hide()
 
-func on_ok_btn_pressed():
+# called when the OK button is pressed
+func on_ok_btn_pressed() -> void:
 	handle_table_name()
 
-func handle_table_name():
-	var text = $table_info/table_edt.get_text()
+# handles the text in the EditLine
+func handle_table_name() -> void:
+	var text = $v_layout/table_info/table_edt.get_text()
 	if(text == ""):
 		return
 	emit_signal("create_new_table", text)

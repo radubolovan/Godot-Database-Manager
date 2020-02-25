@@ -2,35 +2,63 @@
 
 [ext_resource path="res://addons/godot_db_manager/dlgs/new_db_dlg.gd" type="Script" id=2]
 
-[node name="new_db_dlg" type="AcceptDialog"]
-visible = true
+[node name="new_db_dlg" type="WindowDialog"]
 margin_right = 412.0
-margin_bottom = 71.0
-focus_next = NodePath("db_info/db_edt")
-focus_mode = 1
+margin_bottom = 90.0
+focus_next = NodePath("v_layout/db_info/db_edt")
+focus_mode = 2
 popup_exclusive = true
 window_title = "New database"
 script = ExtResource( 2 )
 __meta__ = {
+"_edit_horizontal_guides_": [ 90.0781 ],
 "_edit_use_anchors_": false
 }
 
-[node name="db_info" type="HBoxContainer" parent="."]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 404.0
-margin_bottom = 35.0
+[node name="v_layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 20
 alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="db_lbl" type="Label" parent="db_info"]
-margin_left = 6.0
-margin_top = 6.0
-margin_right = 85.0
-margin_bottom = 20.0
+[node name="db_info" type="HBoxContainer" parent="v_layout"]
+margin_top = 13.0
+margin_right = 412.0
+margin_bottom = 37.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="db_lbl" type="Label" parent="v_layout/db_info"]
+margin_left = 14.0
+margin_top = 5.0
+margin_right = 93.0
+margin_bottom = 19.0
 text = "DB name:    "
 
-[node name="db_edt" type="LineEdit" parent="db_info"]
-margin_left = 89.0
-margin_right = 389.0
-margin_bottom = 27.0
+[node name="db_edt" type="LineEdit" parent="v_layout/db_info"]
+margin_left = 97.0
+margin_right = 397.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 300, 20 )
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="buttons" type="HBoxContainer" parent="v_layout"]
+margin_top = 57.0
+margin_right = 412.0
+margin_bottom = 77.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ok_button" type="Button" parent="v_layout/buttons"]
+margin_left = 190.0
+margin_right = 221.0
+margin_bottom = 20.0
+text = "OK"

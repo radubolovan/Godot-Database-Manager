@@ -8,6 +8,7 @@ var m_id : int = -1
 var m_type : int = 0
 var m_name : String = ""
 
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$align/prop_name.connect("text_changed", self, "on_name_changed")
 

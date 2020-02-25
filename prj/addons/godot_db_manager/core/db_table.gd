@@ -4,16 +4,25 @@ Database Table class
 
 extends Object
 
+var m_table_id = g_constants.c_invalid_id
 var m_name = ""
 var m_props = []
 var m_data = []
 var m_rows_count = 0
 
+# sets the table id
+func set_table_id(id : int) -> void:
+	m_table_id = id
+
+# returns the table id
+func get_table_id() -> int:
+	return m_table_id
+
 # sets the table name
 func set_table_name(name: String) -> void :
 	m_name = name
 
-# gets the table name
+# returns the table name
 func get_table_name() -> String :
 	return m_name
 

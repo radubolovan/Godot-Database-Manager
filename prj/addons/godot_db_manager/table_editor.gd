@@ -12,6 +12,7 @@ var m_data = []
 
 var m_add_data_button = null
 
+# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$tabs/structure/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
 
