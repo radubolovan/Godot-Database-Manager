@@ -11,16 +11,18 @@ var m_data = []
 var m_rows_count = 0
 
 # sets the table id
-func set_table_id(id : int) -> void:
-	m_table_id = id
+func set_table_id(table_id : int) -> void:
+	print("cTable::set_table_id(" + str(table_id) + ")")
+	m_table_id = table_id
 
 # returns the table id
 func get_table_id() -> int:
 	return m_table_id
 
 # sets the table name
-func set_table_name(name: String) -> void :
-	m_name = name
+func set_table_name(table_name: String) -> void :
+	print("cTable::set_table_name(" + table_name + ")")
+	m_name = table_name
 
 # returns the table name
 func get_table_name() -> String :
@@ -38,7 +40,7 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 			print("ERROR: cTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ") - prop_id already exists")
 			return -1
 
-	# print("add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
+	# print("cTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
 	var prop = load(g_constants.c_addon_main_path + "core/db_prop.gd").new()
 	prop.set_prop_id(prop_id)
 	prop.set_prop_type(prop_type)
