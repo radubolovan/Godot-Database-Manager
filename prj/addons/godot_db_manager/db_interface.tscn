@@ -15,8 +15,8 @@ __meta__ = {
 [node name="dlg" type="WindowDialog" parent="."]
 visible = true
 margin_right = 1400.0
-margin_bottom = 800.0
-rect_min_size = Vector2( 1430, 820 )
+margin_bottom = 655.0
+popup_exclusive = true
 window_title = "Godot Database Manager"
 resizable = true
 __meta__ = {

@@ -5,13 +5,13 @@
 
 [node name="tables_list" type="Control"]
 anchor_right = 0.106
-anchor_bottom = 0.667
-margin_right = 0.399963
-margin_bottom = -0.300049
-rect_min_size = Vector2( 170, 200 )
+anchor_bottom = 0.25
+margin_right = 0.400024
+margin_bottom = 1.52588e-05
+rect_min_size = Vector2( 170, 225 )
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 29.9686, 799.677 ],
+"_edit_horizontal_guides_": [ 29.9686, 225.0 ],
 "_edit_use_anchors_": false,
 "_edit_vertical_guides_": [ 170.149 ]
 }
@@ -19,6 +19,7 @@ __meta__ = {
 [node name="v_align" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = 8.99998
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -32,16 +33,16 @@ margin_bottom = 30.0
 [node name="tables_container" type="ScrollContainer" parent="v_align"]
 margin_top = 34.0
 margin_right = 170.0
-margin_bottom = 234.0
-rect_min_size = Vector2( 170, 200 )
+margin_bottom = 584.0
+rect_min_size = Vector2( 170, 550 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="tables" type="VBoxContainer" parent="v_align/tables_container"]
 margin_right = 170.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 170, 200 )
+margin_bottom = 550.0
+rect_min_size = Vector2( 170, 550 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
