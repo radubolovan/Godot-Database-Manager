@@ -10,7 +10,7 @@ margin_bottom = 0.399994
 focus_next = NodePath("v_layout/table_info/table_edt")
 focus_mode = 1
 popup_exclusive = true
-window_title = "New table"
+window_title = "New table (max 16 characters)"
 script = ExtResource( 2 )
 
 [node name="v_layout" type="VBoxContainer" parent="."]

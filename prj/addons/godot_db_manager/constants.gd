@@ -4,6 +4,12 @@ extends Node
 # invalid id to initialize integer properties
 const c_invalid_id = -1
 
+# maximum database name length
+const c_max_db_name_len = 16
+
+# maximum table name length
+const c_max_table_name_len = 16
+
 # characters that should not be part of the database name
 const c_invalid_characters = "`~!@#$%^&*()=+[]{}\\|;:'\",<.>/?"
 
