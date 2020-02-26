@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/db_editor.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot_db_manager/tables_list.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/godot_db_manager/dlgs/new_table_dlg.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/godot_db_manager/table_editor.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/godot_db_manager/dlgs/delete_table_dlg.tscn" type="PackedScene" id=6]
 
 [node name="db_editor" type="Tabs"]
 anchor_right = 1.0
@@ -42,5 +43,8 @@ margin_right = 1414.0
 margin_bottom = 750.0
 
 [node name="new_table_dlg" parent="." instance=ExtResource( 3 )]
+
+[node name="delete_table_dlg" parent="." instance=ExtResource( 6 )]
+visible = false
 
 [node name="error_dlg" parent="." instance=ExtResource( 5 )]

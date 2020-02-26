@@ -37,4 +37,5 @@ func on_edit_table_btn_pressed():
 
 # called when the user presses the delete_table button
 func on_delete_table_btn_pressed():
+	print("cTableItem::on_delete_table_btn_pressed")
 	emit_signal("delete_table", m_table_id)

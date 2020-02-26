@@ -11,6 +11,7 @@ func _ready() -> void:
 
 	$main_window/tables_panel/tables_list.connect("add_table", self, "on_add_table")
 	$main_window/tables_panel/tables_list.connect("edit_table_name", self, "on_edit_table")
+	$main_window/tables_panel/tables_list.connect("delete_table", self, "on_delete_table")
 
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 
@@ -63,6 +64,13 @@ func on_edit_table(table_id : int, table_name : String) -> void:
 	$new_table_dlg.set_init_name(table_name)
 	$new_table_dlg.popup_centered()
 
+# called when the user presses the "delete_table" from the "tables/list/table"
+func on_delete_table(table_id : int) -> void:
+	print("cDbEditor::on_delete_table(" + str(table_id) + ")")
+	$delete_table_dlg.connect("delete_table", self, "on_delete_table_accepted")
+	$delete_table_dlg.set_table_id(table_id)
+	$delete_table_dlg.popup_centered()
+
 # called when the user accepts the name of the table in the "new_table_dlg"
 func on_table_name_edited(table_name : String) -> void:
 	var table_id = $new_table_dlg.get_table_id()
@@ -74,3 +82,9 @@ func on_table_name_edited(table_name : String) -> void:
 	$new_table_dlg.disconnect("create_new_table", self, "on_table_name_edited")
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 	$main_window/tables_panel/tables_list.edit_table_name(table_id, table_name)
+
+func on_delete_table_accepted():
+	print("cDbEditor::on_delete_table_accepted()")
+	var table_id = $delete_table_dlg.get_table_id()
+	m_database.delete_table(table_id)
+	$main_window/tables_panel/tables_list.delete_table(table_id)

@@ -32,6 +32,7 @@ func on_edit_table_name(table_id : int, table_name : String) -> void:
 
 # Called when the user presses the "delete_table" button from the tables_list/table
 func on_delete_table(table_id : int) -> void:
+	print("cTableList::on_delete_table(" + str(table_id) + ")")
 	emit_signal("delete_table", table_id)
 
 # edits the table name
@@ -39,4 +40,12 @@ func edit_table_name(table_id: int, table_name : String) -> void:
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_id() == table_id):
 			m_tables[idx].set_table_name(table_name)
+			break
+
+# deletes a table from the list
+func delete_table(table_id : int) -> void:
+	for idx in range(0, m_tables.size()):
+		if(m_tables[idx].get_table_id() == table_id):
+			$tables.remove_child(m_tables[idx])
+			m_tables.remove(idx)
 			break

@@ -76,6 +76,16 @@ func edit_table_name(table_name : String, table_id : int) -> bool :
 			break
 	return true
 
+# deletes a table
+func delete_table(table_id: int) -> void:
+	for idx in range(0, m_tables.size()):
+		if(m_tables[idx].get_table_id() == table_id):
+			print("cDatabase::delete_table(" + str(table_id) + ")")
+			m_tables[idx].free()
+			m_tables.remove(idx)
+			return
+	print("cDatabase::delete_table(" + str(table_id) + ") - cannot erase table; id not found")
+
 # generates a new table id
 func generate_new_table_id():
 	if(m_tables.size() == 0):
