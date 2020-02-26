@@ -65,7 +65,12 @@ func on_edit_table(table_id : int, table_name : String) -> void:
 
 # called when the user accepts the name of the table in the "new_table_dlg"
 func on_table_name_edited(table_name : String) -> void:
+	var table_id = $new_table_dlg.get_table_id()
+	if(!m_database.edit_table_name(table_name, table_id)):
+		$error_dlg.set_text("Table with the name \"" + table_name + "\" already exists" )
+		$error_dlg.popup_centered()
+		return
+	print("cDbEditor::on_table_name_edited(" + str(table_id) + ", " + table_name + ")")
 	$new_table_dlg.disconnect("create_new_table", self, "on_table_name_edited")
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
-	var table_id = $new_table_dlg.get_table_id()
 	$main_window/tables_panel/tables_list.edit_table_name(table_id, table_name)

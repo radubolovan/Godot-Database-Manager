@@ -40,22 +40,41 @@ func get_db_path() -> String :
 		path += ".json"
 	return path
 
-# add a new table
-# returns the table; if already exists, it will fire an warning on output console
-func add_table(name : String) -> Object :
+# checks if a table with the name "table_name" can be added into database
+func can_add_table(table_name : String, table_id : int = -1):
+	print("cDatabase::can_add_table(" + table_name + ", " + str(table_id) + ")")
 	for idx in range(0, m_tables.size()):
-		if(m_tables[idx].get_table_name() == name):
-			print("Warning: table with name \"" + name + "\" already exists")
-			return null
+		if(m_tables[idx].get_table_name() == table_name):
+			if(m_tables[idx].get_table_id() == table_id):
+				continue
+			print("Warning: table with name \"" + table_name + "\" already exists")
+			return false
+	return true
+
+# adds a new table
+# returns the table; if already exists, it will fire an warning on output console
+func add_table(table_name : String) -> Object :
+	if(!can_add_table(table_name)):
+		return null
 
 	var table_id = generate_new_table_id()
 
-	print("cDatabase::add_table(" + name + ")")
+	print("cDatabase::add_table(" + table_name + ")")
 	var table = load(g_constants.c_addon_main_path + "core/db_table.gd").new()
 	table.set_table_id(table_id)
-	table.set_table_name(name)
+	table.set_table_name(table_name)
 	m_tables.push_back(table)
 	return table
+
+# edits a table name
+func edit_table_name(table_name : String, table_id : int) -> bool :
+	if(!can_add_table(table_name, table_id)):
+		return false
+	for idx in range(0, m_tables.size()):
+		if(m_tables[idx].get_table_id() == table_id):
+			m_tables[idx].set_table_name(table_name)
+			break
+	return true
 
 # generates a new table id
 func generate_new_table_id():
