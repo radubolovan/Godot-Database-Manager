@@ -11,15 +11,15 @@ margin_bottom = 1.52588e-05
 rect_min_size = Vector2( 170, 225 )
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 29.9686, 225.0 ],
+"_edit_horizontal_guides_": [ 29.9686, 584.0 ],
 "_edit_use_anchors_": false,
 "_edit_vertical_guides_": [ 170.149 ]
 }
 
 [node name="v_align" type="VBoxContainer" parent="."]
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_bottom = 8.99998
+anchor_bottom = 2.596
+margin_bottom = -350.1
 __meta__ = {
 "_edit_use_anchors_": false
 }
