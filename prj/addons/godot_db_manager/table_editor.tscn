@@ -4,13 +4,15 @@
 [ext_resource path="res://addons/godot_db_manager/table_editor.gd" type="Script" id=3]
 
 [node name="table" type="Control"]
-anchor_right = 0.75
-anchor_bottom = 0.778
-margin_right = -0.00012207
-margin_bottom = -0.200073
+anchor_right = 0.625
+anchor_bottom = 0.649
+margin_right = 6.10352e-05
+margin_bottom = -0.100037
 script = ExtResource( 3 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_horizontal_guides_": [ 584.0 ],
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [ 1000.47 ]
 }
 
 [node name="tabs" type="TabContainer" parent="."]
@@ -74,11 +76,11 @@ __meta__ = {
 }
 
 [node name="data_header" type="HBoxContainer" parent="tabs/data/data_holder"]
-margin_right = 1191.0
+margin_right = 992.0
 
 [node name="data_container" type="VBoxContainer" parent="tabs/data/data_holder"]
 margin_top = 4.0
-margin_right = 1191.0
+margin_right = 992.0
 margin_bottom = 4.0
 
 [node name="error_dlg" parent="." instance=ExtResource( 1 )]
