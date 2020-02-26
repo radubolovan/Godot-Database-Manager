@@ -10,18 +10,18 @@
 			- Autosave on close (checkbox) - DONE
 	- improve layout
 		- add multiple databases support
-			- make the main_window as TabContainer
-				- make each Tab be the interface for each database
+			- make the main_window as TabContainer - DONE
+				- make each Tab be the interface for each database - DONE
 					- make the tables list more friendly
-						- improve title
-							- Add "+" button to add a new table
+						- improve title - DONE
+							- Add "+" button to add a new table - DONE
 						- add scroll bars
-						- add editable table name to each item
-						- add "X" (remove table) for each item. The table should be removed after the user accept.
+						- add editable table name to each item - DONE
+						- add "X" (remove table) for each item. The table should be removed after the user accept. - DONE
 					- improve tables editor
 						- improve "structure" editor
 							- add scrolls (make it scroll view)
-							- make the Type option wider
+							- make the Type option wider - DONE
 							- add tables as types
 						- improve "data" editor
 							- find a way resize the witdh of the columns on the runtime

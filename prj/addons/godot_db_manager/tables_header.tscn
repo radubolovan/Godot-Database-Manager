@@ -12,24 +12,24 @@ region = Rect2( 2, 2, 24, 24 )
 atlas = ExtResource( 3 )
 region = Rect2( 2, 54, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
 region = Rect2( 2, 28, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
 region = Rect2( 80, 2, 24, 2 )
 
 [node name="tables_header" type="Control"]
-anchor_right = 0.1
+anchor_right = 0.106
 anchor_bottom = 0.033
-margin_right = -30.0
+margin_right = -39.6
 margin_bottom = -5.7
-rect_min_size = Vector2( 160, 30 )
+rect_min_size = Vector2( 170, 30 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false,
-"_edit_vertical_guides_": [ 160.046 ]
+"_edit_vertical_guides_": [ 170.0 ]
 }
 
 [node name="add_table_btn" type="TextureButton" parent="."]
@@ -38,7 +38,7 @@ anchor_bottom = 0.8
 margin_bottom = -1.90735e-06
 texture_normal = SubResource( 1 )
 texture_pressed = SubResource( 2 )
-texture_hover = SubResource( 4 )
+texture_hover = SubResource( 3 )
 
 [node name="tables_lbl" type="Label" parent="."]
 anchor_left = 0.187
@@ -55,6 +55,6 @@ __meta__ = {
 
 [node name="line" type="Sprite" parent="."]
 position = Vector2( 0, 26 )
-scale = Vector2( 6.66029, 1 )
-texture = SubResource( 3 )
+scale = Vector2( 7.08333, 1 )
+texture = SubResource( 4 )
 centered = false
