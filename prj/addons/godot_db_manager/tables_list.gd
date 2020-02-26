@@ -18,12 +18,15 @@ func on_add_table() -> void:
 # creates a table
 func create_table(db_table) -> void:
 	var table = load(g_constants.c_addon_main_path + "table_item.tscn").instance()
-	table.set_table_id(db_table.get_table_id())
+	var table_id = db_table.get_table_id()
+	table.set_table_id(table_id)
 	table.set_table_name(db_table.get_table_name())
+	table.connect("select_item", self, "on_select_item")
 	table.connect("edit_table", self, "on_edit_table_name")
 	table.connect("delete_table", self, "on_delete_table")
 	m_tables.push_back(table)
 	$tables.add_child(table)
+	on_select_item(table_id)
 
 # Called when the user presses the "edit_table" button from the tables_list/table
 func on_edit_table_name(table_id : int, table_name : String) -> void:
@@ -49,3 +52,8 @@ func delete_table(table_id : int) -> void:
 			$tables.remove_child(m_tables[idx])
 			m_tables.remove(idx)
 			break
+
+# called when the user presses an item
+func on_select_item(table_id : int) -> void:
+	for idx in range(0, m_tables.size()):
+		m_tables[idx].set_selected(m_tables[idx].get_table_id() == table_id)

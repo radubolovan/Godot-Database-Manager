@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_20.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/godot_db_manager/tables_header.gd" type="Script" id=2]
@@ -10,7 +10,15 @@ region = Rect2( 2, 2, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
-region = Rect2( 2, 28, 24, 2 )
+region = Rect2( 2, 54, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 2, 28, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 2, 24, 2 )
 
 [node name="tables_header" type="Control"]
 anchor_right = 0.1
@@ -29,6 +37,8 @@ anchor_right = 0.15
 anchor_bottom = 0.8
 margin_bottom = -1.90735e-06
 texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 4 )
 
 [node name="tables_lbl" type="Label" parent="."]
 anchor_left = 0.187
@@ -46,5 +56,5 @@ __meta__ = {
 [node name="line" type="Sprite" parent="."]
 position = Vector2( 0, 26 )
 scale = Vector2( 6.66029, 1 )
-texture = SubResource( 2 )
+texture = SubResource( 3 )
 centered = false
