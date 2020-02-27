@@ -92,7 +92,7 @@ func delete_table(table_id: int) -> void:
 func generate_new_table_id():
 	if(m_tables.size() == 0):
 		return 0
-	return m_tables[m_tables.size()-1].get_property_id() + 1
+	return m_tables[m_tables.size()-1].get_table_id() + 1
 
 # returns the count of the tables in the database
 func get_tables_count() -> int :

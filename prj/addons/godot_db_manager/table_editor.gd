@@ -20,7 +20,7 @@ var m_data = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$tabs/structure/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
-	$tabs/data/data_holder/data_header/add_data_btn.connect("pressed", self, "on_add_data_btn_pressed")
+	$tabs/data/data_holder/data_header/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
 	$tabs/data/data_holder/data_header/add_data_btn.set_disabled(true)
 
 # called when the new_property button is pressed
@@ -35,6 +35,9 @@ func on_new_property_btn_pressed() -> void:
 	var prop_id = m_table.add_prop(prop_type, prop_name)
 	add_prop_to_structure(prop_id, prop_type, prop_name)
 	add_prop_to_data(prop_id, prop_name)
+
+	# enable add data btn
+	$tabs/data/data_holder/data_header/add_data_btn.set_disabled(false)
 
 func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -> void:
 	# print("GDDBTableEditor::add_prop_to_structure(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
@@ -52,9 +55,33 @@ func add_prop_to_data(prop_id : int, prop_name : String):
 	prop.set_prop_id(prop_id)
 	prop.set_text(prop_name)
 
+	# add property to the existing rows
+	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/data_holder/data_container.get_child(idx)
+		var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
+		cell.set_prop_id(prop_id)
+		cell.set_row_idx(idx)
+		cell.set_text("")
+		cell.connect("edit_data", self, "on_edit_data")
+		row.add_child(cell)
+
 # called when the add data button is pressed
-func on_add_data_btn_pressed() -> void:
-	pass
+func on_add_row_data_btn_pressed() -> void:
+	# print("GDDBTableEditor::on_add_row_data_btn_pressed")
+	# add blank row in the table
+	var row_idx = m_table.get_rows_count()
+	m_table.add_blank_row()
+
+	# add row in the interface
+	var row = HBoxContainer.new()
+	for idx in range(0, m_data_props.size()):
+		var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
+		cell.set_prop_id(idx)
+		cell.set_row_idx(row_idx)
+		cell.set_text("")
+		cell.connect("edit_data", self, "on_edit_data")
+		row.add_child(cell)
+	$tabs/data/data_holder/data_container.add_child(row)
 
 # sets the table from database
 func set_table(table : Object) -> void:
