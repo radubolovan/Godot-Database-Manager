@@ -61,7 +61,6 @@ margin_right = 725.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 250, 0 )
 text = "Bool"
-items = [ "Bool", null, false, 0, null, "Integer", null, false, 1, null, "Float", null, false, 2, null, "String", null, false, 3, null, "Resource", null, false, 4, null, "Data", null, false, 5, null ]
 selected = 0
 
 [node name="close_button" type="Button" parent="align"]
