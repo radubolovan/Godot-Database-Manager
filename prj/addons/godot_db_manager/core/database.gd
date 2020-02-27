@@ -27,7 +27,7 @@ func set_db_name(name : String) -> bool :
 	if(!g_constants.check_db_name(name)):
 		print("ERROR: the name of the database \"" + name + "\" contains invalid characters")
 		return false
-	print("GDDatabase::set_db_name(" + name + ")")
+	# print("GDDatabase::set_db_name(" + name + ")")
 	m_db_name = name
 	return true
 
@@ -44,7 +44,7 @@ func get_db_path() -> String :
 
 # checks if a table with the name "table_name" can be added into database
 func can_add_table(table_name : String, table_id : int = -1):
-	print("GDDatabase::can_add_table(" + table_name + ", " + str(table_id) + ")")
+	# print("GDDatabase::can_add_table(" + table_name + ", " + str(table_id) + ")")
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_name() == table_name):
 			if(m_tables[idx].get_table_id() == table_id):
@@ -61,7 +61,7 @@ func add_table(table_name : String) -> Object :
 
 	var table_id = generate_new_table_id()
 
-	print("GDDatabase::add_table(" + table_name + ")")
+	# print("GDDatabase::add_table(" + table_name + ")")
 	var table = load(g_constants.c_addon_main_path + "core/db_table.gd").new()
 	table.set_table_id(table_id)
 	table.set_table_name(table_name)
@@ -86,7 +86,7 @@ func delete_table(table_id: int) -> void:
 			m_tables[idx].free()
 			m_tables.remove(idx)
 			return
-	print("GDDatabase::delete_table(" + str(table_id) + ") - cannot erase table; id not found")
+	# print("GDDatabase::delete_table(" + str(table_id) + ") - cannot erase table; id not found")
 
 # generates a new table id
 func generate_new_table_id():
@@ -123,7 +123,7 @@ func get_table_by_name(name: String) -> Object :
 
 # deletes all the tables
 func clear() -> void :
-	print("GDDatabase::clear()")
+	# print("GDDatabase::clear()")
 	for idx in range(0, m_tables.size()):
 		m_tables[idx].clear()
 	m_tables.clear()

@@ -29,6 +29,7 @@ func _ready() -> void:
 
 # setup property
 func setup(id : int, type : int, name : String) -> void:
+	# print("GDDBTableProperty::setup(" + str(id) + ", " + db_types.get_data_name(type) + ", " + name + ")")
 	set_prop_id(id)
 	set_prop_type(type)
 	set_prop_name(name)
@@ -44,6 +45,7 @@ func get_prop_id() -> int:
 
 # sets property type
 func set_prop_type(type : int) -> void:
+	# print("GDDBTableProperty::set_prop_type(" + db_types.get_data_name(type) + ")")
 	m_type = type
 	if(m_type == 0): # integer
 		$align/prop_type.select(0)

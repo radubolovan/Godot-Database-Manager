@@ -25,30 +25,32 @@ func _ready() -> void:
 
 # called when the new_property button is pressed
 func on_new_property_btn_pressed() -> void:
+	# print("GDDBTableEditor::on_new_property_btn_pressed()")
 	if(null == m_table):
 		print("ERROR: GDDBTableEditor::on_new_property_btn_pressed() - m_table is null")
 		return
 	var prop_idx = m_table.get_props_count()
-	var prop_type = db_types.e_prop_type_int
+	var prop_type = db_types.e_prop_type_bool
 	var prop_name = "Property_" + str(prop_idx+1)
 	var prop_id = m_table.add_prop(prop_type, prop_name)
 	add_prop_to_structure(prop_id, prop_type, prop_name)
 	add_prop_to_data(prop_id, prop_name)
 
 func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -> void:
+	# print("GDDBTableEditor::add_prop_to_structure(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
 	var prop = load(g_constants.c_addon_main_path + "table_property.tscn").instance()
+	$tabs/structure/properties.add_child(prop)
+	m_structure_props.push_back(prop)
 	prop.setup(prop_id, prop_type, prop_name)
 	prop.connect("edit_property", self, "on_edit_property")
 	prop.connect("delete_property", self, "on_delete_property")
-	$tabs/structure/properties.add_child(prop)
-	m_structure_props.push_back(prop)
 
 func add_prop_to_data(prop_id : int, prop_name : String):
 	var prop = load(g_constants.c_addon_main_path + "data_label.tscn").instance()
-	prop.set_prop_id(prop_id)
-	prop.set_text(prop_name)
 	$tabs/data/data_holder/data_header.add_child(prop)
 	m_data_props.push_back(prop)
+	prop.set_prop_id(prop_id)
+	prop.set_text(prop_name)
 
 # called when the add data button is pressed
 func on_add_data_btn_pressed() -> void:

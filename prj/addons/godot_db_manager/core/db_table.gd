@@ -12,7 +12,7 @@ var m_rows_count = 0
 
 # sets the table id
 func set_table_id(table_id : int) -> void:
-	print("GDDBDTable::set_table_id(" + str(table_id) + ")")
+	# print("GDDBDTable::set_table_id(" + str(table_id) + ")")
 	m_table_id = table_id
 
 # returns the table id
@@ -21,7 +21,7 @@ func get_table_id() -> int:
 
 # sets the table name
 func set_table_name(table_name: String) -> void :
-	print("GDDBDTable::set_table_name(" + table_name + ")")
+	# print("GDDBDTable::set_table_name(" + table_name + ")")
 	m_name = table_name
 
 # returns the table name
