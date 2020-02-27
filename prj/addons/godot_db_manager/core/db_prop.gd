@@ -5,7 +5,7 @@ DB Property class
 extends Object
 
 var m_id : int  = -1
-var m_type : int = gd_types.e_prop_type_int
+var m_type : int = db_types.e_prop_type_int
 var m_name : String = ""
 
 # sets the property id

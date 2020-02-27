@@ -77,10 +77,17 @@ __meta__ = {
 
 [node name="data_header" type="HBoxContainer" parent="tabs/data/data_holder"]
 margin_right = 992.0
+margin_bottom = 20.0
+
+[node name="add_data_btn" type="Button" parent="tabs/data/data_holder/data_header"]
+margin_right = 20.0
+margin_bottom = 20.0
+disabled = true
+text = "+"
 
 [node name="data_container" type="VBoxContainer" parent="tabs/data/data_holder"]
-margin_top = 4.0
+margin_top = 24.0
 margin_right = 992.0
-margin_bottom = 4.0
+margin_bottom = 24.0
 
 [node name="error_dlg" parent="." instance=ExtResource( 1 )]

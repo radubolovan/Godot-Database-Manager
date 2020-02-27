@@ -32,13 +32,7 @@ func get_table_name() -> String :
 # prop_id must be unique
 # returns prop ID if the property is unique and can be added, otherwise -1
 func add_prop(prop_type : int, prop_name : String) -> int :
-	var prop_id = m_props.size()
-
-	# check if the property is unique by its id
-	for idx in range(0, m_props.size()):
-		if(m_props[idx].get_prop_id() == prop_id):
-			print("ERROR: cTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ") - prop_id already exists")
-			return -1
+	var prop_id = generate_new_prop_id()
 
 	# print("cTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
 	var prop = load(g_constants.c_addon_main_path + "core/db_prop.gd").new()
@@ -48,6 +42,7 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 	m_props.push_back(prop)
 
 	# adding blank data to all existing rows
+	# TODO: find a way to make this in a better; this is ugly
 	if(m_data.size() > 0):
 		var new_data_array = []
 		var data_idx = 0
@@ -112,15 +107,11 @@ func delete_prop(prop_id : int) -> void :
 	for idx in range(0, tmp_data.size()):
 		m_data.push_back(tmp_data[idx])
 
-	# recreate properties' ids
-	for idx in range(0, m_props.size()):
-		m_props[idx].set_prop_id(idx)
-
-	# recreate properties' ids from data
-	for idx in range(0, m_data.size()):
-		var p_id = m_data[idx].get_prop_id()
-		if(p_id > prop_id):
-			m_data[idx].set_prop_id(p_id + 1)
+# generates a new table id
+func generate_new_prop_id():
+	if(m_props.size() == 0):
+		return 0
+	return m_props[m_props.size()-1].get_prop_id() + 1
 
 # returns the properties count
 func get_props_count() -> int :
@@ -153,13 +144,13 @@ func add_row(data_array : Array) -> void:
 		# print("setting prop id: " + str(m_props[idx].get_prop_id()))
 		data.set_prop_id(m_props[idx].get_prop_id())
 		data.set_row_idx(m_rows_count)
-		if(m_props[idx].get_prop_type() == gd_types.e_prop_type_bool):
+		if(m_props[idx].get_prop_type() == db_types.e_prop_type_bool):
 			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == gd_types.e_prop_type_int):
+		elif(m_props[idx].get_prop_type() == db_types.e_prop_type_int):
 			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == gd_types.e_prop_type_float):
+		elif(m_props[idx].get_prop_type() == db_types.e_prop_type_float):
 			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == gd_types.e_prop_type_string):
+		elif(m_props[idx].get_prop_type() == db_types.e_prop_type_string):
 			data.set_data(data_array[idx])
 		m_data.push_back(data)
 	m_rows_count += 1

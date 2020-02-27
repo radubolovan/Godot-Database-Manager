@@ -48,6 +48,7 @@ func on_create_table(table_name : String) -> void:
 		$error_dlg.popup_centered()
 		return
 	$main_window/tables_panel/tables_list.create_table(table)
+	$main_window/tables_panel/table.set_table(table)
 	$main_window/tables_panel/table.show()
 
 # called when the user retryes to create a table (changed the name)
