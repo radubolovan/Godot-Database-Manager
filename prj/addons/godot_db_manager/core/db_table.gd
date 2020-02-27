@@ -1,5 +1,5 @@
 """
-Database Table class
+GDDBDTable class
 """
 
 extends Object
@@ -12,7 +12,7 @@ var m_rows_count = 0
 
 # sets the table id
 func set_table_id(table_id : int) -> void:
-	print("cTable::set_table_id(" + str(table_id) + ")")
+	print("GDDBDTable::set_table_id(" + str(table_id) + ")")
 	m_table_id = table_id
 
 # returns the table id
@@ -21,7 +21,7 @@ func get_table_id() -> int:
 
 # sets the table name
 func set_table_name(table_name: String) -> void :
-	print("cTable::set_table_name(" + table_name + ")")
+	print("GDDBDTable::set_table_name(" + table_name + ")")
 	m_name = table_name
 
 # returns the table name
@@ -34,7 +34,7 @@ func get_table_name() -> String :
 func add_prop(prop_type : int, prop_name : String) -> int :
 	var prop_id = generate_new_prop_id()
 
-	# print("cTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
+	# print("GDDBDTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
 	var prop = load(g_constants.c_addon_main_path + "core/db_prop.gd").new()
 	prop.set_prop_id(prop_id)
 	prop.set_prop_type(prop_type)
@@ -77,7 +77,7 @@ func edit_prop(prop_id : int, prop_type : int, prop_name: String) -> void :
 			m_props[idx].set_prop_type(prop_type)
 			m_props[idx].set_prop_name(prop_name)
 			return
-	print("ERROR: cTable::edit_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ") - property not found")
+	print("ERROR: GDDBDTable::edit_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ") - property not found")
 
 # deletes a property and all the data from the table have the same property
 func delete_prop(prop_id : int) -> void :
@@ -91,7 +91,7 @@ func delete_prop(prop_id : int) -> void :
 			prop_found = true
 			break
 	if(!prop_found):
-		print("ERROR: cTable::delete_prop( " + str(prop_id) + " ) - property not found !")
+		print("ERROR: GDDBDTable::delete_prop( " + str(prop_id) + " ) - property not found !")
 		return
 
 	# remove the data
@@ -120,7 +120,7 @@ func get_props_count() -> int :
 # returns the property at index or null if the index is out of bounds
 func get_prop_at(idx : int) -> Object :
 	if(idx < 0 || idx > m_props.size()-1):
-		print("ERROR: cTable::get_prop_id( " + str(idx) + " ) - index out of bounds; max properties: " + str(m_props.size()))
+		print("ERROR: GDDBDTable::get_prop_id( " + str(idx) + " ) - index out of bounds; max properties: " + str(m_props.size()))
 		return null
 	return m_props[idx]
 
@@ -136,7 +136,7 @@ func add_blank_row() -> void:
 # adds a row with data
 func add_row(data_array : Array) -> void:
 	if(data_array.size() != m_props.size()):
-		print("ERROR: cTable::add_row( " + str(data_array) + " ) - cannot add row; properties count = " + str(m_props.size()) + "and data size = " + str(data_array.size()))
+		print("ERROR: GDDBDTable::add_row( " + str(data_array) + " ) - cannot add row; properties count = " + str(m_props.size()) + "and data size = " + str(data_array.size()))
 		return
 	for idx in range(0, m_props.size()):
 		var data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()
@@ -175,7 +175,7 @@ func edit_data(prop_id : int, row_idx : int, data : String) -> void:
 			# print("#2: cTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
 			m_data[idx].set_data(data)
 			return
-	print("ERROR: cTable::edit_data(" + str(prop_id) + ", " + str(row_idx) + ", " + data + ") - can't find data to edit")
+	print("ERROR: GDDBDTable::edit_data(" + str(prop_id) + ", " + str(row_idx) + ", " + data + ") - can't find data to edit")
 
 # returns data count
 func get_data_size() -> int:
@@ -184,7 +184,7 @@ func get_data_size() -> int:
 # returns the data from at index
 func get_data_at(idx : int) -> String:
 	if(idx < 0 || idx >= m_data.size()):
-		print("ERROR: cTable::get_data_at( " + str(idx) + ") - max data size: " + str(m_data.size()))
+		print("ERROR: GDDBDTable::get_data_at( " + str(idx) + ") - max data size: " + str(m_data.size()))
 		return ""
 	return m_data[idx].get_data()
 
@@ -193,7 +193,7 @@ func get_data(prop_id : int, row_idx : int) -> String:
 	for idx in range(m_data.size()-1, 0, -1):
 		if(m_data[idx].get_row_idx() == row_idx && m_data[idx].get_prop_id() == prop_id):
 			return m_data[idx].get_data()
-	print("ERROR: cTable::get_data(" + str(prop_id) + ", " + str(row_idx) +  ")")
+	print("ERROR: GDDBDTable::get_data(" + str(prop_id) + ", " + str(row_idx) +  ")")
 	return ""
 
 # returns an array of data by property id
@@ -203,7 +203,7 @@ func get_data_by_prop_id(prop_id : int) -> Array:
 		if(m_data[idx].get_prop_id() == prop_id):
 			data.push_back(m_data[idx])
 	if(data.size() == 0):
-		print("ERROR: cTable::get_data_by_prop_id(" + str(prop_id) + ") - property not found")
+		print("ERROR: GDDBDTable::get_data_by_prop_id(" + str(prop_id) + ") - property not found")
 	return data
 
 # returns an array of data by property name
@@ -214,7 +214,7 @@ func get_data_by_prop_name(prop_name : String) -> Array:
 			prop_id = m_props[idx].get_prop_id()
 			break
 	if(prop_id == -1):
-		print("ERROR: cTable::get_data_by_prop_name(" + prop_name + ") - property not found")
+		print("ERROR: GDDBDTable::get_data_by_prop_name(" + prop_name + ") - property not found")
 		return []
 	return get_data_by_prop_id(prop_id)
 
@@ -224,7 +224,7 @@ func get_data_by_row_idx(row_idx):
 		if(m_data[idx].get_row_idx() == row_idx):
 			data.push_back(m_data[idx])
 	if(data.size() == -1):
-		print("ERROR: cTable::get_data_by_row_idx(" + str(row_idx) + ")")
+		print("ERROR: GDDBDTable::get_data_by_row_idx(" + str(row_idx) + ")")
 	return data
 
 # returns an array of data by a property name and a data value
@@ -237,7 +237,7 @@ func get_row_by_data(prop_name : String, data_value : String) -> Array:
 			break
 	var row = []
 	if(prop_id == -1):
-		print("ERROR: cTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - property not found")
+		print("ERROR: GDDBDTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - property not found")
 		return row
 	var row_idx = -1
 	for idx in range(0, m_data.size()):
@@ -245,13 +245,13 @@ func get_row_by_data(prop_name : String, data_value : String) -> Array:
 			row_idx = m_data[idx].get_row_idx()
 			break
 	if(row_idx == -1):
-		print("ERROR: cTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - data not found")
+		print("ERROR: GDDBDTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - data not found")
 		return row
 	for idx in range(0, m_data.size()):
 		if(m_data[idx].get_row_idx() == row_idx):
 			row.push_back(m_data[idx])
 	if(row.size() == -1):
-		print("ERROR: cTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - data not found")
+		print("ERROR: GDDBDTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - data not found")
 	return row
 
 # clears the table's structure and data

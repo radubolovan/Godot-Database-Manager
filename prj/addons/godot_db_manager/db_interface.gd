@@ -1,3 +1,9 @@
+"""
+class GDDBInterface
+"""
+
+class_name GDDBInterface
+
 tool
 extends Control
 

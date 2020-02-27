@@ -1,3 +1,9 @@
+"""
+class GDDBEditor
+"""
+
+class_name GDDBEditor
+
 tool
 extends Tabs
 
@@ -58,7 +64,7 @@ func on_retry_create_table() -> void:
 
 # called when the user presses the "edit_table_name" from the "tables/list/table"
 func on_edit_table(table_id : int, table_name : String) -> void:
-	print("cDbEditor::on_edit_table(" + str(table_id) + ", " + table_name + ")")
+	print("GDDBEditor::on_edit_table(" + str(table_id) + ", " + table_name + ")")
 	$new_table_dlg.disconnect("create_new_table", self, "on_create_table")
 	$new_table_dlg.connect("create_new_table", self, "on_table_name_edited")
 	$new_table_dlg.set_table_id(table_id)
@@ -67,7 +73,7 @@ func on_edit_table(table_id : int, table_name : String) -> void:
 
 # called when the user presses the "delete_table" from the "tables/list/table"
 func on_delete_table(table_id : int) -> void:
-	print("cDbEditor::on_delete_table(" + str(table_id) + ")")
+	print("GDDBEditor::on_delete_table(" + str(table_id) + ")")
 	$delete_table_dlg.connect("delete_table", self, "on_delete_table_accepted")
 	$delete_table_dlg.set_table_id(table_id)
 	$delete_table_dlg.popup_centered()
@@ -79,13 +85,13 @@ func on_table_name_edited(table_name : String) -> void:
 		$error_dlg.set_text("Table with the name \"" + table_name + "\" already exists" )
 		$error_dlg.popup_centered()
 		return
-	print("cDbEditor::on_table_name_edited(" + str(table_id) + ", " + table_name + ")")
+	print("GDDBEditor::on_table_name_edited(" + str(table_id) + ", " + table_name + ")")
 	$new_table_dlg.disconnect("create_new_table", self, "on_table_name_edited")
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 	$main_window/tables_panel/tables_list.edit_table_name(table_id, table_name)
 
 func on_delete_table_accepted():
-	print("cDbEditor::on_delete_table_accepted()")
+	print("GDDBEditor::on_delete_table_accepted()")
 	var table_id = $delete_table_dlg.get_table_id()
 	m_database.delete_table(table_id)
 	$main_window/tables_panel/tables_list.delete_table(table_id)

@@ -1,3 +1,9 @@
+"""
+class GDDBConfirmNewDBDlg
+"""
+
+class_name GDDBConfirmNewDBDlg
+
 tool
 extends AcceptDialog
 

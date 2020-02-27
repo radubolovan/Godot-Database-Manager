@@ -1,3 +1,9 @@
+"""
+class GDDBTableCell
+"""
+
+class_name GDDBTableCell
+
 tool
 extends LineEdit
 

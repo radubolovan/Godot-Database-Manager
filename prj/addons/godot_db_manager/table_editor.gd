@@ -1,11 +1,11 @@
 """
-class cTableEditor
+class GDDBTableEditor
 """
+
+class_name GDDBTableEditor
 
 tool
 extends Control
-
-class_name cTableEditor
 
 signal new_data_row
 signal edit_data
@@ -26,7 +26,7 @@ func _ready() -> void:
 # called when the new_property button is pressed
 func on_new_property_btn_pressed() -> void:
 	if(null == m_table):
-		print("ERROR: cTableEditor::on_new_property_btn_pressed() - m_table is null")
+		print("ERROR: GDDBTableEditor::on_new_property_btn_pressed() - m_table is null")
 		return
 	var prop_idx = m_table.get_props_count()
 	var prop_type = db_types.e_prop_type_int
@@ -69,7 +69,7 @@ func fill_data() -> void:
 	pass
 
 func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> void:
-	# print("cTableEditor::on_edit_property(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
+	# print("GDDBTableEditor::on_edit_property(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
 	# edit prop in the table
 	m_table.edit_prop(prop_id, prop_type, prop_name)
 
@@ -79,7 +79,7 @@ func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> voi
 			m_data_props[idx].set_text(prop_name)
 
 func on_delete_property(prop_id : int) -> void:
-	# print("cTableEditor::on_delete_property(" + str(prop_id) + ")")
+	# print("GDDBTableEditor::on_delete_property(" + str(prop_id) + ")")
 	# deletes property from table; also all data by this property
 	m_table.delete_prop(prop_id)
 

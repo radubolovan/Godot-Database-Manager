@@ -1,6 +1,8 @@
 """
-DB Data class
+GDDBData class
 """
+
+class_name GDDBData
 
 extends Object
 

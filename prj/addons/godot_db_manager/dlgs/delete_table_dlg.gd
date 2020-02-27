@@ -1,3 +1,9 @@
+"""
+class GDDBDeleteTableDlg
+"""
+
+class_name GDDBDeleteTableDlg
+
 tool
 extends WindowDialog
 

@@ -1,3 +1,9 @@
+"""
+class GDDBDataLabel
+"""
+
+class_name GDDBDataLabel
+
 tool
 extends Label
 

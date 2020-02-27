@@ -1,3 +1,9 @@
+"""
+class GDDBNewDBDlg
+"""
+
+class_name GDDBNewDBDlg
+
 tool
 extends WindowDialog
 
@@ -36,7 +42,7 @@ func on_text_changed(new_text: String) -> void:
 
 # called when the user presses the ENTER key
 func on_text_confirmed(text : String) -> void:
-	# print("cNewDBDlg::on_text_confirmed(" + text + ")")
+	# print("GDDBNewDBDlg::on_text_confirmed(" + text + ")")
 	if(m_current_db_name.empty()):
 		return
 	handle_db_name()

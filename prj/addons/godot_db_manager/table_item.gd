@@ -1,3 +1,9 @@
+"""
+class GDDBTableItem
+"""
+
+class_name GDDBTableItem
+
 tool
 extends Control
 
@@ -33,7 +39,7 @@ func set_selected(select : bool) -> void :
 
 # sets the table name
 func set_table_name(name : String) -> void:
-	# print("cTableItem::set_table_name(" + name + ")")
+	# print("GDDBTableItem::set_table_name(" + name + ")")
 	m_table_name = name
 	$elems/table_name.set_text(m_table_name)
 
@@ -43,15 +49,15 @@ func get_table_name() -> String:
 
 # called when the user presses the edit_table button
 func on_edit_table_btn_pressed():
-	# print("cTableItem::on_edit_table_btn_pressed")
+	# print("GDDBTableItem::on_edit_table_btn_pressed")
 	emit_signal("edit_table", m_table_id, m_table_name)
 
 # called when the user presses the delete_table button
 func on_delete_table_btn_pressed():
-	# print("cTableItem::on_delete_table_btn_pressed")
+	# print("GDDBTableItem::on_delete_table_btn_pressed")
 	emit_signal("delete_table", m_table_id)
 
 # called when select_btn is pressed
 func on_select_btn_pressed() -> void:
-	# print("cTableItem::on_select_btn_pressed()")
+	# print("GDDBTableItem::on_select_btn_pressed()")
 	emit_signal("select_item", m_table_id)

@@ -1,5 +1,7 @@
 tool
-extends Node
+extends Object
+
+class_name GDDBTypes
 
 enum {
 	e_prop_type_bool = 0

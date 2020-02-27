@@ -1,3 +1,9 @@
+"""
+class GDDBTableProperty
+"""
+
+class_name GDDBTableProperty
+
 tool
 extends Control
 

@@ -1,3 +1,9 @@
+"""
+class GDDBTablesList
+"""
+
+class_name GDDBTablesList
+
 tool
 extends Control
 
@@ -30,12 +36,12 @@ func create_table(db_table) -> void:
 
 # Called when the user presses the "edit_table" button from the tables_list/table
 func on_edit_table_name(table_id : int, table_name : String) -> void:
-	print("cTableList::on_edit_table_name(" + str(table_id) + ", " + table_name + ")")
+	# print("GDDBTablesList::on_edit_table_name(" + str(table_id) + ", " + table_name + ")")
 	emit_signal("edit_table_name", table_id, table_name)
 
 # Called when the user presses the "delete_table" button from the tables_list/table
 func on_delete_table(table_id : int) -> void:
-	print("cTableList::on_delete_table(" + str(table_id) + ")")
+	# print("GDDBTablesList::on_delete_table(" + str(table_id) + ")")
 	emit_signal("delete_table", table_id)
 
 # edits the table name

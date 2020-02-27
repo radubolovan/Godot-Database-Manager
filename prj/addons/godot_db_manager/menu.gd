@@ -1,3 +1,9 @@
+"""
+class GDDBMenu
+"""
+
+class_name GDDBMenu
+
 tool
 extends Control
 

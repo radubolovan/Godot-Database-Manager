@@ -1,3 +1,9 @@
+"""
+class GDDBNewDBDlg
+"""
+
+class_name GDDBNewTableDlg
+
 tool
 extends WindowDialog
 

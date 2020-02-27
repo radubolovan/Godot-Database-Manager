@@ -1,3 +1,9 @@
+"""
+class GDDBManager
+"""
+
+class_name GDDBManager
+
 tool
 extends EditorPlugin
 

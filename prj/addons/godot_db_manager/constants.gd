@@ -1,3 +1,9 @@
+"""
+class GDDBConstants
+"""
+
+class_name GDDBConstants
+
 tool
 extends Node
 

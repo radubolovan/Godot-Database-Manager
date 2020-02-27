@@ -1,3 +1,9 @@
+"""
+class GDDBTablesHeader
+"""
+
+class_name GDDBTablesHeader
+
 tool
 extends Control
 

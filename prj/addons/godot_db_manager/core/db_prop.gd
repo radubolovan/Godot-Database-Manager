@@ -1,6 +1,8 @@
 """
-DB Property class
+GDDBProperty class
 """
+
+class_name GDDBProperty
 
 extends Object
 
