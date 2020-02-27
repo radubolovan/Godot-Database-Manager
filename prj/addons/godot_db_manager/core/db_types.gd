@@ -1,5 +1,5 @@
 tool
-extends Object
+extends Node
 
 class_name GDDBTypes
 
