@@ -10,6 +10,8 @@ extends Tabs
 var m_name = ""
 var m_database = null
 
+var m_filepath = ""
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	set_tab_align(Tabs.ALIGN_LEFT)
@@ -18,6 +20,7 @@ func _ready() -> void:
 	$main_window/tables_panel/tables_list.connect("add_table", self, "on_add_table")
 	$main_window/tables_panel/tables_list.connect("edit_table_name", self, "on_edit_table")
 	$main_window/tables_panel/tables_list.connect("delete_table", self, "on_delete_table")
+	$main_window/tables_panel/tables_list.connect("select_table", self, "on_select_table")
 
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 
@@ -90,8 +93,15 @@ func on_table_name_edited(table_name : String) -> void:
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 	$main_window/tables_panel/tables_list.edit_table_name(table_id, table_name)
 
+# called when the user confirms to delete a table
 func on_delete_table_accepted():
-	print("GDDBEditor::on_delete_table_accepted()")
+	# print("GDDBEditor::on_delete_table_accepted()")
 	var table_id = $delete_table_dlg.get_table_id()
 	m_database.delete_table(table_id)
 	$main_window/tables_panel/tables_list.delete_table(table_id)
+
+# called when the user selects a table from the table_list
+func on_select_table(table_id):
+	var table = m_database.get_table_by_id(table_id)
+	if(null != table):
+		$main_window/tables_panel/table.set_table(table)

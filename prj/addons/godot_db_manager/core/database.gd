@@ -113,12 +113,20 @@ func get_table_at(idx: int) -> Object :
 		return null
 	return m_tables[idx]
 
-# returns a table by its name or null if the name of the table doesn's exist
-func get_table_by_name(name: String) -> Object :
+# returns a table by its id or null if a table with id doesn's exist
+func get_table_by_id(table_id: int) -> Object :
 	for idx in range(0, m_tables.size()):
-		if(m_tables[idx].get_table_name() == name):
+		if(m_tables[idx].get_table_id() == table_id):
 			return m_tables[idx]
-	print("ERROR: cannot obtain table with name \"" + name + "\"")
+	print("ERROR: cannot obtain table with id \"" + str(table_id) + "\"")
+	return null
+
+# returns a table by its name or null if the name of the table doesn's exist
+func get_table_by_name(table_name: String) -> Object :
+	for idx in range(0, m_tables.size()):
+		if(m_tables[idx].get_table_name() == table_name):
+			return m_tables[idx]
+	print("ERROR: cannot obtain table with name \"" + table_name + "\"")
 	return null
 
 # deletes all the tables

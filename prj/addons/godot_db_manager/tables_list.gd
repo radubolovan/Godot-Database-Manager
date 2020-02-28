@@ -10,6 +10,7 @@ extends Control
 signal add_table
 signal edit_table_name
 signal delete_table
+signal select_table
 
 var m_tables = []
 
@@ -63,3 +64,4 @@ func delete_table(table_id : int) -> void:
 func on_select_item(table_id : int) -> void:
 	for idx in range(0, m_tables.size()):
 		m_tables[idx].set_selected(m_tables[idx].get_table_id() == table_id)
+	emit_signal("select_table", table_id)

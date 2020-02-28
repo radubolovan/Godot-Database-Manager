@@ -227,6 +227,14 @@ func get_data_by_row_idx(row_idx):
 		print("ERROR: GDDBDTable::get_data_by_row_idx(" + str(row_idx) + ")")
 	return data
 
+# returns an array of data defined by row idx
+func get_row_by_idx(row_idx):
+	var row = []
+	for idx in range(m_data.size()):
+		if(m_data[idx].get_row_idx() == row_idx):
+			row.push_back(m_data[idx])
+	return row
+
 # returns an array of data by a property name and a data value
 # similar to: select * from users where user_id = 1
 func get_row_by_data(prop_name : String, data_value : String) -> Array:
