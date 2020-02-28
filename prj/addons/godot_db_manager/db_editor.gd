@@ -24,6 +24,8 @@ func _ready() -> void:
 
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 
+	$delete_table_dlg.connect("delete_table", self, "on_delete_table_accepted")
+
 	$error_dlg.connect("confirmed", self, "on_retry_create_table")
 
 # overrides the member from base class
@@ -77,7 +79,6 @@ func on_edit_table(table_id : int, table_name : String) -> void:
 # called when the user presses the "delete_table" from the "tables/list/table"
 func on_delete_table(table_id : int) -> void:
 	print("GDDBEditor::on_delete_table(" + str(table_id) + ")")
-	$delete_table_dlg.connect("delete_table", self, "on_delete_table_accepted")
 	$delete_table_dlg.set_table_id(table_id)
 	$delete_table_dlg.popup_centered()
 
