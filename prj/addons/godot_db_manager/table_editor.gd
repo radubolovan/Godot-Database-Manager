@@ -20,8 +20,8 @@ var m_data = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$tabs/structure/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
-	$tabs/data/data_holder/data_header/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
-	$tabs/data/data_holder/data_header/add_data_btn.set_disabled(true)
+	$tabs/data/data_holder/btns/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
+	$tabs/data/data_holder/btns/add_data_btn.set_disabled(true)
 
 # called when the new_property button is pressed
 func on_new_property_btn_pressed() -> void:
@@ -37,7 +37,7 @@ func on_new_property_btn_pressed() -> void:
 	add_prop_to_data(prop_id, prop_name)
 
 	# enable add data btn
-	$tabs/data/data_holder/data_header/add_data_btn.set_disabled(false)
+	$tabs/data/data_holder/btns/add_data_btn.set_disabled(false)
 
 func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -> void:
 	# print("GDDBTableEditor::add_prop_to_structure(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
@@ -140,3 +140,6 @@ func on_delete_property(prop_id : int) -> void:
 			m_structure_props[idx].queue_free()
 			m_structure_props.remove(idx)
 			break
+
+func on_edit_data(prop_id : int, row_idx : int, data : String):
+	m_table.edit_data(prop_id, row_idx, data)
