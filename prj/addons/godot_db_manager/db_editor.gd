@@ -24,7 +24,7 @@ func _ready() -> void:
 
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 
-	$delete_table_dlg.connect("delete_table", self, "on_delete_table_accepted")
+	$delete_table_dlg.connect("delete_table", self, "on_confirm_delete_table")
 
 	$error_dlg.connect("confirmed", self, "on_retry_create_table")
 
@@ -69,7 +69,7 @@ func on_retry_create_table() -> void:
 
 # called when the user presses the "edit_table_name" from the "tables/list/table"
 func on_edit_table(table_id : int, table_name : String) -> void:
-	print("GDDBEditor::on_edit_table(" + str(table_id) + ", " + table_name + ")")
+	# print("GDDBEditor::on_edit_table(" + str(table_id) + ", " + table_name + ")")
 	$new_table_dlg.disconnect("create_new_table", self, "on_create_table")
 	$new_table_dlg.connect("create_new_table", self, "on_table_name_edited")
 	$new_table_dlg.set_table_id(table_id)
@@ -78,8 +78,10 @@ func on_edit_table(table_id : int, table_name : String) -> void:
 
 # called when the user presses the "delete_table" from the "tables/list/table"
 func on_delete_table(table_id : int) -> void:
-	print("GDDBEditor::on_delete_table(" + str(table_id) + ")")
+	# print("GDDBEditor::on_delete_table(" + str(table_id) + ")")
+	var table = m_database.get_table_by_id(table_id)
 	$delete_table_dlg.set_table_id(table_id)
+	$delete_table_dlg.set_table_name(table.get_table_name())
 	$delete_table_dlg.popup_centered()
 
 # called when the user accepts the name of the table in the "new_table_dlg"
@@ -89,17 +91,25 @@ func on_table_name_edited(table_name : String) -> void:
 		$error_dlg.set_text("Table with the name \"" + table_name + "\" already exists" )
 		$error_dlg.popup_centered()
 		return
-	print("GDDBEditor::on_table_name_edited(" + str(table_id) + ", " + table_name + ")")
+	# print("GDDBEditor::on_table_name_edited(" + str(table_id) + ", " + table_name + ")")
 	$new_table_dlg.disconnect("create_new_table", self, "on_table_name_edited")
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 	$main_window/tables_panel/tables_list.edit_table_name(table_id, table_name)
 
 # called when the user confirms to delete a table
-func on_delete_table_accepted():
-	# print("GDDBEditor::on_delete_table_accepted()")
+func on_confirm_delete_table():
+	# print("GDDBEditor::on_confirm_delete_table()")
 	var table_id = $delete_table_dlg.get_table_id()
+	var selected_table = $main_window/tables_panel/tables_list.get_selected_item()
+	if(null == selected_table):
+		return
+	var selected_table_id = selected_table.get_table_id()
 	m_database.delete_table(table_id)
 	$main_window/tables_panel/tables_list.delete_table(table_id)
+	if(selected_table_id == table_id):
+		$main_window/tables_panel/tables_list.select_item_at(0)
+		var table = m_database.get_table_at(0)
+		$main_window/tables_panel/table.set_table(table)
 
 # called when the user selects a table from the table_list
 func on_select_table(table_id):

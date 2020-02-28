@@ -101,7 +101,8 @@ func fill_properties() -> void:
 
 # fills the interface with current table's data
 func fill_data() -> void:
-	for idx in range(0, m_table.get_rows_count()):
+	var rows_count = m_table.get_rows_count()
+	for idx in range(0, rows_count):
 		var row = HBoxContainer.new()
 		$tabs/data/data_holder/data_container.add_child(row)
 		var data_row = m_table.get_row_by_idx(idx)
@@ -124,6 +125,7 @@ func clear_current_layout():
 		var row = $tabs/data/data_holder/data_container.get_child(idx)
 		for jdx in range(0, row.get_child_count()):
 			row.get_child(jdx).queue_free()
+		row.queue_free()
 
 	# clear properties from data tab
 	for idx in range(0, $tabs/data/data_holder/data_header.get_child_count()):

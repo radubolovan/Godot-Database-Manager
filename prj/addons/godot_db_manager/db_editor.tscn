@@ -47,6 +47,5 @@ rect_min_size = Vector2( 1000, 584 )
 [node name="new_table_dlg" parent="." instance=ExtResource( 3 )]
 
 [node name="delete_table_dlg" parent="." instance=ExtResource( 6 )]
-visible = false
 
 [node name="error_dlg" parent="." instance=ExtResource( 5 )]

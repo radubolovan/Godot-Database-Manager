@@ -62,6 +62,23 @@ func delete_table(table_id : int) -> void:
 
 # called when the user presses an item
 func on_select_item(table_id : int) -> void:
+	select_item_by_id(table_id)
+	emit_signal("select_table", table_id)
+
+# select an item by index
+func select_item_at(table_idx : int) -> void:
+	for idx in range(0, m_tables.size()):
+		m_tables[idx].set_selected(idx == table_idx)
+
+# select an item by id
+func select_item_by_id(table_id : int) -> void:
 	for idx in range(0, m_tables.size()):
 		m_tables[idx].set_selected(m_tables[idx].get_table_id() == table_id)
-	emit_signal("select_table", table_id)
+
+# returns the selected element
+func get_selected_item():
+	for idx in range(0, m_tables.size()):
+		if(m_tables[idx].is_selected()):
+			return m_tables[idx]
+	print("ERROR: GDDBTablesList::get_selected_item() - there is no selected element")
+	return null

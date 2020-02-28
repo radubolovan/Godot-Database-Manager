@@ -37,6 +37,9 @@ func set_selected(select : bool) -> void :
 	else:
 		$select.hide()
 
+func is_selected():
+	return m_is_selected
+
 # sets the table name
 func set_table_name(name : String) -> void:
 	# print("GDDBTableItem::set_table_name(" + name + ")")
