@@ -119,6 +119,16 @@ func on_delete_property(prop_id : int) -> void:
 			m_data_props.remove(idx)
 			break
 
+	# delete cells from data tab
+	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/data_holder/data_container.get_child(idx)
+		for jdx in range(0, row.get_child_count()):
+			var cell = row.get_child(jdx)
+			if(cell.get_prop_id() == prop_id):
+				cell.queue_free()
+				break
+
+	# delete data
 	for idx in range(0, m_data.size()):
 		if(m_data[idx].get_prop_id() == prop_id):
 			m_data[idx].queue_free()
