@@ -24,7 +24,11 @@ var m_db_name : String = ""
 # tables in the database
 var m_tables : Array = []
 
+# if the database is not saved, it is dirty
 var m_is_dirty : bool = false
+
+# the path of the database
+var m_db_filepath = ""
 
 # sets the id of the database
 func set_db_id(db_id : int) -> void :
@@ -48,12 +52,19 @@ func set_db_name(name : String) -> bool :
 func get_db_name() -> String :
 	return m_db_name
 
+# sets the database file path
+func set_db_filepath(filepath : String) -> void :
+	m_db_filepath = filepath
+
 # returns the path of the database
 func get_db_path() -> String :
+	return m_db_filepath
+	"""
 	var path = "res://" + m_db_name
 	if(m_db_type == e_db_type_json):
 		path += ".json"
 	return path
+	"""
 
 # checks if a table with the name "table_name" can be added into database
 func can_add_table(table_name : String, table_id : int = -1):
