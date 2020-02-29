@@ -59,12 +59,6 @@ func set_db_filepath(filepath : String) -> void :
 # returns the path of the database
 func get_db_path() -> String :
 	return m_db_filepath
-	"""
-	var path = "res://" + m_db_name
-	if(m_db_type == e_db_type_json):
-		path += ".json"
-	return path
-	"""
 
 # checks if a table with the name "table_name" can be added into database
 func can_add_table(table_name : String, table_id : int = -1):
@@ -171,10 +165,14 @@ func is_dirty():
 # serialization
 func save_db() -> void :
 	if(m_db_name.empty()):
-		print("ERROR: save_db() - current database doen't have a name")
+		print("ERROR: save_db() - current database doesn't have a name")
 		return
 
-	print("GDDatabase::save_db()")
+	if(m_db_filepath.empty()):
+		print("ERROR: save_db() - current database doesn't have a path file")
+		return
+
+	print("GDDatabase::save_db() - " + m_db_name + " to: " + m_db_filepath)
 	var text = "{"
 	text += "\"tables\":["
 	for idx in range(0, m_tables.size()):
@@ -207,9 +205,11 @@ func save_db() -> void :
 	text += "]}"
 
 	var save_file = File.new()
-	save_file.open(get_db_path(), File.WRITE)
+	save_file.open(m_db_filepath, File.WRITE)
 	save_file.store_string(text)
 	save_file.close()
+
+	set_dirty(false)
 
 # deserialization
 func load_db() -> void :

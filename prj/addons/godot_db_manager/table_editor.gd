@@ -173,5 +173,10 @@ func on_delete_property(prop_id : int) -> void:
 			prop.queue_free()
 			break
 
+	# refresh the add data button
+	var props_count = m_table.get_props_count()
+	if(props_count == 0):
+		$tabs/data/data_holder/btns/add_data_btn.set_disabled(true)
+
 func on_edit_data(prop_id : int, row_idx : int, data : String):
 	m_table.edit_data(prop_id, row_idx, data)

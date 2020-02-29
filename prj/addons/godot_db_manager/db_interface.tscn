@@ -48,11 +48,14 @@ margin_right = 0.469986
 margin_bottom = -0.0800018
 
 [node name="load_db_dlg" type="FileDialog" parent="dlg"]
-margin_right = 601.0
-margin_bottom = 365.0
+visible = true
+anchor_right = 0.349
+anchor_bottom = 0.418
+margin_right = -0.309998
+margin_bottom = 0.209991
 window_title = "Open a File"
 mode = 0
-filters = PoolStringArray( "*.JSON" )
+filters = PoolStringArray( "*.json" )
 __meta__ = {
 "_edit_use_anchors_": false
 }

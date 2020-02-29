@@ -50,14 +50,3 @@ rect_min_size = Vector2( 1000, 584 )
 visible = false
 
 [node name="error_dlg" parent="." instance=ExtResource( 5 )]
-
-[node name="save_as_dlg" type="FileDialog" parent="."]
-anchor_right = 0.375
-anchor_bottom = 0.467
-margin_right = -0.00012207
-margin_bottom = -0.249969
-popup_exclusive = true
-window_title = "Save database as"
-__meta__ = {
-"_edit_use_anchors_": false
-}

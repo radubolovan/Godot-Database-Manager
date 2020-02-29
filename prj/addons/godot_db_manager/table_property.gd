@@ -47,10 +47,7 @@ func get_prop_id() -> int:
 func set_prop_type(type : int) -> void:
 	# print("GDDBTableProperty::set_prop_type(" + db_types.get_data_name(type) + ")")
 	m_type = type
-	if(m_type == 0): # integer
-		$align/prop_type.select(0)
-	elif(m_type == 1): # string
-		$align/prop_type.select(1)
+	$align/prop_type.select(m_type)
 
 # returns property type
 func get_prop_type() -> int:

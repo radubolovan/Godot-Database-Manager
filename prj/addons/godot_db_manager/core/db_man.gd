@@ -77,3 +77,19 @@ func can_add_db(db_name : String) -> bool :
 			print("ERROR: Database with name \"" + db_name + "\" already exists")
 			return false
 	return true
+
+# returns the current database
+func get_current_db() -> Object:
+	if(m_current_database_id == g_constants.c_invalid_id):
+		print("ERROR: there is no current database")
+		return null
+	for idx in range(0, m_databases.size()):
+		if(m_databases[idx].get_db_id() == m_current_database_id):
+			return m_databases[idx]
+	print("ERROR: database id not found")
+	return null
+
+# saves the current database
+func save_current_db():
+	var db = get_current_db()
+	db.save_db()

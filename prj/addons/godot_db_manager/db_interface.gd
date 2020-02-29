@@ -26,6 +26,9 @@ func _ready() -> void:
 	# new database connections
 	$dlg/new_db_dlg.connect("create_new_db", self, "on_new_database")
 
+	# save / load connections
+	$dlg/load_db_dlg.connect("file_selected", self, "on_file_selected")
+
 # called when creating a new database from the menu
 func on_menu_new_database() -> void:
 	$dlg/new_db_dlg/v_layout/db_info/db_edt.set_text("")
@@ -37,11 +40,24 @@ func on_menu_load_database() -> void:
 
 # called when saving a database from the menu
 func on_menu_save_database() -> void:
-	print("on_menu_save_database")
+	# print("on_menu_save_database")
+	var db = m_db_manager.get_current_db()
+	if(null == db):
+		$dlg/error_dlg.set_text("There is no current database")
+		$dlg/error_dlg.popup_centered()
+		return
+	var db_path = db.get_db_path()
+	if(db_path.empty()):
+		on_menu_save_database_as()
+	else:
+		save_database(db)
 
 # called when saving a database as another from the menu
 func on_menu_save_database_as():
-	print("on_menu_save_database_as")
+	# print("on_menu_save_database_as")
+	$dlg/load_db_dlg.set_mode(FileDialog.MODE_SAVE_FILE)
+	$dlg/load_db_dlg.set_title("Save Database As ...")
+	$dlg/load_db_dlg.popup_centered()
 
 # called when adding a new database
 func on_new_database(db_name : String) -> void:
@@ -67,3 +83,26 @@ func on_new_database(db_name : String) -> void:
 # called selecting a tab
 func on_tab_changed(tab_idx : int) -> void :
 	m_db_manager.set_current_db_at(tab_idx)
+
+# called when selecting a file from save / load dialog
+func on_file_selected(filepath : String) -> void:
+	if($dlg/load_db_dlg.get_mode() == FileDialog.MODE_SAVE_FILE):
+		save_database_as(filepath)
+	elif($dlg/load_db_dlg.get_mode() == FileDialog.MODE_OPEN_FILE):
+		load_database(filepath)
+
+# saves a database to a given file path
+func save_database_as(filepath : String) -> void:
+	# print("GDDBInterface::save_database_as(" + filepath + ")")
+	var db = m_db_manager.get_current_db()
+	db.set_db_filepath(filepath)
+	save_database(db)
+
+# save the current database
+func save_database(db):
+	db.save_db()
+	var database = $dlg/databases.get_current_tab_control()
+	database.set_dirty(false)
+
+func load_database(filepath : String) -> void:
+	print("GDDBInterface::load_database(" + filepath + ")")
