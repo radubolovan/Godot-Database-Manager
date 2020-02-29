@@ -43,8 +43,12 @@ func on_menu_save_database_as():
 func on_new_database(db_name : String) -> void:
 	var tmp_name = db_name.to_lower()
 	var db_id = m_db_manager.add_database(db_name)
-	var db = m_db_manager.get_db_by_id(db_id)
+	if(db_id == g_constants.c_invalid_id):
+		$dlg/error_dlg.set_text("Database with name \"" + db_name + "\" already exists")
+		$dlg/error_dlg.popup_centered()
+		return
 
+	var db = m_db_manager.get_db_by_id(db_id)
 	# print("new DB added: " + str(db))
 
 	var db_interface = load(g_constants.c_addon_main_path + "db_editor.tscn").instance()
