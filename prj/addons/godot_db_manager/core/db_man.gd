@@ -18,11 +18,20 @@ func add_database(db_name : String) -> int:
 	db.set_db_id(db_id)
 	db.set_db_name(db_name)
 	m_databases.push_back(db)
-	m_current_database_id = db_id
+	if(m_databases.size() == 1):
+		m_current_database_id = db_id
 	return m_current_database_id
 
-# sets the current_database id
-func set_current_db_id(db_id):
+# sets the current_database at index
+func set_current_db_at(idx : int) -> void:
+	if(idx < 0 || idx >= m_databases.size()):
+		print("ERROR: GDDBMan::set_current_db_at(" + str(idx) + ") - invalid index")
+		return
+	# print("GDDBMan::set_current_db_at(" + str(idx) + ") - db: " + str(m_databases[idx]))
+	m_current_database_id = m_databases[idx].get_db_id()
+
+# sets the current_database by id
+func set_current_db_id(db_id : int) -> void:
 	m_current_database_id = db_id
 
 # returns the current database id

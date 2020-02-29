@@ -20,6 +20,9 @@ func _ready() -> void:
 	$dlg/menu.connect("save_database", self, "on_menu_save_database")
 	$dlg/menu.connect("save_database_as", self, "on_menu_save_database_as")
 
+	# databases connections
+	$dlg/databases.connect("tab_changed", self, "on_tab_changed")
+
 	# new database connections
 	$dlg/new_db_dlg.connect("create_new_db", self, "on_new_database")
 
@@ -40,6 +43,7 @@ func on_menu_save_database() -> void:
 func on_menu_save_database_as():
 	print("on_menu_save_database_as")
 
+# called when adding a new database
 func on_new_database(db_name : String) -> void:
 	var tmp_name = db_name.to_lower()
 	var db_id = m_db_manager.add_database(db_name)
@@ -59,3 +63,7 @@ func on_new_database(db_name : String) -> void:
 
 	$dlg/menu.enable_file_save(true)
 	$dlg/menu.enable_file_save_as(true)
+
+# called selecting a tab
+func on_tab_changed(tab_idx : int) -> void :
+	m_db_manager.set_current_db_at(tab_idx)

@@ -42,7 +42,6 @@ margin_bottom = -0.165001
 visible = false
 
 [node name="error_dlg" parent="dlg" instance=ExtResource( 3 )]
-visible = true
 anchor_right = 0.187
 anchor_bottom = 0.136
 margin_right = 0.469986
