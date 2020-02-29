@@ -1,5 +1,6 @@
 2.0 features:
 	- add default font - DONE
+
 	- improve menu - DONE
 		- File
 			- New Database - DONE
@@ -8,6 +9,7 @@
 			- Save as ... - DONE
 		- Options
 			- Autosave on close (checkbox) - DONE
+
 	- improve layout
 		- add multiple databases support
 			- make the main_window as TabContainer - DONE
@@ -38,7 +40,10 @@
 								- game_data: Button; Open a "Link to data" dialog; link to other table's data <- add DB relationship support
 									- make LinkToDataDialog
 										- brouse database tables
+
 	- improve "new DB" dialog:
 		- handle DB name properly - DONE
 			- check for special characters - DONE
 			- implement unicode support (if not already supported)
+
+	- add db_man.gd as a singleton that will manage all databases - DONE

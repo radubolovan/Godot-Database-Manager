@@ -108,7 +108,7 @@ func delete_prop(prop_id : int) -> void :
 		m_data.push_back(tmp_data[idx])
 
 # generates a new table id
-func generate_new_prop_id():
+func generate_new_prop_id() -> int:
 	if(m_props.size() == 0):
 		return 0
 	return m_props[m_props.size()-1].get_prop_id() + 1
@@ -119,7 +119,7 @@ func get_props_count() -> int :
 
 # returns the property at index or null if the index is out of bounds
 func get_prop_at(idx : int) -> Object :
-	if(idx < 0 || idx > m_props.size()-1):
+	if(idx < 0 || idx >= m_props.size()):
 		print("ERROR: GDDBDTable::get_prop_id( " + str(idx) + " ) - index out of bounds; max properties: " + str(m_props.size()))
 		return null
 	return m_props[idx]

@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_db_manager/db_interface.gd"
 }, {
+"base": "Object",
+"class": "GDDBMan",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/core/db_man.gd"
+}, {
 "base": "EditorPlugin",
 "class": "GDDBManager",
 "language": "GDScript",
@@ -117,6 +122,7 @@ _global_script_class_icons={
 "GDDBDeleteTableDlg": "",
 "GDDBEditor": "",
 "GDDBInterface": "",
+"GDDBMan": "",
 "GDDBManager": "",
 "GDDBMenu": "",
 "GDDBNewDBDlg": "",

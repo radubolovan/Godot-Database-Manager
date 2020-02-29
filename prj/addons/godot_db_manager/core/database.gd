@@ -15,11 +15,22 @@ enum {
 # database type
 var m_db_type = e_db_type_json
 
+# the id of the database
+var m_db_id = g_constants.c_invalid_id
+
 # the name of the database
 var m_db_name : String = ""
 
 # tables in the database
 var m_tables : Array = []
+
+# sets the id of the database
+func set_db_id(db_id : int) -> void :
+	m_db_id = db_id
+
+# returns the database id
+func get_db_id() -> int :
+	return m_db_id
 
 # set the name of the database
 # the name of the database should not contain special characters
