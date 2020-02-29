@@ -24,6 +24,8 @@ var m_db_name : String = ""
 # tables in the database
 var m_tables : Array = []
 
+var m_is_dirty : bool = false
+
 # sets the id of the database
 func set_db_id(db_id : int) -> void :
 	m_db_id = db_id
@@ -146,6 +148,14 @@ func clear() -> void :
 	for idx in range(0, m_tables.size()):
 		m_tables[idx].clear()
 	m_tables.clear()
+
+# sets the database dirty; it is not saved
+func set_dirty(dirty):
+	m_is_dirty = dirty
+
+# returns true if a database is dirty (should be saved), false otherwise
+func is_dirty():
+	return m_is_dirty
 
 # serialization
 func save_db() -> void :

@@ -17,6 +17,7 @@ func add_database(db_name : String) -> int:
 	var db = load(g_constants.c_addon_main_path + "core/database.gd").new()
 	db.set_db_id(db_id)
 	db.set_db_name(db_name)
+	m_databases.push_back(db)
 	m_current_database_id = db_id
 	return m_current_database_id
 

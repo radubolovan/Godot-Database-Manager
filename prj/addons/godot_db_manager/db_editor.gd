@@ -36,6 +36,7 @@ func set_name(ctrl_name) -> void:
 # sets the database; for easy access
 func set_database(db) -> void:
 	m_database = db
+	set_dirty(true)
 	$main_window/tables_panel/table.hide()
 
 # sets the database to be dirty; should be saved
