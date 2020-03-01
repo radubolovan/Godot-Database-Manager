@@ -14,7 +14,7 @@ How to install in your project:
 Contributing to the project:
 1) Reporting bugs:
 Here is a template
-- Title: should be explicit as much as possible. Add "[BUG]" tag in the title
+- Title: should be explicit as much as possible. Add "[BUG]" and "[Version]" tags in the title
 - Description: must NOT be blank; add as much words as possible explaining the bug and add reproduction steps
 - Add links to screenshots / movies if possible.
 
