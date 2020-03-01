@@ -60,11 +60,11 @@ func test_load_database() -> void:
 	# load database
 	m_database.load_db()
 
-	# get tables count
+	# Example 1: get tables count
 	var tables_count = m_database.get_tables_count()
 	print("Tables count : " + str(tables_count))
 
-	# dump the database
+	# Example 2: dump the database
 	for idx in range(0, tables_count):
 		var table = m_database.get_table_at(idx)
 		print("====================")
@@ -87,3 +87,11 @@ func test_load_database() -> void:
 			for kdx in range(0, data_count):
 				print("Data: " + row[kdx].get_data())
 		print("====================")
+
+	# Example 3: filter data; get the "Gold" from "resources" table
+	print("====================")
+	var resources_table = m_database.get_table_by_name("resources")
+	var gold = resources_table.get_row_by_data("name", "Gold")
+	for idx in range(0, gold.size()):
+		print(gold[idx].get_data())
+	print("====================")
