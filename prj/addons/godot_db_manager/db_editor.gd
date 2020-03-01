@@ -35,6 +35,7 @@ func set_name(ctrl_name) -> void :
 
 # sets the database; for easy access
 func set_database(db) -> void :
+	# print("GDDBEditor::set_database(" + db.get_db_name() + ") to " + get_name())
 	m_database = db
 	set_dirty(true)
 	$main_window/tables_panel/table.hide()
@@ -123,3 +124,16 @@ func on_select_table(table_id : int) -> void :
 	var table = m_database.get_table_by_id(table_id)
 	if(null != table):
 		$main_window/tables_panel/table.set_table(table)
+
+# saves current database
+func save_database() -> void:
+	m_database.save_db()
+	set_dirty(false)
+
+# returns true if the database can be saved, otherwise false
+func can_save_database() -> bool:
+	return !m_database.get_db_filepath().empty()
+
+# sets the database's path
+func set_database_filepath(filepath : String) -> void:
+	m_database.set_db_filepath(filepath)

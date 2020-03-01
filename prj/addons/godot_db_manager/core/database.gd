@@ -57,7 +57,7 @@ func set_db_filepath(filepath : String) -> void :
 	m_db_filepath = filepath
 
 # returns the path of the database
-func get_db_path() -> String :
+func get_db_filepath() -> String :
 	return m_db_filepath
 
 # checks if a table with the name "table_name" can be added into database
@@ -76,6 +76,8 @@ func can_add_table(table_name : String, table_id : int = -1):
 func add_table(table_name : String) -> Object :
 	if(!can_add_table(table_name)):
 		return null
+
+	# print("GDDatabase::add_table(" + table_name + ") to \"" + m_db_name + "\" database")
 
 	var table_id = generate_new_table_id()
 
@@ -172,8 +174,9 @@ func save_db() -> void :
 		print("ERROR: save_db() - current database doesn't have a path file")
 		return
 
-	print("GDDatabase::save_db() - " + m_db_name + " to: " + m_db_filepath)
+	# print("GDDatabase::save_db() - " + m_db_name + " to: " + m_db_filepath)
 	var text = "{"
+	text += "\"name\":\"" + m_db_name + "\","
 	text += "\"tables\":["
 	for idx in range(0, m_tables.size()):
 		text += "{"
@@ -218,7 +221,7 @@ func load_db() -> void :
 		return
 
 	var file = File.new()
-	file.open(get_db_path(), File.READ)
+	file.open(get_db_filepath(), File.READ)
 	var content = file.get_as_text()
 	file.close()
 	var dictionary = JSON.parse(content).result

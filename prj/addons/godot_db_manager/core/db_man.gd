@@ -7,36 +7,19 @@ class_name GDDBMan
 extends Object
 
 var m_databases = []
-var m_current_database_id = g_constants.c_invalid_id
 
 # adds a database
 func add_database(db_name : String) -> int:
 	if(!can_add_db(db_name)):
+		print("ERROR: GDDBMan::add_database(" + db_name + ") already exists")
 		return g_constants.c_invalid_id
+	# print("GDDBMan::add_database(" + db_name + ")")
 	var db_id = generate_new_db_id()
 	var db = load(g_constants.c_addon_main_path + "core/database.gd").new()
 	db.set_db_id(db_id)
 	db.set_db_name(db_name)
 	m_databases.push_back(db)
-	if(m_databases.size() == 1):
-		m_current_database_id = db_id
-	return m_current_database_id
-
-# sets the current_database at index
-func set_current_db_at(idx : int) -> void:
-	if(idx < 0 || idx >= m_databases.size()):
-		print("ERROR: GDDBMan::set_current_db_at(" + str(idx) + ") - invalid index")
-		return
-	# print("GDDBMan::set_current_db_at(" + str(idx) + ") - db: " + str(m_databases[idx]))
-	m_current_database_id = m_databases[idx].get_db_id()
-
-# sets the current_database by id
-func set_current_db_id(db_id : int) -> void:
-	m_current_database_id = db_id
-
-# returns the current database id
-func get_current_db_id() -> int :
-	return m_current_database_id
+	return db_id
 
 # returns the databases count
 func get_databases_count() -> int :
@@ -77,19 +60,3 @@ func can_add_db(db_name : String) -> bool :
 			print("ERROR: Database with name \"" + db_name + "\" already exists")
 			return false
 	return true
-
-# returns the current database
-func get_current_db() -> Object:
-	if(m_current_database_id == g_constants.c_invalid_id):
-		print("ERROR: there is no current database")
-		return null
-	for idx in range(0, m_databases.size()):
-		if(m_databases[idx].get_db_id() == m_current_database_id):
-			return m_databases[idx]
-	print("ERROR: database id not found")
-	return null
-
-# saves the current database
-func save_current_db():
-	var db = get_current_db()
-	db.save_db()

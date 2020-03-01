@@ -105,7 +105,7 @@ func fill_data() -> void:
 	for idx in range(0, rows_count):
 		var row = HBoxContainer.new()
 		$tabs/data/data_holder/data_container.add_child(row)
-		var data_row = m_table.get_row_by_idx(idx)
+		var data_row = m_table.get_data_at_row_idx(idx)
 		for jdx in range(0, data_row.size()):
 			var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
 			row.add_child(cell)
