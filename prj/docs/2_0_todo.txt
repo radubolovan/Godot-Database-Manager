@@ -14,7 +14,7 @@
 		- add multiple databases support
 			- make the main_window as TabContainer - DONE
 				- make each Tab be the interface for each database - DONE
-					- make the tables list more friendly
+					- make the tables list more user friendly
 						- improve title - DONE
 							- Add "+" button to add a new table - DONE
 						- add scroll bars
@@ -47,3 +47,7 @@
 			- implement unicode support (if not already supported)
 
 	- add db_man.gd as a singleton that will manage all databases - DONE
+
+	- add more filtering options such as "<", ">", "<=", ">=" and "!="
+
+	- add "unique" and "autoincrement" properties to properties
