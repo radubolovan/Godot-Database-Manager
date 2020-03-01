@@ -151,6 +151,10 @@ func on_delete_property(prop_id : int) -> void:
 				cell.queue_free()
 			elif(cell_prop_id > prop_id):
 				cell.set_prop_id(cell_prop_id-1)
+
+	if($tabs/structure/properties.get_child_count() == 0):
+		m_add_data_button.set_disabled(true)
+
 	emit_signal("delete_property", prop_id)
 
 # create "+" button for adding new row of data
