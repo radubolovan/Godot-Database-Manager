@@ -11,12 +11,12 @@ var m_data = []
 var m_rows_count = 0
 
 # sets the table id
-func set_table_id(table_id : int) -> void:
+func set_table_id(table_id : int) -> void :
 	# print("GDDBDTable::set_table_id(" + str(table_id) + ")")
 	m_table_id = table_id
 
 # returns the table id
-func get_table_id() -> int:
+func get_table_id() -> int :
 	return m_table_id
 
 # sets the table name
@@ -108,7 +108,7 @@ func delete_prop(prop_id : int) -> void :
 		m_data.push_back(tmp_data[idx])
 
 # generates a new table id
-func generate_new_prop_id() -> int:
+func generate_new_prop_id() -> int :
 	if(m_props.size() == 0):
 		return 0
 	return m_props[m_props.size()-1].get_prop_id() + 1
@@ -125,7 +125,7 @@ func get_prop_at(idx : int) -> Object :
 	return m_props[idx]
 
 # adds a row with blank data
-func add_blank_row() -> void:
+func add_blank_row() -> void :
 	for idx in range(0, m_props.size()):
 		var data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()
 		data.set_prop_id(m_props[idx].get_prop_id())
@@ -134,7 +134,7 @@ func add_blank_row() -> void:
 	m_rows_count += 1
 
 # adds a row with data
-func add_row(data_array : Array) -> void:
+func add_row(data_array : Array) -> void :
 	if(data_array.size() != m_props.size()):
 		print("ERROR: GDDBDTable::add_row( " + str(data_array) + " ) - cannot add row; properties count = " + str(m_props.size()) + "and data size = " + str(data_array.size()))
 		return
@@ -156,7 +156,7 @@ func add_row(data_array : Array) -> void:
 	m_rows_count += 1
 
 # removes a row
-func remove_row(row_idx : int) -> void:
+func remove_row(row_idx : int) -> void :
 	for idx in range(m_data.size()-1, 0, -1):
 		if(m_data[idx].get_row_idx() == row_idx):
 			m_data[idx].remove(idx)
@@ -167,7 +167,7 @@ func get_rows_count() -> int:
 	return m_rows_count
 
 # edits the data
-func edit_data(prop_id : int, row_idx : int, data : String) -> void:
+func edit_data(prop_id : int, row_idx : int, data : String) -> void :
 	# print("#1: cTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
 	for idx in range(0, m_data.size()):
 		# print("checking ( " + str(m_data[idx].get_row_idx()) + ", " + str(m_data[idx].get_prop_id()) + " )")
@@ -178,18 +178,18 @@ func edit_data(prop_id : int, row_idx : int, data : String) -> void:
 	print("ERROR: GDDBDTable::edit_data(" + str(prop_id) + ", " + str(row_idx) + ", " + data + ") - can't find data to edit")
 
 # returns data count
-func get_data_size() -> int:
+func get_data_size() -> int :
 	return m_data.size()
 
 # returns the data from at index
-func get_data_at(idx : int) -> String:
+func get_data_at(idx : int) -> String :
 	if(idx < 0 || idx >= m_data.size()):
 		print("ERROR: GDDBDTable::get_data_at( " + str(idx) + ") - max data size: " + str(m_data.size()))
 		return ""
 	return m_data[idx].get_data()
 
-# returns the data from an index
-func get_data(prop_id : int, row_idx : int) -> String:
+# returns the data from by a property id and a row index
+func get_data(prop_id : int, row_idx : int) -> String :
 	for idx in range(m_data.size()-1, 0, -1):
 		if(m_data[idx].get_row_idx() == row_idx && m_data[idx].get_prop_id() == prop_id):
 			return m_data[idx].get_data()
@@ -197,7 +197,7 @@ func get_data(prop_id : int, row_idx : int) -> String:
 	return ""
 
 # returns an array of data by property id
-func get_data_by_prop_id(prop_id : int) -> Array:
+func get_data_by_prop_id(prop_id : int) -> Array :
 	var data = []
 	for idx in range(0, m_data.size()):
 		if(m_data[idx].get_prop_id() == prop_id):
@@ -207,7 +207,7 @@ func get_data_by_prop_id(prop_id : int) -> Array:
 	return data
 
 # returns an array of data by property name
-func get_data_by_prop_name(prop_name : String) -> Array:
+func get_data_by_prop_name(prop_name : String) -> Array :
 	var prop_id = -1
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_name() == prop_name):
@@ -218,26 +218,19 @@ func get_data_by_prop_name(prop_name : String) -> Array:
 		return []
 	return get_data_by_prop_id(prop_id)
 
-func get_data_by_row_idx(row_idx):
+# returns an array of data at row index
+func get_data_at_row_idx(row_idx) :
 	var data = []
 	for idx in range(0, m_data.size()):
 		if(m_data[idx].get_row_idx() == row_idx):
 			data.push_back(m_data[idx])
 	if(data.size() == -1):
-		print("ERROR: GDDBDTable::get_data_by_row_idx(" + str(row_idx) + ")")
+		print("ERROR: GDDBDTable::get_data_at_row_idx(" + str(row_idx) + ")")
 	return data
-
-# returns an array of data defined by row idx
-func get_row_by_idx(row_idx):
-	var row = []
-	for idx in range(m_data.size()):
-		if(m_data[idx].get_row_idx() == row_idx):
-			row.push_back(m_data[idx])
-	return row
 
 # returns an array of data by a property name and a data value
 # similar to: select * from users where user_id = 1
-func get_row_by_data(prop_name : String, data_value : String) -> Array:
+func get_row_by_data(prop_name : String, data_value : String) -> Array :
 	var prop_id = -1
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_name() == prop_name):
@@ -263,7 +256,7 @@ func get_row_by_data(prop_name : String, data_value : String) -> Array:
 	return row
 
 # clears the table's structure and data
-func clear() -> void:
+func clear() -> void :
 	# clear data
 	for idx in range(0, m_data.size()):
 		m_data[idx].free()
