@@ -20,14 +20,14 @@ var m_parent_table = null
 func _ready() -> void:
 	$align/prop_name.connect("text_changed", self, "on_name_changed")
 
-	$align/prop_type.clear()
+	$align/prop_type.remove_all_options()
 	for idx in range(0, db_types.e_data_types_count):
-		$align/prop_type.add_item(db_types.get_data_name(idx))
+		$align/prop_type.add_option(db_types.get_data_name(idx))
 
-	$align/prop_type.get_popup().connect("about_to_show", self, "on_about_to_show")
+	# $align/prop_type.get_popup().connect("about_to_show", self, "on_about_to_show")
 
-	$align/prop_type.connect("pressed", self, "on_show_types")
-	$align/prop_type.connect("item_selected", self, "on_type_changed")
+	# $align/prop_type.connect("pressed", self, "on_show_types")
+	# $align/prop_type.connect("item_selected", self, "on_type_changed")
 
 	$align/close_button.connect("pressed", self, "on_delete_button_pressed")
 
@@ -55,7 +55,7 @@ func get_prop_id() -> int:
 func set_prop_type(type : int) -> void:
 	# print("GDDBTableProperty::set_prop_type(" + db_types.get_data_name(type) + ")")
 	m_type = type
-	$align/prop_type.select(m_type)
+	# $align/prop_type.select(m_type)
 
 # returns property type
 func get_prop_type() -> int:
@@ -72,7 +72,7 @@ func get_prop_name() -> String:
 
 # called everytime the option button get pressed
 func on_show_types():
-	$align/prop_type.clear()
+	$align/prop_type.remove_all_options()
 	for idx in range(0, db_types.e_data_types_count):
 		$align/prop_type.add_item(db_types.get_data_name(idx))
 
@@ -85,9 +85,15 @@ func on_name_changed(new_text : String) -> void:
 func on_about_to_show():
 	var selected_id = $align/prop_type.get_selected_id()
 	print("GDDBTableProperty::on_about_to_show() - " + str(selected_id))
-	$align/prop_type.clear()
+	for idx in range($align/prop_type.get_item_count()-1, 0, -1):
+		$align/prop_type.remove_item(idx)
+	"""
 	for idx in range(0, db_types.e_data_types_count):
 		$align/prop_type.add_item(db_types.get_data_name(idx))
+	"""
+	$align/prop_type.add_item("Testing_1")
+	$align/prop_type.add_item("Testing_2")
+	"""
 	if(null != m_parent_table):
 		var db = m_parent_table.get_parent_database()
 		for idx in range(0, db.get_tables_count()):
@@ -98,6 +104,7 @@ func on_about_to_show():
 			print("table_name: " + table_name)
 			$align/prop_type.add_item("abracadabre=a")
 			$align/prop_type.add_item(table_name)
+	"""
 	#$align/prop_type.select(selected_id)
 
 # called everytime the type of the property is changed
