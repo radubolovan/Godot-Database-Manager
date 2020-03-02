@@ -7,8 +7,7 @@ class_name GDDBTableEditor
 tool
 extends Control
 
-signal new_data_row
-signal edit_data
+signal set_dirty
 
 var m_table = null
 
@@ -33,6 +32,8 @@ func on_new_property_btn_pressed() -> void:
 
 	# enable add data btn
 	$tabs/data/data_holder/btns/add_data_btn.set_disabled(false)
+
+	emit_signal("set_dirty")
 
 func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -> void:
 	# print("GDDBTableEditor::add_prop_to_structure(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
@@ -75,6 +76,8 @@ func on_add_row_data_btn_pressed() -> void:
 		cell.set_row_idx(row_idx)
 		cell.set_text("")
 		cell.connect("edit_data", self, "on_edit_data")
+
+	emit_signal("set_dirty")
 
 # sets the table from database
 func set_table(table : Object) -> void:
@@ -144,6 +147,8 @@ func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> voi
 		if(prop.get_prop_id() == prop_id):
 			prop.set_text(prop_name)
 
+	emit_signal("set_dirty")
+
 func on_delete_property(prop_id : int) -> void:
 	# print("GDDBTableEditor::on_delete_property(" + str(prop_id) + ")")
 	# deletes property from table; also all data by this property
@@ -178,5 +183,8 @@ func on_delete_property(prop_id : int) -> void:
 	if(props_count == 0):
 		$tabs/data/data_holder/btns/add_data_btn.set_disabled(true)
 
+	emit_signal("set_dirty")
+
 func on_edit_data(prop_id : int, row_idx : int, data : String):
 	m_table.edit_data(prop_id, row_idx, data)
+	emit_signal("set_dirty")

@@ -22,6 +22,8 @@ func _ready() -> void :
 	$main_window/tables_panel/tables_list.connect("delete_table", self, "on_delete_table")
 	$main_window/tables_panel/tables_list.connect("select_table", self, "on_select_table")
 
+	$main_window/tables_panel/table.connect("set_dirty", self, "on_set_dirty")
+
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 
 	$delete_table_dlg.connect("delete_table", self, "on_confirm_delete_table")
@@ -69,6 +71,8 @@ func on_create_table(table_name : String) -> void :
 	$main_window/tables_panel/tables_list.create_table(table)
 	$main_window/tables_panel/table.set_table(table)
 	$main_window/tables_panel/table.show()
+	m_database.set_dirty(true)
+	set_dirty(true)
 
 # called when the user retryes to create a table (changed the name)
 func on_retry_create_table() -> void :
@@ -104,6 +108,9 @@ func on_table_name_edited(table_name : String) -> void :
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 	$main_window/tables_panel/tables_list.edit_table_name(table_id, table_name)
 
+	m_database.set_dirty(true)
+	set_dirty(true)
+
 # called when the user confirms to delete a table
 func on_confirm_delete_table() -> void :
 	# print("GDDBEditor::on_confirm_delete_table()")
@@ -118,6 +125,9 @@ func on_confirm_delete_table() -> void :
 		$main_window/tables_panel/tables_list.select_item_at(0)
 		var table = m_database.get_table_at(0)
 		$main_window/tables_panel/table.set_table(table)
+
+	m_database.set_dirty(true)
+	set_dirty(true)
 
 # called when the user selects a table from the table_list
 func on_select_table(table_id : int) -> void :
@@ -137,3 +147,8 @@ func can_save_database() -> bool:
 # sets the database's path
 func set_database_filepath(filepath : String) -> void:
 	m_database.set_db_filepath(filepath)
+
+# called when a table is modified
+func on_set_dirty() -> void:
+	m_database.set_dirty(true)
+	set_dirty(true)
