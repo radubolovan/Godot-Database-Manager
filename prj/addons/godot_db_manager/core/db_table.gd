@@ -10,6 +10,8 @@ var m_props = []
 var m_data = []
 var m_rows_count = 0
 
+var m_parent_database = null
+
 # sets the table id
 func set_table_id(table_id : int) -> void :
 	# print("GDDBDTable::set_table_id(" + str(table_id) + ")")
@@ -27,6 +29,14 @@ func set_table_name(table_name: String) -> void :
 # returns the table name
 func get_table_name() -> String :
 	return m_name
+
+# sets the parent database
+func set_parent_database(db : Object) -> void:
+	m_parent_database = db
+
+# returns parent database
+func get_parent_database() -> Object:
+	return m_parent_database
 
 # adds a property in the table structure
 # prop_id must be unique

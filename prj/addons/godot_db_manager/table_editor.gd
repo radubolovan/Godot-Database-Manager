@@ -28,7 +28,7 @@ func on_new_property_btn_pressed() -> void:
 	var prop_name = "Property_" + str(prop_idx+1)
 	var prop_id = m_table.add_prop(prop_type, prop_name)
 	add_prop_to_structure(prop_id, prop_type, prop_name)
-	add_prop_to_data(prop_id, prop_name)
+	add_prop_to_data(prop_id, prop_type, prop_name)
 
 	# enable add data btn
 	$tabs/data/data_holder/btns/add_data_btn.set_disabled(false)
@@ -40,10 +40,11 @@ func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -
 	var prop = load(g_constants.c_addon_main_path + "table_property.tscn").instance()
 	$tabs/structure/properties.add_child(prop)
 	prop.setup(prop_id, prop_type, prop_name)
+	prop.set_parent_table(m_table)
 	prop.connect("edit_property", self, "on_edit_property")
 	prop.connect("delete_property", self, "on_delete_property")
 
-func add_prop_to_data(prop_id : int, prop_name : String):
+func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String):
 	var prop = load(g_constants.c_addon_main_path + "data_label.tscn").instance()
 	$tabs/data/data_holder/data_header.add_child(prop)
 	prop.set_prop_id(prop_id)
@@ -55,6 +56,7 @@ func add_prop_to_data(prop_id : int, prop_name : String):
 		var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
 		cell.set_prop_id(prop_id)
 		cell.set_row_idx(idx)
+		cell.set_prop_type(prop_type)
 		cell.set_text("")
 		cell.connect("edit_data", self, "on_edit_data")
 		row.add_child(cell)
@@ -74,6 +76,7 @@ func on_add_row_data_btn_pressed() -> void:
 		row.add_child(cell)
 		cell.set_prop_id(idx)
 		cell.set_row_idx(row_idx)
+		cell.set_prop_type(db_types.e_prop_type_int)
 		cell.set_text("")
 		cell.connect("edit_data", self, "on_edit_data")
 
@@ -99,6 +102,7 @@ func fill_properties() -> void:
 		$tabs/data/data_holder/data_header.add_child(prop)
 		prop.set_prop_id(db_prop.get_prop_id())
 		prop.set_text(db_prop.get_prop_name())
+		prop.set_prop_type(db_prop.get_prop_type())
 	if(props_count > 0):
 		$tabs/data/data_holder/btns/add_data_btn.set_disabled(false)
 
@@ -110,13 +114,20 @@ func fill_data() -> void:
 		$tabs/data/data_holder/data_container.add_child(row)
 		var data_row = m_table.get_data_at_row_idx(idx)
 		for jdx in range(0, data_row.size()):
+			var db_prop = m_table.get_prop_at(jdx)
+
 			var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
+
+			var prop_type = db_prop.get_prop_type()
+			# print("Prop: type - " + str(prop_type) + " - " + db_types.get_data_name(prop_type) + " - id: " + str(data_row[jdx].get_prop_id()) + " - data: " + data_row[jdx].get_data())
+
 			row.add_child(cell)
 			cell.set_prop_id(data_row[jdx].get_prop_id())
 			cell.set_row_idx(idx)
 			#var cell_data = data_row[jdx].get_data()
 			#print(cell_data)
 			cell.set_text(data_row[jdx].get_data())
+			cell.set_prop_type(prop_type)
 			cell.connect("edit_data", self, "on_edit_data")
 
 # cleares current layout
@@ -148,6 +159,15 @@ func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> voi
 		var prop = $tabs/data/data_holder/data_header.get_child(idx)
 		if(prop.get_prop_id() == prop_id):
 			prop.set_text(prop_name)
+
+	# update data type
+	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/data_holder/data_container.get_child(idx)
+		for jdx in range(0, row.get_child_count()):
+			var cell = row.get_child(jdx)
+			if(cell.get_prop_id() == prop_id):
+				print("Prop type: " + db_types.get_data_name(prop_type))
+				cell.set_prop_type(prop_type)
 
 	emit_signal("set_dirty")
 

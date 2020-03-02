@@ -2,16 +2,30 @@
 
 [ext_resource path="res://addons/godot_db_manager/table_cell.gd" type="Script" id=2]
 
-[node name="table_cell" type="LineEdit"]
+[node name="table_cell" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1500.0
 margin_bottom = -873.0
-rect_min_size = Vector2( 100, 27 )
-text = "WWWWWWWW"
-caret_blink = true
-caret_blink_speed = 0.5
+rect_min_size = Vector2( 150, 27 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="LineEdit" type="LineEdit" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="Button" type="Button" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="CheckBox" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0

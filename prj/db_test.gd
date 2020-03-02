@@ -4,6 +4,7 @@ const c_db_name = "database"
 
 var m_database = null
 
+# Called when the node enters the scene tree for the first time.
 func _ready():
 	#test_new_database()
 	test_load_database()

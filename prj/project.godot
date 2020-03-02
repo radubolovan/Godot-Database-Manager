@@ -74,7 +74,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_db_manager/core/db_prop.gd"
 }, {
-"base": "LineEdit",
+"base": "Control",
 "class": "GDDBTableCell",
 "language": "GDScript",
 "path": "res://addons/godot_db_manager/table_cell.gd"

@@ -85,6 +85,7 @@ func add_table(table_name : String) -> Object :
 	var table = load(g_constants.c_addon_main_path + "core/db_table.gd").new()
 	table.set_table_id(table_id)
 	table.set_table_name(table_name)
+	table.set_parent_database(self)
 	m_tables.push_back(table)
 	return table
 
