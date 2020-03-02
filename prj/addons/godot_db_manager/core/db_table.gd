@@ -152,6 +152,10 @@ func add_row(data_array : Array) -> void :
 			data.set_data(str(data_array[idx]))
 		elif(m_props[idx].get_prop_type() == db_types.e_prop_type_string):
 			data.set_data(data_array[idx])
+		elif(m_props[idx].get_prop_type() == db_types.e_prop_type_resource):
+			data.set_data(data_array[idx])
+		else:
+			print("ERROR: data type doesn't exist - " + str(m_props[idx].get_prop_type()))
 		m_data.push_back(data)
 	m_rows_count += 1
 

@@ -152,6 +152,7 @@ func get_table_by_name(table_name: String) -> Object :
 # deletes all the tables
 func clear() -> void :
 	# print("GDDatabase::clear()")
+	m_db_name = ""
 	for idx in range(0, m_tables.size()):
 		m_tables[idx].clear()
 	m_tables.clear()
@@ -216,10 +217,6 @@ func save_db() -> void :
 
 # deserialization
 func load_db() -> void :
-	if(m_db_name.empty()):
-		print("ERROR: load_db() - current database doen't have a name")
-		return
-
 	var file = File.new()
 	file.open(get_db_filepath(), File.READ)
 	var content = file.get_as_text()
@@ -227,6 +224,7 @@ func load_db() -> void :
 	var dictionary = JSON.parse(content).result
 
 	clear()
+	m_db_name = dictionary["name"]
 	var tables = dictionary["tables"]
 	for idx in range(0, tables.size()):
 		var table = add_table(tables[idx]["name"])
@@ -236,11 +234,21 @@ func load_db() -> void :
 			continue
 	
 		for jdx in range(0, props_count):
-				table.add_prop(int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
+			table.add_prop(int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
 	
 		var data_count = tables[idx]["data"].size()
+		#print("********* set data to db - begin")
 		for jdx in range(0, data_count / props_count):
 			var row_data = []
 			for kdx in range(0, props_count):
-				row_data.push_back(tables[idx]["data"][jdx * props_count + kdx])
+				var cell_data = tables[idx]["data"][jdx * props_count + kdx]
+				#print("cell_data: " + cell_data)
+				row_data.push_back(cell_data)
+			#print("row_data: " + str(row_data))
 			table.add_row(row_data)
+		#print("********* set data to db - end")
+
+		# dump data
+		#for idx in range(0, table.get_data_size()):
+		#	var data = table.get_data_at(idx)
+		#	print("cell_data " + data)

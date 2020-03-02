@@ -40,7 +40,19 @@ func set_database(db) -> void :
 	# print("GDDBEditor::set_database(" + db.get_db_name() + ") to " + get_name())
 	m_database = db
 	set_dirty(true)
-	$main_window/tables_panel/table.hide()
+
+	var tables_count = db.get_tables_count()
+
+	for idx in range(0, tables_count):
+		var table = db.get_table_at(idx)
+		$main_window/tables_panel/tables_list.create_table(table)
+		$main_window/tables_panel/table.set_table(table)
+		$main_window/tables_panel/table.show()
+
+	if(tables_count > 0):
+		$main_window/tables_panel/table.show()
+	else:
+		$main_window/tables_panel/table.hide()
 
 # returns the database id
 func get_db_id() -> int :

@@ -21,6 +21,16 @@ func add_database(db_name : String) -> int:
 	m_databases.push_back(db)
 	return db_id
 
+# loads a database from a file
+func load_database(filepath : String) -> int :
+	var db_id = generate_new_db_id()
+	var db = load(g_constants.c_addon_main_path + "core/database.gd").new()
+	db.set_db_id(db_id)
+	db.set_db_filepath(filepath)
+	db.load_db()
+	m_databases.push_back(db)
+	return db_id
+
 # returns the databases count
 func get_databases_count() -> int :
 	return m_databases.size()

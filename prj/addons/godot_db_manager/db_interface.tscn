@@ -42,13 +42,13 @@ margin_bottom = -0.165001
 visible = false
 
 [node name="error_dlg" parent="dlg" instance=ExtResource( 3 )]
+visible = false
 anchor_right = 0.187
 anchor_bottom = 0.136
 margin_right = 0.469986
 margin_bottom = -0.0800018
 
 [node name="load_db_dlg" type="FileDialog" parent="dlg"]
-visible = true
 anchor_right = 0.349
 anchor_bottom = 0.418
 margin_right = -0.309998

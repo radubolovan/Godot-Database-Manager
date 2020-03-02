@@ -114,6 +114,8 @@ func fill_data() -> void:
 			row.add_child(cell)
 			cell.set_prop_id(data_row[jdx].get_prop_id())
 			cell.set_row_idx(idx)
+			#var cell_data = data_row[jdx].get_data()
+			#print(cell_data)
 			cell.set_text(data_row[jdx].get_data())
 			cell.connect("edit_data", self, "on_edit_data")
 

@@ -33,7 +33,10 @@ func on_menu_new_database() -> void:
 
 # called when loading a database from the menu
 func on_menu_load_database() -> void:
-	print("on_menu_load_database")
+	$dlg/load_db_dlg.set_mode(FileDialog.MODE_OPEN_FILE)
+	$dlg/load_db_dlg.set_title("Load Database ...")
+	$dlg/load_db_dlg.set_current_file("")
+	$dlg/load_db_dlg.popup_centered()
 
 # called when saving a database from the menu
 func on_menu_save_database() -> void:
@@ -88,4 +91,17 @@ func save_database_as(filepath : String) -> void:
 	currnet_tab.save_database()
 
 func load_database(filepath : String) -> void:
-	print("GDDBInterface::load_database(" + filepath + ")")
+	var db_id = m_db_manager.load_database(filepath)
+	var db = m_db_manager.get_db_by_id(db_id)
+	db.set_dirty(false)
+	# print("new DB added: " + str(db))
+
+	var db_editor = load(g_constants.c_addon_main_path + "db_editor.tscn").instance()
+	$dlg/databases.add_child(db_editor)
+	db_editor.set_name(db.get_db_name())
+	db_editor.set_database(db)
+
+	$dlg/menu.enable_file_save(true)
+	$dlg/menu.enable_file_save_as(true)
+
+	db_editor.set_dirty(false)
