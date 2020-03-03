@@ -16,6 +16,11 @@ var m_is_selected : bool = false
 func _ready() -> void :
 	$bullet_off.show()
 	$bullet_on.hide()
+	$normal.show()
+	$hover.hide()
+
+	connect("mouse_entered", self, "on_mouse_entered")
+	connect("mouse_exited", self, "on_mouse_exited")
 	connect("pressed", self, "on_pressed")
 
 # sets the option id
@@ -33,6 +38,16 @@ func set_text(text : String) -> void :
 # returns the text
 func get_text() -> String :
 	return $text.get_text()
+
+# Called when the mouse enters the control’s Rect area
+func on_mouse_entered() -> void:
+	$normal.hide()
+	$hover.show()
+
+# Called when the mouse leaves the control’s Rect area
+func on_mouse_exited() -> void:
+	$normal.show()
+	$hover.hide()
 
 # Called when button is pressed
 func on_pressed() -> void :

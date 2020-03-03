@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_db_manager/db_editor.gd"
 }, {
+"base": "Node",
+"class": "GDDBGlobals",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/globals.gd"
+}, {
 "base": "Control",
 "class": "GDDBInterface",
 "language": "GDScript",
@@ -78,6 +83,11 @@ _global_script_classes=[ {
 "class": "GDDBNewTableDlg",
 "language": "GDScript",
 "path": "res://addons/godot_db_manager/dlgs/new_table_dlg.gd"
+}, {
+"base": "PopupPanel",
+"class": "GDDBOptionsList",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/options_list.gd"
 }, {
 "base": "Object",
 "class": "GDDBProperty",
@@ -133,12 +143,14 @@ _global_script_class_icons={
 "GDDBDataLabel": "",
 "GDDBDeleteTableDlg": "",
 "GDDBEditor": "",
+"GDDBGlobals": "",
 "GDDBInterface": "",
 "GDDBMan": "",
 "GDDBManager": "",
 "GDDBMenu": "",
 "GDDBNewDBDlg": "",
 "GDDBNewTableDlg": "",
+"GDDBOptionsList": "",
 "GDDBProperty": "",
 "GDDBTableCell": "",
 "GDDBTableEditor": "",
@@ -160,6 +172,7 @@ config/icon="res://icon.png"
 
 g_constants="*res://addons/godot_db_manager/constants.gd"
 db_types="*res://addons/godot_db_manager/core/db_types.gd"
+g_globals="*res://addons/godot_db_manager/globals.gd"
 
 [debug]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/assets/tex/2_0_buttons.png" type="Texture" id=1]
 [ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_18.tres" type="DynamicFont" id=2]
@@ -6,13 +6,9 @@
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
-region = Rect2( 3, 81, 22, 22 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
 region = Rect2( 106, 2, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
 region = Rect2( 106, 28, 24, 24 )
 
@@ -26,16 +22,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="bkgr" type="Sprite" parent="."]
-scale = Vector2( 9.09091, 1.09091 )
-texture = SubResource( 1 )
-centered = false
+[node name="normal" type="NinePatchRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+region_rect = Rect2( 2, 132, 76, 24 )
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
 __meta__ = {
-"_edit_lock_": true
+"_edit_use_anchors_": false
+}
+
+[node name="hover" type="NinePatchRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+region_rect = Rect2( 2, 158, 76, 24 )
+patch_margin_left = 1
+patch_margin_top = 1
+patch_margin_right = 1
+patch_margin_bottom = 1
+__meta__ = {
+"_edit_use_anchors_": false
 }
 
 [node name="bullet_off" type="Sprite" parent="."]
-texture = SubResource( 2 )
+texture = SubResource( 1 )
 centered = false
 __meta__ = {
 "_edit_lock_": true
@@ -43,7 +58,7 @@ __meta__ = {
 
 [node name="bullet_on" type="Sprite" parent="."]
 visible = false
-texture = SubResource( 3 )
+texture = SubResource( 2 )
 centered = false
 __meta__ = {
 "_edit_lock_": true

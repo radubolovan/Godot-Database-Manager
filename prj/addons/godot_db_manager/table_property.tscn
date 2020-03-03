@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://addons/godot_db_manager/db_combo_box.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot_db_manager/table_property.gd" type="Script" id=2]
 
 [node name="table_property" type="Control"]
@@ -57,12 +56,14 @@ margin_right = 471.0
 margin_bottom = 19.0
 text = "Type:"
 
-[node name="prop_type" parent="align" instance=ExtResource( 1 )]
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="prop_type" type="OptionButton" parent="align"]
 margin_left = 475.0
 margin_right = 725.0
 margin_bottom = 24.0
+rect_min_size = Vector2( 250, 0 )
+text = "Bool"
+items = [ "Bool", null, false, 0, null, "Integer", null, false, 1, null, "Float", null, false, 2, null, "String", null, false, 3, null, "Resource", null, false, 4, null ]
+selected = 0
 
 [node name="close_button" type="Button" parent="align"]
 margin_left = 729.0
