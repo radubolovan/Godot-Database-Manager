@@ -1,0 +1,15 @@
+[gd_scene format=2]
+
+[node name="options" type="ScrollContainer"]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="layout" type="VBoxContainer" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}

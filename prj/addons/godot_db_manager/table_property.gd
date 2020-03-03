@@ -22,12 +22,11 @@ func _ready() -> void:
 
 	$align/prop_type.remove_all_options()
 	for idx in range(0, db_types.e_data_types_count):
-		$align/prop_type.add_option(db_types.get_data_name(idx))
+		$align/prop_type.add_option(db_types.e_prop_type_bool + idx, db_types.get_data_name(idx))
+	$align/prop_type.set_selected_option(0)
 
-	# $align/prop_type.get_popup().connect("about_to_show", self, "on_about_to_show")
-
-	# $align/prop_type.connect("pressed", self, "on_show_types")
-	# $align/prop_type.connect("item_selected", self, "on_type_changed")
+	$align/prop_type.connect("about_to_show", self, "on_about_to_show")
+	$align/prop_type.connect("option_selected", self, "on_type_changed")
 
 	$align/close_button.connect("pressed", self, "on_delete_button_pressed")
 
@@ -55,7 +54,7 @@ func get_prop_id() -> int:
 func set_prop_type(type : int) -> void:
 	# print("GDDBTableProperty::set_prop_type(" + db_types.get_data_name(type) + ")")
 	m_type = type
-	# $align/prop_type.select(m_type)
+	$align/prop_type.set_selected_option(m_type)
 
 # returns property type
 func get_prop_type() -> int:
@@ -70,12 +69,6 @@ func set_prop_name(name : String) -> void:
 func get_prop_name() -> String:
 	return m_name
 
-# called everytime the option button get pressed
-func on_show_types():
-	$align/prop_type.remove_all_options()
-	for idx in range(0, db_types.e_data_types_count):
-		$align/prop_type.add_item(db_types.get_data_name(idx))
-
 # called everytime the name of the property is changed
 func on_name_changed(new_text : String) -> void:
 	m_name = new_text
@@ -83,34 +76,30 @@ func on_name_changed(new_text : String) -> void:
 
 # called when the popup from option button is about to be shown
 func on_about_to_show():
-	var selected_id = $align/prop_type.get_selected_id()
-	print("GDDBTableProperty::on_about_to_show() - " + str(selected_id))
-	for idx in range($align/prop_type.get_item_count()-1, 0, -1):
-		$align/prop_type.remove_item(idx)
-	"""
+	var selected_idx = $align/prop_type.get_current_option()
+	# print("GDDBTableProperty::on_about_to_show() - " + str(selected_idx))
+
+	$align/prop_type.remove_all_options()
 	for idx in range(0, db_types.e_data_types_count):
-		$align/prop_type.add_item(db_types.get_data_name(idx))
-	"""
-	$align/prop_type.add_item("Testing_1")
-	$align/prop_type.add_item("Testing_2")
-	"""
+		$align/prop_type.add_option(db_types.e_prop_type_bool + idx, db_types.get_data_name(idx))
 	if(null != m_parent_table):
 		var db = m_parent_table.get_parent_database()
 		for idx in range(0, db.get_tables_count()):
 			var table = db.get_table_at(idx)
 			if(table == m_parent_table):
 				continue
-			var table_name = table.get_table_name()
-			print("table_name: " + table_name)
-			$align/prop_type.add_item("abracadabre=a")
-			$align/prop_type.add_item(table_name)
-	"""
-	#$align/prop_type.select(selected_id)
+			$align/prop_type.add_option(db_types.e_data_types_count + table.get_table_id(), table.get_table_name())
+	$align/prop_type.set_selected_option(selected_idx)
 
 # called everytime the type of the property is changed
-func on_type_changed(new_type : int) -> void:
-	print("GDDBTableProperty::on_type_changed(" + db_types.get_data_name(new_type) + ")")
-	m_type = new_type
+func on_type_changed(option_id : int) -> void:
+	"""
+	if(option_id >= db_types.e_data_types_count):
+		print("GDDBTableProperty::on_type_changed(" + str(db_types.e_data_types_count + option_id) + ")")
+	else:
+		print("GDDBTableProperty::on_type_changed(" + db_types.get_data_name(option_id) + ")")
+	"""
+	m_type = option_id
 	emit_signal("edit_property", m_id, m_type, m_name)
 
 # called when the delete property button is pressed

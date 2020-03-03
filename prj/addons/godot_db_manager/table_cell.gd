@@ -54,6 +54,10 @@ func set_prop_type(data_type : int) -> void :
 		$LineEdit.hide()
 		$Button.show()
 		$CheckBox.hide()
+	elif(m_prop_type >= db_types.e_data_types_count):
+		$LineEdit.hide()
+		$Button.show()
+		$CheckBox.hide()
 
 func get_prop_type() -> int :
 	return m_prop_type

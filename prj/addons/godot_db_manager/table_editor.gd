@@ -166,7 +166,10 @@ func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> voi
 		for jdx in range(0, row.get_child_count()):
 			var cell = row.get_child(jdx)
 			if(cell.get_prop_id() == prop_id):
-				print("Prop type: " + db_types.get_data_name(prop_type))
+				if(prop_type < db_types.e_data_types_count):
+					print("Prop type: " + db_types.get_data_name(prop_type))
+				else:
+					print("Prop type: custom")
 				cell.set_prop_type(prop_type)
 
 	emit_signal("set_dirty")

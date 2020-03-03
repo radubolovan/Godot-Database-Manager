@@ -41,6 +41,7 @@ func on_pressed() -> void :
 
 # set selected
 func set_selected(select : bool) -> void :
+	# print("GDDBComboOption::set_selected(" + str(select) + ")")
 	m_is_selected = select
 	update_interface()
 
