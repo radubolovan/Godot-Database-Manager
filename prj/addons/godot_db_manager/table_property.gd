@@ -31,15 +31,28 @@ func _ready() -> void:
 	$align/close_button.connect("pressed", self, "on_delete_button_pressed")
 
 # setup property
-func setup(id : int, type : int, name : String) -> void:
-	# print("GDDBTableProperty::setup(" + str(id) + ", " + db_types.get_data_name(type) + ", " + name + ")")
-	set_prop_id(id)
-	set_prop_type(type)
-	set_prop_name(name)
+func setup(prop_id : int, prop_type : int, prop_name : String) -> void:
+	"""
+	if(prop_type < db_types.e_data_types_count):
+		print("GDDBTableProperty::setup(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
+	else:
+		var db = m_parent_table.get_parent_database()
+		var table = db.get_table_by_id(db_types.e_data_types_count - prop_type)
+		print("GDDBTableProperty::setup(" + str(prop_id) + ", " + table.get_table_name() + ", " + prop_name + ")")
+	"""
+	set_prop_id(prop_id)
+	set_prop_type(prop_type)
+	set_prop_name(prop_name)
 
 # sets parent table
 func set_parent_table(table):
 	m_parent_table = table
+	var db = m_parent_table.get_parent_database()
+	for idx in range(0, db.get_tables_count()):
+		var tbl = db.get_table_at(idx)
+		if(tbl == m_parent_table):
+			continue
+		$align/prop_type.add_item(tbl.get_table_name(), db_types.e_data_types_count + tbl.get_table_id())
 
 # sets proprty id
 func set_prop_id(id : int) -> void:
@@ -51,9 +64,15 @@ func get_prop_id() -> int:
 	return m_id
 
 # sets property type
-func set_prop_type(type : int) -> void:
-	# print("GDDBTableProperty::set_prop_type(" + db_types.get_data_name(type) + ")")
-	m_type = type
+func set_prop_type(prop_type : int) -> void:
+	print("GDDBTableProperty::set_prop_type(" + str(prop_type) + ")")
+	if(prop_type < db_types.e_data_types_count):
+		print("GDDBTableProperty::set_prop_type(" + db_types.get_data_name(prop_type) + ")")
+	else:
+		var db = m_parent_table.get_parent_database()
+		var table = db.get_table_by_id(db_types.e_data_types_count - prop_type)
+		print("GDDBTableProperty::set_prop_type(" + table.get_table_name() + ")")
+	m_type = prop_type
 	$align/prop_type.select(m_type)
 
 # returns property type
@@ -77,7 +96,7 @@ func on_name_changed(new_text : String) -> void:
 # called when the popup from option button is about to be shown
 func on_about_to_show():
 	var selected_id = $align/prop_type.get_selected_id()
-	print("GDDBTableProperty::on_about_to_show() - " + str(selected_id))
+	# print("GDDBTableProperty::on_about_to_show() - " + str(selected_id))
 
 	$align/prop_type.clear()
 	for idx in range(0, db_types.e_data_types_count):

@@ -35,15 +35,17 @@ func on_new_property_btn_pressed() -> void:
 
 	emit_signal("set_dirty")
 
+# adds a property to structure tab
 func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -> void:
 	# print("GDDBTableEditor::add_prop_to_structure(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
 	var prop = load(g_constants.c_addon_main_path + "table_property.tscn").instance()
 	$tabs/structure/properties.add_child(prop)
-	prop.setup(prop_id, prop_type, prop_name)
 	prop.set_parent_table(m_table)
+	prop.setup(prop_id, prop_type, prop_name)
 	prop.connect("edit_property", self, "on_edit_property")
 	prop.connect("delete_property", self, "on_delete_property")
 
+# adds a property to data tab
 func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String):
 	var prop = load(g_constants.c_addon_main_path + "data_label.tscn").instance()
 	$tabs/data/data_holder/data_header.add_child(prop)
@@ -150,7 +152,12 @@ func clear_current_layout():
 	$tabs/data/data_holder/btns/add_data_btn.set_disabled(true)
 
 func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> void:
-	# print("GDDBTableEditor::on_edit_property(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
+	if(prop_type >= db_types.e_data_types_count):
+		var db = m_table.get_parent_database()
+		var selected_table = db.get_table_by_id(db_types.e_data_types_count - prop_type)
+		print("GDDBTableEditor::on_edit_property(" + str(prop_id) + ", " + selected_table.get_table_name() + ", " + prop_name + ")")
+	else:
+		print("GDDBTableEditor::on_edit_property(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
 	# edit prop in the table
 	m_table.edit_prop(prop_id, prop_type, prop_name)
 
@@ -166,10 +173,12 @@ func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> voi
 		for jdx in range(0, row.get_child_count()):
 			var cell = row.get_child(jdx)
 			if(cell.get_prop_id() == prop_id):
+				"""
 				if(prop_type < db_types.e_data_types_count):
 					print("Prop type: " + db_types.get_data_name(prop_type))
 				else:
 					print("Prop type: custom")
+				"""
 				cell.set_prop_type(prop_type)
 
 	emit_signal("set_dirty")

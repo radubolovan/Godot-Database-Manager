@@ -1,6 +1,8 @@
 """
-GDDBDTable class
+GDDBTable class
 """
+
+class_name GDDBTable
 
 extends Object
 
@@ -32,15 +34,15 @@ func get_table_name() -> String :
 
 # sets the parent database
 func set_parent_database(db : Object) -> void:
+	# print("GDDBTable::set_parent_database(" + str(db) + ")")
 	m_parent_database = db
 
 # returns parent database
 func get_parent_database() -> Object:
 	return m_parent_database
 
-# adds a property in the table structure
-# prop_id must be unique
-# returns prop ID if the property is unique and can be added, otherwise -1
+# adds a property in the table structure as a base type
+# returns prop ID
 func add_prop(prop_type : int, prop_name : String) -> int :
 	var prop_id = generate_new_prop_id()
 
@@ -79,6 +81,28 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 			m_data.push_back(new_data_array[idx])
 
 	return prop_id
+
+# adds a property in the table structure as a table type
+# returns prop ID
+func add_table_prop(prop_name : String, table_name : String) -> void:
+	print("GDDBTable::add_table_prop(" + prop_name + ", " + table_name + ")")
+	var prop_id = generate_new_prop_id()
+
+	# print("GDDBDTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
+	var prop = load(g_constants.c_addon_main_path + "core/db_prop.gd").new()
+	prop.set_prop_id(prop_id)
+	prop.set_prop_name(prop_name)
+	prop.set_prop_custom_type(table_name)
+	m_props.push_back(prop)
+
+# links custom properties from tables
+func link_tables_props() -> void:
+	for idx in range(0, m_props.size()):
+		var custom_prop_type = m_props[idx].get_prop_custom_type()
+		if(!custom_prop_type.empty()):
+			var table = m_parent_database.get_table_by_name(custom_prop_type)
+			m_props[idx].set_prop_type(db_types.e_data_types_count + table.get_table_id())
+			m_props[idx].set_prop_custom_type("")
 
 # edits a property in the table structure
 func edit_prop(prop_id : int, prop_type : int, prop_name: String) -> void :
@@ -146,7 +170,7 @@ func add_blank_row() -> void :
 # adds a row with data
 func add_row(data_array : Array) -> void :
 	if(data_array.size() != m_props.size()):
-		print("ERROR: GDDBDTable::add_row( " + str(data_array) + " ) - cannot add row; properties count = " + str(m_props.size()) + "and data size = " + str(data_array.size()))
+		print("ERROR: GDDBDTable::add_row( " + str(data_array) + " ) - cannot add row; properties count = " + str(m_props.size()) + " and data size = " + str(data_array.size()))
 		return
 	for idx in range(0, m_props.size()):
 		var data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()

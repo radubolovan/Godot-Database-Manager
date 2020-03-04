@@ -80,8 +80,6 @@ func add_table(table_name : String) -> Object :
 	# print("GDDatabase::add_table(" + table_name + ") to \"" + m_db_name + "\" database")
 
 	var table_id = generate_new_table_id()
-
-	# print("GDDatabase::add_table(" + table_name + ")")
 	var table = load(g_constants.c_addon_main_path + "core/db_table.gd").new()
 	table.set_table_id(table_id)
 	table.set_table_name(table_name)
@@ -188,7 +186,15 @@ func save_db() -> void :
 			var db_prop = m_tables[idx].get_prop_at(jdx)
 			text += "{"
 			text += "\"name\":\"" + str(db_prop.get_prop_name()) + "\","
-			text += "\"type\":\"" + str(db_prop.get_prop_type()) + "\""
+
+			var prop_type = db_prop.get_prop_type()
+			if(prop_type < db_types.e_data_types_count):
+				text += "\"type\":\"" + str(prop_type) + "\""
+			else:
+				var table_id = db_types.e_data_types_count - prop_type
+				var table = get_table_by_id(table_id)
+				text += "\"type\":\"" + "table" + "\","
+				text += "\"table_name\":\"" + table.get_table_name() + "\""
 			text += "}"
 			if(jdx < m_tables[idx].get_props_count() - 1):
 				text += ","
@@ -235,7 +241,12 @@ func load_db() -> void :
 			continue
 	
 		for jdx in range(0, props_count):
-			table.add_prop(int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
+			var prop_type = tables[idx]["props"][jdx]["type"]
+			if(prop_type == "table"):
+				var table_name = tables[idx]["props"][jdx]["table_name"]
+				table.add_table_prop(tables[idx]["props"][jdx]["name"], table_name)
+			else:
+				table.add_prop(int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
 	
 		var data_count = tables[idx]["data"].size()
 		#print("********* set data to db - begin")
@@ -249,7 +260,6 @@ func load_db() -> void :
 			table.add_row(row_data)
 		#print("********* set data to db - end")
 
-		# dump data
-		#for idx in range(0, table.get_data_size()):
-		#	var data = table.get_data_at(idx)
-		#	print("cell_data " + data)
+	# link custom data to tables
+	for idx in range(0, m_tables.size()):
+		m_tables[idx].link_tables_props()
