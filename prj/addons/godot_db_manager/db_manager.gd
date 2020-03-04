@@ -22,7 +22,6 @@ func _enter_tree():
 	add_tool_menu_item("Godot Database Manager", self, "open_config")
 
 func _exit_tree():
-	g_globals.set_global_dlg(null)
 	# Clean-up of the plugin goes here
 	remove_tool_menu_item("Godot Database Manager")
 	if(db_interface):
@@ -32,4 +31,3 @@ func open_config(UD):
 	var window = db_interface.get_node("dlg") as WindowDialog
 	if(window):
 		window.popup_centered()
-		g_globals.set_global_dlg(window)

@@ -65,6 +65,7 @@ func get_prop_id() -> int:
 
 # sets property type
 func set_prop_type(prop_type : int) -> void:
+	"""
 	print("GDDBTableProperty::set_prop_type(" + str(prop_type) + ")")
 	if(prop_type < db_types.e_data_types_count):
 		print("GDDBTableProperty::set_prop_type(" + db_types.get_data_name(prop_type) + ")")
@@ -72,6 +73,7 @@ func set_prop_type(prop_type : int) -> void:
 		var db = m_parent_table.get_parent_database()
 		var table = db.get_table_by_id(db_types.e_data_types_count - prop_type)
 		print("GDDBTableProperty::set_prop_type(" + table.get_table_name() + ")")
+	"""
 	m_type = prop_type
 	$align/prop_type.select(m_type)
 

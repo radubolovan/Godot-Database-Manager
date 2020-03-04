@@ -152,12 +152,14 @@ func clear_current_layout():
 	$tabs/data/data_holder/btns/add_data_btn.set_disabled(true)
 
 func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> void:
+	"""
 	if(prop_type >= db_types.e_data_types_count):
 		var db = m_table.get_parent_database()
 		var selected_table = db.get_table_by_id(db_types.e_data_types_count - prop_type)
 		print("GDDBTableEditor::on_edit_property(" + str(prop_id) + ", " + selected_table.get_table_name() + ", " + prop_name + ")")
 	else:
 		print("GDDBTableEditor::on_edit_property(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
+	"""
 	# edit prop in the table
 	m_table.edit_prop(prop_id, prop_type, prop_name)
 

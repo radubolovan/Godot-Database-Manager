@@ -9,16 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "TextureButton",
-"class": "GDDBComboBox",
-"language": "GDScript",
-"path": "res://addons/godot_db_manager/db_combo_box.gd"
-}, {
-"base": "TextureButton",
-"class": "GDDBComboOption",
-"language": "GDScript",
-"path": "res://addons/godot_db_manager/db_combo_option.gd"
-}, {
 "base": "AcceptDialog",
 "class": "GDDBConfirmNewDBDlg",
 "language": "GDScript",
@@ -84,11 +74,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_db_manager/dlgs/new_table_dlg.gd"
 }, {
-"base": "PopupPanel",
-"class": "GDDBOptionsList",
-"language": "GDScript",
-"path": "res://addons/godot_db_manager/options_list.gd"
-}, {
 "base": "Object",
 "class": "GDDBProperty",
 "language": "GDScript",
@@ -140,8 +125,6 @@ _global_script_classes=[ {
 "path": "res://addons/godot_db_manager/core/database.gd"
 } ]
 _global_script_class_icons={
-"GDDBComboBox": "",
-"GDDBComboOption": "",
 "GDDBConfirmNewDBDlg": "",
 "GDDBConstants": "",
 "GDDBData": "",
@@ -155,7 +138,6 @@ _global_script_class_icons={
 "GDDBMenu": "",
 "GDDBNewDBDlg": "",
 "GDDBNewTableDlg": "",
-"GDDBOptionsList": "",
 "GDDBProperty": "",
 "GDDBTable": "",
 "GDDBTableCell": "",
