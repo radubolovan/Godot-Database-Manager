@@ -17,6 +17,8 @@ func _ready() -> void:
 	$tabs/data/data_holder/btns/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
 	$tabs/data/data_holder/btns/add_data_btn.set_disabled(true)
 
+	$load_res_path_dlg.connect("file_selected", self, "on_select_res_path")
+
 # called when the new_property button is pressed
 func on_new_property_btn_pressed() -> void:
 	# print("GDDBTableEditor::on_new_property_btn_pressed()")
@@ -56,12 +58,13 @@ func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String):
 	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
 		var row = $tabs/data/data_holder/data_container.get_child(idx)
 		var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
+		row.add_child(cell)
 		cell.set_prop_id(prop_id)
 		cell.set_row_idx(idx)
 		cell.set_prop_type(prop_type)
 		cell.set_text("")
 		cell.connect("edit_data", self, "on_edit_data")
-		row.add_child(cell)
+		cell.connect("choose_resource", self, "on_choose_resource")
 
 # called when the add data button is pressed
 func on_add_row_data_btn_pressed() -> void:
@@ -81,6 +84,7 @@ func on_add_row_data_btn_pressed() -> void:
 		cell.set_prop_type(db_types.e_prop_type_int)
 		cell.set_text("")
 		cell.connect("edit_data", self, "on_edit_data")
+		cell.connect("choose_resource", self, "on_choose_resource")
 
 	emit_signal("set_dirty")
 
@@ -131,6 +135,7 @@ func fill_data() -> void:
 			cell.set_text(data_row[jdx].get_data())
 			cell.set_prop_type(prop_type)
 			cell.connect("edit_data", self, "on_edit_data")
+			cell.connect("choose_resource", self, "on_choose_resource")
 
 # cleares current layout
 func clear_current_layout():
@@ -224,3 +229,19 @@ func on_delete_property(prop_id : int) -> void:
 func on_edit_data(prop_id : int, row_idx : int, data : String):
 	m_table.edit_data(prop_id, row_idx, data)
 	emit_signal("set_dirty")
+
+func on_choose_resource(prop_id : int, row_idx : int):
+	# print("GDDBTableEditor::on_choose_resource(" + str(prop_id) + ", " + str(row_idx) + ")")
+	$load_res_path_dlg.set_prop_id(prop_id)
+	$load_res_path_dlg.set_row_idx(row_idx)
+	$load_res_path_dlg.popup_centered()
+
+func on_select_res_path(filepath : String) -> void:
+	# print("GDDBTableEditor::on_select_res_path(" + filepath + ")")
+	var prop_id = $load_res_path_dlg.get_prop_id()
+	var row_idx = $load_res_path_dlg.get_row_idx()
+	var row = $tabs/data/data_holder/data_container.get_child(row_idx)
+	for idx in range(0, row.get_child_count()):
+		var cell = row.get_child(idx)
+		if(cell.get_prop_id() == prop_id):
+			cell.set_text(filepath)

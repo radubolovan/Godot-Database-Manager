@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/dlgs/new_table_dlg.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
 
 [node name="new_table_dlg" type="WindowDialog"]
 anchor_right = 0.257
@@ -33,6 +35,7 @@ margin_left = 7.0
 margin_top = 5.0
 margin_right = 101.0
 margin_bottom = 19.0
+custom_fonts/font = SubResource( 1 )
 text = "Table name:    "
 
 [node name="table_edt" type="LineEdit" parent="v_layout/table_info"]

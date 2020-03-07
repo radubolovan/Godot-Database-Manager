@@ -78,8 +78,9 @@ func set_text(text : String) -> void :
 	$CheckBox.set_text(text)
 
 # called when the button is pressed
-func on_button_pressed():
+func on_button_pressed() -> void:
 	if(m_prop_type == db_types.e_prop_type_resource):
+		# print("GDDBTableCell::on_button_pressed()")
 		emit_signal("choose_resource", m_prop_id, m_row_idx)
 
 # called when edit the data
