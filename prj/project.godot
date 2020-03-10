@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/godot_db_manager/db_interface.gd"
 }, {
+"base": "FileDialog",
+"class": "GDDBLoadResourcePathDlg",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/dlgs/load_res_path_dlg.gd"
+}, {
 "base": "Object",
 "class": "GDDBMan",
 "language": "GDScript",
@@ -133,6 +138,7 @@ _global_script_class_icons={
 "GDDBEditor": "",
 "GDDBGlobals": "",
 "GDDBInterface": "",
+"GDDBLoadResourcePathDlg": "",
 "GDDBMan": "",
 "GDDBManager": "",
 "GDDBMenu": "",

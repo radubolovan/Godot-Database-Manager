@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=1]
+[ext_resource path="res://addons/godot_db_manager/dlgs/load_res_path_dlg.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/godot_db_manager/table_editor.gd" type="Script" id=3]
 
 [node name="table" type="Control"]
@@ -96,3 +97,6 @@ margin_right = 992.0
 margin_bottom = 28.0
 
 [node name="error_dlg" parent="." instance=ExtResource( 1 )]
+visible = false
+
+[node name="load_res_path_dlg" parent="." instance=ExtResource( 2 )]

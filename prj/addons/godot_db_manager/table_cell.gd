@@ -89,8 +89,9 @@ func get_database():
 	return m_database
 
 # called when the button is pressed
-func on_button_pressed():
+func on_button_pressed() -> void:
 	if(m_prop_type == db_types.e_prop_type_resource):
+		# print("GDDBTableCell::on_button_pressed()")
 		emit_signal("choose_resource", m_prop_id, m_row_idx)
 	elif(m_prop_type >= db_types.e_data_types_count):
 		print("GDDBTableCell::m_prop_type = " + str(m_prop_type))

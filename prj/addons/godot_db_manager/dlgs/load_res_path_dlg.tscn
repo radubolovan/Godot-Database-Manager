@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/godot_db_manager/dlgs/load_res_path_dlg.gd" type="Script" id=1]
+
+[node name="load_res_path_dlg" type="FileDialog"]
+anchor_right = 0.404
+anchor_bottom = 0.431
+margin_right = -0.400024
+margin_bottom = 0.0999756
+window_title = "Open a File"
+resizable = true
+mode = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
