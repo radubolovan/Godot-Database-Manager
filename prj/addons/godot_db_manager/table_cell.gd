@@ -15,6 +15,8 @@ var m_prop_type : int = g_constants.c_invalid_id
 var m_row_idx : int = -1
 var m_text : String = ""
 
+var m_database = null
+
 func _ready() -> void :
 	$LineEdit.connect("text_changed", self, "on_text_changed")
 	$Button.connect("pressed", self, "on_button_pressed")
@@ -72,15 +74,31 @@ func get_row_idx() -> int :
 
 # sets the text
 func set_text(text : String) -> void :
+	# print("GDDBTableCell::set_text(" + text + ")")
 	m_text = text
 	$LineEdit.set_text(text)
 	$Button.set_text(text)
 	$CheckBox.set_text(text)
 
+# sets the database
+func set_database(db):
+	m_database = db
+
+# returns the database
+func get_database():
+	return m_database
+
 # called when the button is pressed
 func on_button_pressed():
 	if(m_prop_type == db_types.e_prop_type_resource):
 		emit_signal("choose_resource", m_prop_id, m_row_idx)
+	elif(m_prop_type >= db_types.e_data_types_count):
+		print("GDDBTableCell::m_prop_type = " + str(m_prop_type))
+		"""
+		var tbl = m_database.get_table_by_id(m_prop_type - db_types.e_data_types_count)
+		var tbl_name = tbl.get_table_name
+		print("")
+		"""
 
 # called when edit the data
 func on_text_changed(new_text : String) -> void :

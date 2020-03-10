@@ -73,7 +73,7 @@ func set_prop_type(prop_type : int) -> void:
 		var db = m_parent_table.get_parent_database()
 		var table = db.get_table_by_id(db_types.e_data_types_count - prop_type)
 		print("GDDBTableProperty::set_prop_type(" + table.get_table_name() + ")")
-	"""
+	#"""
 	m_type = prop_type
 	$align/prop_type.select(m_type)
 
@@ -110,6 +110,12 @@ func on_about_to_show():
 			var table = db.get_table_at(idx)
 			if(table == m_parent_table):
 				continue
+			"""
+			print("GDDBTableProperty::on_about_to_show - Add:")
+			print("table id: " + str(table.get_table_id()))
+			print("table name: " + table.get_table_name())
+			"""
+			print("GDDBTableProperty::prop_type.add_item(" + table.get_table_name() + ", " + str(db_types.e_data_types_count + table.get_table_id()) + ")" )
 			$align/prop_type.add_item(table.get_table_name(), db_types.e_data_types_count + table.get_table_id())
 	# $align/prop_type.select(selected_idx)
 
@@ -119,13 +125,16 @@ func on_about_to_show():
 			break
 
 # called everytime the type of the property is changed
-func on_type_changed(option_id : int) -> void:
+func on_type_changed(option_idx : int) -> void:
+	var option_id = $align/prop_type.get_item_id(option_idx)
 	"""
+	print("GDDBTableProperty::on_type_changed(" + str(option_idx) + ")")
+	print("option_id = " + str(option_id))
 	if(option_id >= db_types.e_data_types_count):
-		print("GDDBTableProperty::on_type_changed(" + str(db_types.e_data_types_count + option_id) + ")")
+		print("GDDBTableProperty::on_type_changed(" + str(option_id) + ")")
 	else:
 		print("GDDBTableProperty::on_type_changed(" + db_types.get_data_name(option_id) + ")")
-	"""
+	#"""
 	m_type = option_id
 	emit_signal("edit_property", m_id, m_type, m_name)
 

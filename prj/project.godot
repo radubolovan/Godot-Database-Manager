@@ -175,6 +175,10 @@ window/size/height=900
 
 enabled=PoolStringArray( "godot_db_manager" )
 
+[global]
+
+auto=false
+
 [memory]
 
 limits/message_queue/max_size_kb=1048576
