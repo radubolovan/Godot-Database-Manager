@@ -107,8 +107,8 @@ func fill_properties() -> void:
 		var prop = load(g_constants.c_addon_main_path + "data_label.tscn").instance()
 		$tabs/data/data_holder/data_header.add_child(prop)
 		prop.set_prop_id(db_prop.get_prop_id())
-		prop.set_text(db_prop.get_prop_name())
 		prop.set_prop_type(db_prop.get_prop_type())
+		prop.set_text(db_prop.get_prop_name())
 	if(props_count > 0):
 		$tabs/data/data_holder/btns/add_data_btn.set_disabled(false)
 
@@ -132,8 +132,8 @@ func fill_data() -> void:
 			cell.set_row_idx(idx)
 			#var cell_data = data_row[jdx].get_data()
 			#print(cell_data)
-			cell.set_text(data_row[jdx].get_data())
 			cell.set_prop_type(prop_type)
+			cell.set_text(data_row[jdx].get_data())
 			cell.connect("edit_data", self, "on_edit_data")
 			cell.connect("choose_resource", self, "on_choose_resource")
 

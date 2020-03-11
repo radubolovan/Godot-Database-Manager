@@ -115,7 +115,7 @@ func on_about_to_show():
 			print("table id: " + str(table.get_table_id()))
 			print("table name: " + table.get_table_name())
 			"""
-			print("GDDBTableProperty::prop_type.add_item(" + table.get_table_name() + ", " + str(db_types.e_data_types_count + table.get_table_id()) + ")" )
+			# print("GDDBTableProperty::prop_type.add_item(" + table.get_table_name() + ", " + str(db_types.e_data_types_count + table.get_table_id()) + ")" )
 			$align/prop_type.add_item(table.get_table_name(), db_types.e_data_types_count + table.get_table_id())
 	# $align/prop_type.select(selected_idx)
 
