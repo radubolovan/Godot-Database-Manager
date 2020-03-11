@@ -9,38 +9,47 @@ extends FileDialog
 
 # TODO: put this list in a config file
 const file_filters = [
-	# general Godot resource file types
-	"*.res ; RES files",
-	"*.tres ; TRES files",
+	# Godot resource file types
+	"*.res, *.tres ; Godot resource file types",
+
+	# Godot scene files
+	"*.scn, *.tscn, *escn ; Godot scene file types",
+
+	# Code file types
+	"*.gd, *.cs, *.h, *.c, *.hpp, *.cpp ; Code file types",
+
+	# Shader file types
+	"*.shader ; Shader file types",
+
+	# material file types
+	"*.mat ; Material file types",
+
+	# mesh file types
+	"*.dae, *.gltf, *.obj, *.fbx ; Mesh file types",
+
+	# animation file types
+	"*.anim ; Animation file types",
 
 	# font file types
-	"*.ttf ; TTF files",
-	"*.otf ; TTF files",
+	"*.ttf, *.otf ; Font file types",
 
 	# image file types
-	"*.png ; PNG files",
-	"*.jpg ; JPEG files",
-	"*.jpeg ; JPEG files",
-	"*.tiff ; TIFF files",
-	"*.tga ; TGA files",
-	"*.bmp ; BMP files",
-	"*.webp ; WebP files",
-	"*.gif ; GIF files",
-	"*.hdr ; HDR files",
+	"*.png, *.jpg, *.jpeg, *.tiff, *.tga, *.bmp, *.webp, *.gif, *.hdr ; Images file types",
 
 	# soung file types
-	"*.wav ; WAV files",
-	"*.ogg ; OGG files",
-	"*.mp3 ; MP3 files",
-	"*.raw ; MP3 files",
+	"*.snd, *.wav, *.ogg, *.mp3 ; Sound file types",
 
 	# video file types
-	"*.mpg ; MPEG files",
-	"*.mpeg ; MPEG files",
-	"*.avi ; AVI files",
-	"*.mov ; MOV files",
-	"*.mp4 ; MP4 files",
-	"*.webm ; WebM files"
+	"*.ogg, *.mpg, *.mpeg, *.avi, *.mov, *.mp4, *.webm ; Video file types",
+
+	# text file types
+	"*.txt, *.csv, *.json, *.xml, *.cfg, *.ini ; Text file types",
+
+	# document file types
+	"*.doc, *.docx, *.xls, *.xlsx, *.odt, *.ods, *.pdf ; Doc file types",
+	
+	# binary data file types
+	"*.dat, *.raw ; Binary data file types"
 ]
 
 var m_prop_id = g_constants.c_invalid_id
