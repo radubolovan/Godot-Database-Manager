@@ -23,7 +23,8 @@ func on_add_table() -> void:
 	emit_signal("add_table")
 
 # creates a table
-func create_table(db_table) -> void:
+func create_table(db_table : Object, select_table : bool = true) -> void:
+	# print("GDDBTablesList::create_table(" + str(db_table) + ")")
 	var table = load(g_constants.c_addon_main_path + "table_item.tscn").instance()
 	var table_id = db_table.get_table_id()
 	table.set_table_id(table_id)
@@ -33,7 +34,8 @@ func create_table(db_table) -> void:
 	table.connect("delete_table", self, "on_delete_table")
 	m_tables.push_back(table)
 	$v_align/tables_container/tables.add_child(table)
-	on_select_item(table_id)
+	if(select_table):
+		select_item_by_id(table_id)
 
 # Called when the user presses the "edit_table" button from the tables_list/table
 func on_edit_table_name(table_id : int, table_name : String) -> void:
@@ -62,6 +64,7 @@ func delete_table(table_id : int) -> void:
 
 # called when the user presses an item
 func on_select_item(table_id : int) -> void:
+	# print("GDDBTablesList::on_select_item(" + str(table_id) + ")")
 	select_item_by_id(table_id)
 	emit_signal("select_table", table_id)
 
@@ -72,6 +75,7 @@ func select_item_at(table_idx : int) -> void:
 
 # select an item by id
 func select_item_by_id(table_id : int) -> void:
+	# print("GDDBTablesList::select_item_by_id(" + str(table_id) + ")")
 	for idx in range(0, m_tables.size()):
 		m_tables[idx].set_selected(m_tables[idx].get_table_id() == table_id)
 

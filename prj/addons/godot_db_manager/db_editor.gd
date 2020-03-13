@@ -22,7 +22,7 @@ func _ready() -> void :
 	$main_window/tables_panel/tables_list.connect("delete_table", self, "on_delete_table")
 	$main_window/tables_panel/tables_list.connect("select_table", self, "on_select_table")
 
-	$main_window/tables_panel/table.connect("set_dirty", self, "on_set_dirty")
+	$main_window/tables_panel/table_editor.connect("set_dirty", self, "on_set_dirty")
 
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 
@@ -43,16 +43,22 @@ func set_database(db) -> void :
 
 	var tables_count = db.get_tables_count()
 
+	$main_window/tables_panel/table_editor.hide()
+
 	for idx in range(0, tables_count):
 		var table = db.get_table_at(idx)
-		$main_window/tables_panel/tables_list.create_table(table)
-		$main_window/tables_panel/table.set_table(table)
-		$main_window/tables_panel/table.show()
+		$main_window/tables_panel/tables_list.create_table(table, idx == 0)
+		if(idx == 0):
+			$main_window/tables_panel/table_editor.set_table(table)
+			$main_window/tables_panel/table_editor.link_props()
+		$main_window/tables_panel/table_editor.show()
 
+	# AICI
+	"""
 	if(tables_count > 0):
-		$main_window/tables_panel/table.show()
-	else:
-		$main_window/tables_panel/table.hide()
+		var table = db.get_table_at(0)
+		$main_window/tables_panel/tables_list.select_item_by_id(table.get_table_id())
+	"""
 
 # returns the database id
 func get_db_id() -> int :
@@ -81,8 +87,8 @@ func on_create_table(table_name : String) -> void :
 		$error_dlg.popup_centered()
 		return
 	$main_window/tables_panel/tables_list.create_table(table)
-	$main_window/tables_panel/table.set_table(table)
-	$main_window/tables_panel/table.show()
+	$main_window/tables_panel/table_editor.set_table(table)
+	$main_window/tables_panel/table_editor.show()
 	m_database.set_dirty(true)
 	set_dirty(true)
 
@@ -136,7 +142,7 @@ func on_confirm_delete_table() -> void :
 	if(selected_table_id == table_id):
 		$main_window/tables_panel/tables_list.select_item_at(0)
 		var table = m_database.get_table_at(0)
-		$main_window/tables_panel/table.set_table(table)
+		$main_window/tables_panel/table_editor.set_table(table)
 
 	m_database.set_dirty(true)
 	set_dirty(true)
@@ -145,7 +151,8 @@ func on_confirm_delete_table() -> void :
 func on_select_table(table_id : int) -> void :
 	var table = m_database.get_table_by_id(table_id)
 	if(null != table):
-		$main_window/tables_panel/table.set_table(table)
+		$main_window/tables_panel/table_editor.set_table(table)
+		$main_window/tables_panel/table_editor.link_props()
 
 # saves current database
 func save_database() -> void:

@@ -73,7 +73,7 @@ func set_prop_type(data_type : int) -> void :
 		$LineEdit.hide()
 		$Button.show()
 		$CheckBox.hide()
-		set_text("[User Data]")
+		set_text("{}")
 
 func get_prop_type() -> int :
 	return m_prop_type

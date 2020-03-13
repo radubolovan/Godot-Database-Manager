@@ -21,6 +21,7 @@ func _ready():
 	$select_btn.connect("pressed", self, "on_select_btn_pressed")
 	$elems/edit_table_btn.connect("pressed", self, "on_edit_table_btn_pressed")
 	$elems/delete_table_btn.connect("pressed", self, "on_delete_table_btn_pressed")
+	$select.hide()
 
 # sets the table id
 func set_table_id(id : int) -> void:

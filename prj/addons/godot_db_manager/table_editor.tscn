@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot_db_manager/dlgs/load_res_path_dlg.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/godot_db_manager/table_editor.gd" type="Script" id=3]
+[ext_resource path="res://addons/godot_db_manager/dlgs/data_dlg.tscn" type="PackedScene" id=4]
 
 [node name="table" type="Control"]
 anchor_right = 0.625
@@ -100,3 +101,6 @@ margin_bottom = 28.0
 visible = false
 
 [node name="load_res_path_dlg" parent="." instance=ExtResource( 2 )]
+filters = PoolStringArray( "*.res, *.tres ; Godot resource file types", "*.scn, *.tscn, *escn ; Godot scene file types", "*.gd, *.cs, *.h, *.c, *.hpp, *.cpp ; Code file types", "*.shader ; Shader file types", "*.mat ; Material file types", "*.dae, *.gltf, *.obj, *.fbx ; Mesh file types", "*.anim ; Animation file types", "*.ttf, *.otf ; Font file types", "*.png, *.jpg, *.jpeg, *.tiff, *.tga, *.bmp, *.webp, *.gif, *.hdr ; Images file types", "*.snd, *.wav, *.ogg, *.mp3 ; Sound file types", "*.ogg, *.mpg, *.mpeg, *.avi, *.mov, *.mp4, *.webm ; Video file types", "*.txt, *.csv, *.json, *.xml, *.cfg, *.ini ; Text file types", "*.doc, *.docx, *.xls, *.xlsx, *.odt, *.ods, *.pdf ; Doc file types", "*.dat, *.raw ; Binary data file types" )
+
+[node name="data_dlg" parent="." instance=ExtResource( 4 )]

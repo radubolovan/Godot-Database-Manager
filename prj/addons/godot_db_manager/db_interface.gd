@@ -76,6 +76,8 @@ func on_new_database(db_name : String) -> void:
 	$dlg/menu.enable_file_save(true)
 	$dlg/menu.enable_file_save_as(true)
 
+	$dlg/new_db_dlg.hide()
+
 # called when selecting a file from save / load dialog
 func on_file_selected(filepath : String) -> void:
 	if($dlg/load_db_dlg.get_mode() == FileDialog.MODE_SAVE_FILE):

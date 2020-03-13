@@ -54,7 +54,7 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 	m_props.push_back(prop)
 
 	# adding blank data to all existing rows
-	# TODO: find a way to make this in a better; this is ugly
+	# TODO: find a way to make this better; this is ugly
 	if(m_data.size() > 0):
 		var new_data_array = []
 		var data_idx = 0
@@ -85,7 +85,7 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 # adds a property in the table structure as a table type
 # returns prop ID
 func add_table_prop(prop_name : String, table_name : String) -> void:
-	print("GDDBTable::add_table_prop(" + prop_name + ", " + table_name + ")")
+	# print("GDDBTable::add_table_prop(" + prop_name + ", " + table_name + ")")
 	var prop_id = generate_new_prop_id()
 
 	# print("GDDBDTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
@@ -206,11 +206,11 @@ func get_rows_count() -> int:
 
 # edits the data
 func edit_data(prop_id : int, row_idx : int, data : String) -> void :
-	# print("#1: cTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
+	# print("#1: GDDBTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
 	for idx in range(0, m_data.size()):
 		# print("checking ( " + str(m_data[idx].get_row_idx()) + ", " + str(m_data[idx].get_prop_id()) + " )")
 		if(m_data[idx].get_row_idx() == row_idx && m_data[idx].get_prop_id() == prop_id):
-			# print("#2: cTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
+			# print("#2: GDDBTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
 			m_data[idx].set_data(data)
 			return
 	print("ERROR: GDDBDTable::edit_data(" + str(prop_id) + ", " + str(row_idx) + ", " + data + ") - can't find data to edit")

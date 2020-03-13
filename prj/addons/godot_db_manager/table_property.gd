@@ -10,9 +10,9 @@ extends Control
 signal delete_property
 signal edit_property
 
-var m_id : int = -1
-var m_type : int = 0
-var m_name : String = ""
+var m_prop_id : int = -1
+var m_prop_type : int = 0
+var m_prop_name : String = ""
 
 var m_parent_table = null
 
@@ -37,9 +37,9 @@ func setup(prop_id : int, prop_type : int, prop_name : String) -> void:
 		print("GDDBTableProperty::setup(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
 	else:
 		var db = m_parent_table.get_parent_database()
-		var table = db.get_table_by_id(db_types.e_data_types_count - prop_type)
+		var table = db.get_table_by_id(prop_type - db_types.e_data_types_count)
 		print("GDDBTableProperty::setup(" + str(prop_id) + ", " + table.get_table_name() + ", " + prop_name + ")")
-	"""
+	#"""
 	set_prop_id(prop_id)
 	set_prop_type(prop_type)
 	set_prop_name(prop_name)
@@ -55,13 +55,14 @@ func set_parent_table(table):
 		$align/prop_type.add_item(tbl.get_table_name(), db_types.e_data_types_count + tbl.get_table_id())
 
 # sets proprty id
-func set_prop_id(id : int) -> void:
-	m_id = id
-	$align/prop_id.set_text(str(m_id))
+func set_prop_id(prop_id : int) -> void:
+	# print("GDDBTableProperty::set_prop_id(" + str(prop_id) + ")")
+	m_prop_id = prop_id
+	$align/prop_id.set_text(str(m_prop_id))
 
 # returns property id
 func get_prop_id() -> int:
-	return m_id
+	return m_prop_id
 
 # sets property type
 func set_prop_type(prop_type : int) -> void:
@@ -71,35 +72,62 @@ func set_prop_type(prop_type : int) -> void:
 		print("GDDBTableProperty::set_prop_type(" + db_types.get_data_name(prop_type) + ")")
 	else:
 		var db = m_parent_table.get_parent_database()
-		var table = db.get_table_by_id(db_types.e_data_types_count - prop_type)
+		var table = db.get_table_by_id(prop_type - db_types.e_data_types_count)
 		print("GDDBTableProperty::set_prop_type(" + table.get_table_name() + ")")
 	#"""
-	m_type = prop_type
-	$align/prop_type.select(m_type)
+	#if(prop_type >= db_types.e_data_types_count):
+	#	print("GDDBTableProperty::set_prop_type(" + str(prop_type) + ")")
+	m_prop_type = prop_type
+	select_current_prop()
+
+# selects current property
+func select_current_prop() -> void:
+	if(m_prop_type < db_types.e_data_types_count):
+		$align/prop_type.select(m_prop_type)
+
+# links property type to other tables
+func link():
+	# print("GDDBTableProperty::link()")
+	refill_list()
+	if(m_prop_type >= db_types.e_data_types_count):
+		"""
+		print("m_prop_id : " + str(m_prop_id))
+		print("m_prop_type : " + str(m_prop_type))
+		print("m_prop_name : " + m_prop_name)
+		"""
+		set_selection_by_id(m_prop_type)
+	else:
+		$align/prop_type.select(m_prop_type)
 
 # returns property type
 func get_prop_type() -> int:
-	return m_type
+	return m_prop_type
 
 # sets property name
-func set_prop_name(name : String) -> void:
-	m_name = name
-	$align/prop_name.set_text(m_name)
+func set_prop_name(prop_name : String) -> void:
+	# print("GDDBTableProperty::set_prop_name(" + prop_name + ")")
+	m_prop_name = prop_name
+	$align/prop_name.set_text(m_prop_name)
 
 # returns property name
 func get_prop_name() -> String:
-	return m_name
+	return m_prop_name
 
 # called everytime the name of the property is changed
 func on_name_changed(new_text : String) -> void:
-	m_name = new_text
-	emit_signal("edit_property", m_id, m_type, m_name)
+	m_prop_name = new_text
+	emit_signal("edit_property", m_prop_id, m_prop_type, m_prop_name)
 
 # called when the popup from option button is about to be shown
 func on_about_to_show():
 	var selected_id = $align/prop_type.get_selected_id()
 	# print("GDDBTableProperty::on_about_to_show() - " + str(selected_id))
 
+	refill_list()
+	set_selection_by_id(selected_id)
+
+# refills the list
+func refill_list() -> void :
 	$align/prop_type.clear()
 	for idx in range(0, db_types.e_data_types_count):
 		$align/prop_type.add_item(db_types.get_data_name(idx), db_types.e_prop_type_bool + idx)
@@ -111,14 +139,17 @@ func on_about_to_show():
 			if(table == m_parent_table):
 				continue
 			"""
-			print("GDDBTableProperty::on_about_to_show - Add:")
+			print("GDDBTableProperty::refill_list - Add:")
 			print("table id: " + str(table.get_table_id()))
 			print("table name: " + table.get_table_name())
-			"""
+			#"""
 			# print("GDDBTableProperty::prop_type.add_item(" + table.get_table_name() + ", " + str(db_types.e_data_types_count + table.get_table_id()) + ")" )
 			$align/prop_type.add_item(table.get_table_name(), db_types.e_data_types_count + table.get_table_id())
 	# $align/prop_type.select(selected_idx)
 
+# sets selection
+func set_selection_by_id(selected_id : int) -> void :
+	# print("GDDBTableProperty::set_selection_by_id(" + str(selected_id) + ")")
 	for idx in range(0, $align/prop_type.get_item_count()):
 		if($align/prop_type.get_item_id(idx) == selected_id):
 			$align/prop_type.select(idx)
@@ -135,9 +166,9 @@ func on_type_changed(option_idx : int) -> void:
 	else:
 		print("GDDBTableProperty::on_type_changed(" + db_types.get_data_name(option_id) + ")")
 	#"""
-	m_type = option_id
-	emit_signal("edit_property", m_id, m_type, m_name)
+	m_prop_type = option_id
+	emit_signal("edit_property", m_prop_id, m_prop_type, m_prop_name)
 
 # called when the delete property button is pressed
 func on_delete_button_pressed() -> void:
-	emit_signal("delete_property", m_id)
+	emit_signal("delete_property", m_prop_id)

@@ -42,7 +42,7 @@ func get_db_id() -> int :
 # the name of the database should not contain special characters
 func set_db_name(name : String) -> bool :
 	if(!g_constants.check_db_name(name)):
-		print("ERROR: the name of the database \"" + name + "\" contains invalid characters")
+		print("ERROR: GDDatabase::set_db_name(" + name + ") - the name of the database contains invalid characters")
 		return false
 	# print("GDDatabase::set_db_name(" + name + ")")
 	m_db_name = name
@@ -67,7 +67,7 @@ func can_add_table(table_name : String, table_id : int = -1):
 		if(m_tables[idx].get_table_name() == table_name):
 			if(m_tables[idx].get_table_id() == table_id):
 				continue
-			print("Warning: table with name \"" + table_name + "\" already exists")
+			print("WARNING: GDDatabase::can_add_table(" + table_name + ", " + str(table_id) + ") - table already exists")
 			return false
 	return true
 
@@ -75,6 +75,7 @@ func can_add_table(table_name : String, table_id : int = -1):
 # returns the table; if already exists, it will fire an warning on output console
 func add_table(table_name : String) -> Object :
 	if(!can_add_table(table_name)):
+		print("WARNING: GDDatabase::add_table(" + table_name + ") - cannot add table")
 		return null
 
 	# print("GDDatabase::add_table(" + table_name + ") to \"" + m_db_name + "\" database")
@@ -101,7 +102,7 @@ func edit_table_name(table_name : String, table_id : int) -> bool :
 func delete_table(table_id: int) -> void:
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_id() == table_id):
-			print("GDDatabase::delete_table(" + str(table_id) + ")")
+			# print("GDDatabase::delete_table(" + str(table_id) + ")")
 			m_tables[idx].free()
 			m_tables.remove(idx)
 			return
@@ -128,7 +129,7 @@ func is_table_exists(table_name : String) -> bool:
 # returns a table by an index or null if the index is invalid
 func get_table_at(idx: int) -> Object :
 	if(idx < 0 || idx >= m_tables.size()):
-		print("ERROR: cannot obtain table with index " + str(idx))
+		print("ERROR: GDDatabase::get_table_at(" + str(idx) + ") - cannot obtain table with index")
 		return null
 	return m_tables[idx]
 
@@ -137,7 +138,7 @@ func get_table_by_id(table_id: int) -> Object :
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_id() == table_id):
 			return m_tables[idx]
-	print("ERROR: cannot obtain table with id \"" + str(table_id) + "\"")
+	print("ERROR: GDDatabase::get_table_by_id(" + str(table_id) + ") - cannot obtain table with id")
 	return null
 
 # returns a table by its name or null if the name of the table doesn's exist
@@ -145,7 +146,7 @@ func get_table_by_name(table_name: String) -> Object :
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_name() == table_name):
 			return m_tables[idx]
-	print("ERROR: cannot obtain table with name \"" + table_name + "\"")
+	print("ERROR: GDDatabase::get_table_by_id(" + table_name + ") - cannot obtain table with name")
 	return null
 
 # deletes all the tables
@@ -167,11 +168,11 @@ func is_dirty():
 # serialization
 func save_db() -> void :
 	if(m_db_name.empty()):
-		print("ERROR: save_db() - current database doesn't have a name")
+		print("ERROR: GDDatabase::save_db() - current database doesn't have a name")
 		return
 
 	if(m_db_filepath.empty()):
-		print("ERROR: save_db() - current database doesn't have a path file")
+		print("ERROR: GDDatabase::save_db() - current database doesn't have a path file")
 		return
 
 	# print("GDDatabase::save_db() - " + m_db_name + " to: " + m_db_filepath)
@@ -180,7 +181,7 @@ func save_db() -> void :
 	text += "\"tables\":["
 	for idx in range(0, m_tables.size()):
 		text += "{"
-		text += "\"name\":\"" + m_tables[idx].get_table_name() + "\","
+		text += "\"table_name\":\"" + m_tables[idx].get_table_name() + "\","
 		text += "\"props\":["
 		for jdx in range(0, m_tables[idx].get_props_count()):
 			var db_prop = m_tables[idx].get_prop_at(jdx)
@@ -191,8 +192,11 @@ func save_db() -> void :
 			if(prop_type < db_types.e_data_types_count):
 				text += "\"type\":\"" + str(prop_type) + "\""
 			else:
-				var table_id = db_types.e_data_types_count - prop_type
+				# print("GDDatabase::save_db() - prop_type: " + str(prop_type))
+				var table_id = prop_type - db_types.e_data_types_count
 				var table = get_table_by_id(table_id)
+				if(null == table):
+					print("GDDatabase::save_db() - table not found with id: " + str(table_id))
 				text += "\"type\":\"" + "table" + "\","
 				text += "\"table_name\":\"" + table.get_table_name() + "\""
 			text += "}"
@@ -234,7 +238,7 @@ func load_db() -> void :
 	m_db_name = dictionary["name"]
 	var tables = dictionary["tables"]
 	for idx in range(0, tables.size()):
-		var table = add_table(tables[idx]["name"])
+		var table = add_table(tables[idx]["table_name"])
 
 		var props_count = tables[idx]["props"].size()
 		if(props_count == 0):
