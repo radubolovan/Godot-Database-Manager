@@ -132,13 +132,30 @@ func fill_data() -> void:
 			var prop_type = db_prop.get_prop_type()
 			# print("Prop: type - " + str(prop_type) + " - " + db_types.get_data_name(prop_type) + " - id: " + str(data_row[jdx].get_prop_id()) + " - data: " + data_row[jdx].get_data())
 
+			var cell_data = data_row[jdx].get_data()
+
+			if(prop_type > db_types.e_data_types_count):
+				var db = m_parent_table.get_parent_database()
+				var tbl = db.get_table_by_id(prop_type - db_types.e_data_types_count)
+				var data_row_idx = cell_data.to_int()
+				var row_data = tbl.get_data_at_row_idx(data_row_idx)
+
+				# TODO: this code is duplicated; the same code is in "data_dlg.gd::on_about_to_show". Put it in a global function
+
+				cell_data = "{"
+				for kdx in range(0, row_data.size()):
+					var prop_name = tbl.get_prop_at(kdx).get_prop_name()
+					cell_data += "\"" + prop_name + "\":"
+					cell_data += "\"" + row_data[kdx].get_data() + "\""
+					if(kdx < row_data.size() - 1):
+						cell_data += ", "
+				cell_data += "}"
+
 			row.add_child(cell)
 			cell.set_prop_id(data_row[jdx].get_prop_id())
 			cell.set_row_idx(idx)
-			#var cell_data = data_row[jdx].get_data()
-			#print(cell_data)
 			cell.set_prop_type(prop_type)
-			cell.set_text(data_row[jdx].get_data())
+			cell.set_text(cell_data)
 			cell.connect("edit_data", self, "on_edit_data")
 			cell.connect("choose_resource", self, "on_choose_resource")
 			cell.connect("choose_data", self, "on_choose_data")
@@ -277,9 +294,9 @@ func on_select_res_path(filepath : String) -> void:
 			cell.set_text(filepath)
 
 # called when data from a table is choosen
-func on_select_data(prop_id : int, row_idx : int, data_id : int, data : String) -> void:
+func on_select_data(prop_id : int, row_idx : int, data_row_idx : int, data : String) -> void:
 	# set the data in the databes / table
-	m_parent_table.edit_data(prop_id, row_idx, str(data_id))
+	m_parent_table.edit_data(prop_id, row_idx, str(data_row_idx))
 
 	# fill in the interface cell with data
 	var row = $tabs/data/data_holder/data_container.get_child(row_idx)

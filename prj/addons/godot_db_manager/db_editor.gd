@@ -53,13 +53,6 @@ func set_database(db) -> void :
 			$main_window/tables_panel/table_editor.link_props()
 		$main_window/tables_panel/table_editor.show()
 
-	# AICI
-	"""
-	if(tables_count > 0):
-		var table = db.get_table_at(0)
-		$main_window/tables_panel/tables_list.select_item_by_id(table.get_table_id())
-	"""
-
 # returns the database id
 func get_db_id() -> int :
 	if(null == m_database):
