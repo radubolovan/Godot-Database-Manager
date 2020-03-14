@@ -81,10 +81,11 @@ func on_add_row_data_btn_pressed() -> void:
 	$tabs/data/data_holder/data_container.add_child(row)
 	for idx in range(0, $tabs/structure/properties.get_child_count()):
 		var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
+		var prop = $tabs/structure/properties.get_child(idx)
 		row.add_child(cell)
 		cell.set_prop_id(idx)
 		cell.set_row_idx(row_idx)
-		cell.set_prop_type(db_types.e_prop_type_int)
+		cell.set_prop_type(prop.get_prop_type())
 		cell.set_text("")
 		cell.connect("edit_data", self, "on_edit_data")
 		cell.connect("choose_resource", self, "on_choose_resource")
@@ -118,20 +119,25 @@ func fill_properties() -> void:
 
 # fills the interface with current table's data
 func fill_data() -> void:
-	# print("GDDBTableEditor::fill_data()")
+	#print("GDDBTableEditor::fill_data()")
 	var rows_count = m_parent_table.get_rows_count()
+	#print("Table name: " + m_parent_table.get_table_name())
+	#print("rows_count: " + str(rows_count))
 	for idx in range(0, rows_count):
 		var row = HBoxContainer.new()
 		$tabs/data/data_holder/data_container.add_child(row)
 		var data_row = m_parent_table.get_data_at_row_idx(idx)
 		for jdx in range(0, data_row.size()):
 			var db_prop = m_parent_table.get_prop_at(jdx)
+			#print("Prop id: " + str(db_prop.get_prop_id()))
+			#print("Prop type: " + str(db_prop.get_prop_type()))
+			#print("Prop name: " + str(db_prop.get_prop_name()))
 
 			var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
 			var cell_data = data_row[jdx].get_data()
 
 			var prop_type = db_prop.get_prop_type()
-			if(prop_type > db_types.e_data_types_count):
+			if(prop_type >= db_types.e_data_types_count):
 				var db = m_parent_table.get_parent_database()
 				var table = db.get_table_by_id(prop_type - db_types.e_data_types_count)
 				var data_row_idx = cell_data.to_int()
@@ -273,6 +279,7 @@ func on_select_res_path(filepath : String) -> void:
 	# print("GDDBTableEditor::on_select_res_path(" + filepath + ")")
 	var prop_id = $load_res_path_dlg.get_prop_id()
 	var row_idx = $load_res_path_dlg.get_row_idx()
+	m_parent_table.edit_data(prop_id, row_idx, filepath)
 	var row = $tabs/data/data_holder/data_container.get_child(row_idx)
 	for idx in range(0, row.get_child_count()):
 		var cell = row.get_child(idx)

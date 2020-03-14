@@ -20,6 +20,8 @@ func _ready() -> void :
 	$LineEdit.connect("text_changed", self, "on_text_changed")
 	$Button.connect("pressed", self, "on_button_pressed")
 
+	$Button.set_clip_text(true)
+
 func _exit_tree() -> void :
 	$LineEdit.disconnect("text_changed", self, "on_text_changed")
 
