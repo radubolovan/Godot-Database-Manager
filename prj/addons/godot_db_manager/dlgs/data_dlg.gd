@@ -47,15 +47,7 @@ func get_table() -> Object:
 func on_about_to_show() -> void :
 	$ItemList.clear()
 	for idx in range(0, m_table.get_rows_count()):
-		var option = "{"
-		var row = m_table.get_data_at_row_idx(idx)
-		for jdx in range(0, row.size()):
-			var prop = m_table.get_prop_at(jdx)
-			option += "\"" + prop.get_prop_name() + "\":"
-			option += "\"" + row[jdx].get_data() + "\""
-			if(jdx < row.size() - 1):
-				option += ", "
-		option += "}"
+		var option = g_globals.get_json_from_row(m_table, idx)
 		$ItemList.add_item(option)
 
 # called when an item is selected
