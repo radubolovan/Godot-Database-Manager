@@ -1,98 +1,115 @@
 extends Control
 
-const c_db_name = "database"
-
+var m_db_manager = null
 var m_database = null
 
+var m_player_name = ""
+var m_player_name_prop_id = -1
+
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	#test_new_database()
-	test_load_database()
+func _ready() -> void:
+	# init database manager
+	m_db_manager = load(g_constants.c_addon_main_path + "core/db_man.gd").new()
+	var db_id = m_db_manager.load_database("res://game_data.json")
 
-func test_new_database() -> void:
-	# create a database and set its name
-	m_database = load(g_constants.c_addon_main_path + "core/database.gd").new()
-	m_database.set_db_name(c_db_name)
-	m_database.set_db_filepath("res://database.json")
+	# load the database
+	m_database = m_db_manager.get_db_by_id(db_id)
 
-	# create "resources" table
-	var resources_tbl = m_database.add_table("resources")
+	# get the tables
+	var res_table = m_database.get_table_by_name("resources")
+	var users_table = m_database.get_table_by_name("users")
 
-	# add properties to "resources" table
-	resources_tbl.add_prop(db_types.e_prop_type_int, "ID")
-	resources_tbl.add_prop(db_types.e_prop_type_string, "name")
-	resources_tbl.add_prop(db_types.e_prop_type_string, "path")
+	# get user data
+	var user_data = users_table.get_data_at_row_idx(0)
+	m_player_name = ""
+	m_player_name_prop_id = -1
+	for idx in range(0, users_table.get_props_count()):
+		# set player name
+		if(users_table.get_prop_at(idx).get_prop_name() == "name"):
+			m_player_name_prop_id = users_table.get_prop_at(idx).get_prop_id()
+			m_player_name = user_data[idx].get_data()
 
-	# add data to "resources" table
-	var data = [
-		[0, "Silver", "res://resources/silver.png"],
-		[1, "Gold", "res://resources/gold.png"],
-		[2, "Diamond", "res://resources/diamond.png"]
-	]
-	resources_tbl.add_row(data[0])
-	resources_tbl.add_row(data[1])
-	resources_tbl.add_row(data[2])
+		# set energy
+		elif(users_table.get_prop_at(idx).get_prop_name() == "energy"):
+			var energy_idx = user_data[idx].get_data().to_int()
+			var res_row = res_table.get_data_at_row_idx(energy_idx)
+			for jdx in range(0, res_row.size()):
+				if(res_table.get_prop_at(jdx).get_prop_name() == "name"):
+					$energy.set_res_name(res_row[jdx].get_data())
+				elif(res_table.get_prop_at(jdx).get_prop_name() == "img_path"):
+					$energy.set_tex(res_row[jdx].get_data())
+		elif(users_table.get_prop_at(idx).get_prop_name() == "energy_amount"):
+			$energy.set_amount(user_data[idx].get_data().to_int())
 
-	# create "users" table
-	var users_tbl = m_database.add_table("users")
+		# set food
+		elif(users_table.get_prop_at(idx).get_prop_name() == "food"):
+			var food_idx = user_data[idx].get_data().to_int()
+			var res_row = res_table.get_data_at_row_idx(food_idx)
+			for jdx in range(0, res_row.size()):
+				if(res_table.get_prop_at(jdx).get_prop_name() == "name"):
+					$food.set_res_name(res_row[jdx].get_data())
+				elif(res_table.get_prop_at(jdx).get_prop_name() == "img_path"):
+					$food.set_tex(res_row[jdx].get_data())
+		elif(users_table.get_prop_at(idx).get_prop_name() == "food_amount"):
+			$food.set_amount(user_data[idx].get_data().to_int())
 
-	# add properties to "users" table
-	users_tbl.add_prop(db_types.e_prop_type_int, "ID")
-	users_tbl.add_prop(db_types.e_prop_type_string, "name")
+		# set wood
+		elif(users_table.get_prop_at(idx).get_prop_name() == "wood"):
+			var wood_idx = user_data[idx].get_data().to_int()
+			var res_row = res_table.get_data_at_row_idx(wood_idx)
+			for jdx in range(0, res_row.size()):
+				if(res_table.get_prop_at(jdx).get_prop_name() == "name"):
+					$wood.set_res_name(res_row[jdx].get_data())
+				elif(res_table.get_prop_at(jdx).get_prop_name() == "img_path"):
+					$wood.set_tex(res_row[jdx].get_data())
+		elif(users_table.get_prop_at(idx).get_prop_name() == "wood_amount"):
+			$wood.set_amount(user_data[idx].get_data().to_int())
 
-	# add data to "users" table
-	data = [
-		[0, "User_1"],
-		[1, "User_2"],
-		[2, "User_3"]
-	]
-	users_tbl.add_row(data[0])
-	users_tbl.add_row(data[1])
-	users_tbl.add_row(data[2])
+		# set stone
+		elif(users_table.get_prop_at(idx).get_prop_name() == "stone"):
+			var stone_idx = user_data[idx].get_data().to_int()
+			var res_row = res_table.get_data_at_row_idx(stone_idx)
+			for jdx in range(0, res_row.size()):
+				if(res_table.get_prop_at(jdx).get_prop_name() == "name"):
+					$stone.set_res_name(res_row[jdx].get_data())
+				if(res_table.get_prop_at(jdx).get_prop_name() == "img_path"):
+					$stone.set_tex(res_row[jdx].get_data())
+		elif(users_table.get_prop_at(idx).get_prop_name() == "stone_amount"):
+			$stone.set_amount(user_data[idx].get_data().to_int())
 
+	# init interface with user data
+	$player_name_btn.set_text(m_player_name)
+	$player_name_btn.connect("pressed", self, "on_player_name_btn_pressed")
+
+	# init interface dialogs
+	$edit_player_dlg/OK_btn.connect("pressed", self, "on_change_player_name_btn_pressed")
+	$error_dlg.add_cancel("Cancel")
+	$error_dlg.connect("confirmed", self, "on_player_name_btn_pressed")
+
+# called when player_name_btn is pressed
+func on_player_name_btn_pressed() -> void:
+	$edit_player_dlg/player_name.set_text(m_player_name)
+	$edit_player_dlg.popup_centered()
+
+# called when the "OK" button from the edit_player_dlg is pressed
+func on_change_player_name_btn_pressed() -> void:
+	$edit_player_dlg.hide()
+
+	# check if the name entered is empty
+	var player_name = $edit_player_dlg/player_name.get_text()
+	if(player_name.empty()):
+		$error_dlg.popup_centered()
+		$error_dlg.set_text("Player name is empty. Retry ?")
+		return
+
+	m_player_name = player_name
+
+	# set the new name in the database
+	var users_table = m_database.get_table_by_name("users")
+	users_table.edit_data(m_player_name_prop_id, 0, m_player_name)
+
+	# saving the database
 	m_database.save_db()
 
-func test_load_database() -> void:
-	# create a database and set its name
-	m_database = load(g_constants.c_addon_main_path + "core/database.gd").new()
-	m_database.set_db_name(c_db_name)
-	m_database.set_db_filepath("res://database.json")
-	
-	# load database
-	m_database.load_db()
-
-	# Example 1: get tables count
-	var tables_count = m_database.get_tables_count()
-	print("Tables count : " + str(tables_count))
-
-	# Example 2: dump the database
-	for idx in range(0, tables_count):
-		var table = m_database.get_table_at(idx)
-		print("====================")
-		print("Table name: " + table.get_table_name())
-
-		var props_count = table.get_props_count()
-		print("Properties count: " + str(props_count))
-
-		# dump database's properties
-		for jdx in range(0, props_count):
-			var prop = table.get_prop_at(jdx)
-			print("Property name: " + prop.get_prop_name() + ", property type: " + db_types.get_data_name(prop.get_prop_type()))
-
-		# dump database's data
-		var rows_count = table.get_rows_count()
-		print("Rows count: " + str(rows_count))
-		for jdx in range(0, rows_count):
-			var row = table.get_data_at_row_idx(jdx)
-			var data_count = row.size()
-			for kdx in range(0, data_count):
-				print("Data: " + row[kdx].get_data())
-		print("====================")
-
-	# Example 3: filter data; get the "Gold" from "resources" table
-	print("====================")
-	var resources_table = m_database.get_table_by_name("resources")
-	var gold = resources_table.get_row_by_data("name", "Gold")
-	for idx in range(0, gold.size()):
-		print(gold[idx].get_data())
-	print("====================")
+	# set new name in the interface
+	$player_name_btn.set_text(m_player_name)
