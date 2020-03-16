@@ -52,4 +52,6 @@
 
 	- add more filtering options such as "<", ">", "<=", ">=" and "!="
 
-	- add "unique" and "autoincrement" properties to properties
+	- add "autoincrement" option to properties - DONE
+
+	- add exemples and documentation

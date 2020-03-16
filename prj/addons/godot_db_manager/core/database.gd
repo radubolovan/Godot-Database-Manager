@@ -190,7 +190,7 @@ func save_db() -> void :
 
 			var prop_type = db_prop.get_prop_type()
 			if(prop_type < db_types.e_data_types_count):
-				text += "\"type\":\"" + str(prop_type) + "\""
+				text += "\"type\":\"" + str(prop_type) + "\","
 			else:
 				# print("GDDatabase::save_db() - prop_type: " + str(prop_type))
 				var table_id = prop_type - db_types.e_data_types_count
@@ -198,7 +198,10 @@ func save_db() -> void :
 				if(null == table):
 					print("GDDatabase::save_db() - table not found with id: " + str(table_id))
 				text += "\"type\":\"" + "table" + "\","
-				text += "\"table_name\":\"" + table.get_table_name() + "\""
+				text += "\"table_name\":\"" + table.get_table_name() + "\","
+
+			text += "\"auto_increment\":\"" + str(int(db_prop.has_autoincrement())) + "\""
+
 			text += "}"
 			if(jdx < m_tables[idx].get_props_count() - 1):
 				text += ","
@@ -246,11 +249,17 @@ func load_db() -> void :
 	
 		for jdx in range(0, props_count):
 			var prop_type = tables[idx]["props"][jdx]["type"]
+
+			var prop_id = -1
 			if(prop_type == "table"):
 				var table_name = tables[idx]["props"][jdx]["table_name"]
-				table.add_table_prop(tables[idx]["props"][jdx]["name"], table_name)
+				prop_id = table.add_table_prop(tables[idx]["props"][jdx]["name"], table_name)
 			else:
-				table.add_prop(int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
+				prop_id = table.add_prop(int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
+
+			var prop = table.get_prop_by_id(prop_id)
+			var enable_autoincrement = tables[idx]["props"][jdx]["auto_increment"].to_int()
+			prop.enable_autoincrement(bool(enable_autoincrement))
 	
 		var data_count = tables[idx]["data"].size()
 		#print("********* set data to db - begin")

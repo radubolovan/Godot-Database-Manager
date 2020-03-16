@@ -48,6 +48,7 @@ func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -
 	prop.setup(prop_id, prop_type, prop_name)
 	prop.connect("edit_property", self, "on_edit_property")
 	prop.connect("delete_property", self, "on_delete_property")
+	prop.connect("enable_autoincrement", self, "on_enable_prop_autoincrement")
 
 # adds a property to data tab
 func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String) -> void:
@@ -249,6 +250,11 @@ func on_delete_property(prop_id : int) -> void:
 	if(props_count == 0):
 		$tabs/data/data_holder/btns/add_data_btn.set_disabled(true)
 
+	emit_signal("set_dirty")
+
+# called when the property has autoincrement or not
+func on_enable_prop_autoincrement(prop_id : int, enable : bool) -> void :
+	m_parent_table.enable_prop_autoincrement(prop_id, enable)
 	emit_signal("set_dirty")
 
 # called when edit data

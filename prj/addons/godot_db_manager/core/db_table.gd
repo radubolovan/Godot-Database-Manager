@@ -84,7 +84,7 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 
 # adds a property in the table structure as a table type
 # returns prop ID
-func add_table_prop(prop_name : String, table_name : String) -> void:
+func add_table_prop(prop_name : String, table_name : String) -> int:
 	# print("GDDBTable::add_table_prop(" + prop_name + ", " + table_name + ")")
 	var prop_id = generate_new_prop_id()
 
@@ -94,6 +94,8 @@ func add_table_prop(prop_name : String, table_name : String) -> void:
 	prop.set_prop_name(prop_name)
 	prop.set_prop_custom_type(table_name)
 	m_props.push_back(prop)
+
+	return prop_id
 
 # links custom properties from tables
 func link_tables_props() -> void:
@@ -112,6 +114,13 @@ func edit_prop(prop_id : int, prop_type : int, prop_name: String) -> void :
 			m_props[idx].set_prop_name(prop_name)
 			return
 	print("ERROR: GDDBDTable::edit_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ") - property not found")
+
+# enables or disables autoincrement on a property
+func enable_prop_autoincrement(prop_id : int, enable : bool) -> void:
+	for idx in range(0, m_props.size()):
+		if(m_props[idx].get_prop_id() == prop_id):
+			m_props[idx].enable_autoincrement(enable)
+			break
 
 # deletes a property and all the data from the table have the same property
 func delete_prop(prop_id : int) -> void :
@@ -157,6 +166,14 @@ func get_prop_at(idx : int) -> Object :
 		print("ERROR: GDDBDTable::get_prop_id( " + str(idx) + " ) - index out of bounds; max properties: " + str(m_props.size()))
 		return null
 	return m_props[idx]
+
+# returns a property by id or null if the id is not found
+func get_prop_by_id(prop_id : int) -> Object :
+	for idx in range(0, m_props.size()):
+		if(m_props[idx].get_prop_id() == prop_id):
+			return m_props[idx]
+	print("ERROR: GDDBDTable::get_prop_by_id(" + str(prop_id) + ") - property with id not found")
+	return null
 
 # adds a row with blank data
 func add_blank_row() -> void :

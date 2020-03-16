@@ -9,6 +9,7 @@ extends Control
 
 signal delete_property
 signal edit_property
+signal enable_autoincrement
 
 var m_prop_id : int = -1
 var m_prop_type : int = 0
@@ -28,7 +29,10 @@ func _ready() -> void:
 	$align/prop_type.get_popup().connect("about_to_show", self, "on_about_to_show")
 	$align/prop_type.connect("item_selected", self, "on_type_changed")
 
-	$align/close_button.connect("pressed", self, "on_delete_button_pressed")
+	$align/delete_button.connect("pressed", self, "on_delete_button_pressed")
+
+	$align/autoincrement_btn.hide()
+	$align/autoincrement_btn.connect("toggled", self, "on_set_autoincrement")
 
 # setup property
 func setup(prop_id : int, prop_type : int, prop_name : String) -> void:
@@ -46,6 +50,7 @@ func setup(prop_id : int, prop_type : int, prop_name : String) -> void:
 
 # sets parent table
 func set_parent_table(table):
+	#print("GDDBTableProperty::set_parent_table(" + str(table) + ")")
 	m_parent_table = table
 	var db = m_parent_table.get_parent_database()
 	for idx in range(0, db.get_tables_count()):
@@ -79,6 +84,12 @@ func set_prop_type(prop_type : int) -> void:
 	#	print("GDDBTableProperty::set_prop_type(" + str(prop_type) + ")")
 	m_prop_type = prop_type
 	select_current_prop()
+
+	if(m_prop_type == db_types.e_prop_type_int):
+		$align/autoincrement_btn.show()
+		var prop = m_parent_table.get_prop_by_id(m_prop_id)
+		if(prop.has_autoincrement()):
+			$align/autoincrement_btn.set_pressed(true)
 
 # selects current property
 func select_current_prop() -> void:
@@ -154,6 +165,10 @@ func set_selection_by_id(selected_id : int) -> void :
 		if($align/prop_type.get_item_id(idx) == selected_id):
 			$align/prop_type.select(idx)
 			break
+
+func on_set_autoincrement(enable : bool) -> void:
+	# print("GDDBTableProperty::on_set_autoincrement(" + str(enable) + ") - " + str(m_prop_id))
+	emit_signal("enable_autoincrement", m_prop_id, enable)
 
 # called everytime the type of the property is changed
 func on_type_changed(option_idx : int) -> void:

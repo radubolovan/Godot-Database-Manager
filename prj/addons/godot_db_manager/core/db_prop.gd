@@ -11,6 +11,8 @@ var m_type : int = db_types.e_prop_type_int
 var m_custom_type : String = ""
 var m_name : String = ""
 
+var m_autoincrement : bool = false
+
 # sets the property id
 func set_prop_id(id : int) -> void :
 	m_id = id
@@ -42,3 +44,11 @@ func set_prop_name(name : String) -> void:
 # returns the property name
 func get_prop_name() -> String:
 	return m_name
+
+# enables or disables the auto increment property
+func enable_autoincrement(enable : bool) -> void:
+	m_autoincrement = enable
+
+# returns if the property has auto increment
+func has_autoincrement() -> bool :
+	return m_autoincrement

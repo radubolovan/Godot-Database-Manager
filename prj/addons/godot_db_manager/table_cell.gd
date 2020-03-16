@@ -94,7 +94,15 @@ func set_text(text : String) -> void :
 	m_text = text
 	$LineEdit.set_text(m_text)
 	$Button.set_text(m_text)
-	$CheckBox.set_text(m_text)
+	if(m_prop_type == db_types.e_prop_type_bool):
+		$CheckBox.set_pressed((text == "1"))
+
+# called when the checkbox is toggled/untoggled
+func on_toggle_button(enable : bool) -> void :
+	var data = "0"
+	if(enable):
+		data = "1"
+	emit_signal("edit_data", m_prop_id, m_row_idx, data)
 
 # called when the button is pressed
 func on_button_pressed() -> void:

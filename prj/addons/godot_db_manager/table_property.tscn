@@ -65,8 +65,17 @@ text = "Bool"
 items = [ "Bool", null, false, 0, null, "Integer", null, false, 1, null, "Float", null, false, 2, null, "String", null, false, 3, null, "Resource", null, false, 4, null ]
 selected = 0
 
-[node name="close_button" type="Button" parent="align"]
+[node name="autoincrement_btn" type="CheckBox" parent="align"]
 margin_left = 729.0
-margin_right = 749.0
+margin_right = 857.0
+margin_bottom = 24.0
+text = "Auto increment"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="delete_button" type="Button" parent="align"]
+margin_left = 861.0
+margin_right = 881.0
 margin_bottom = 24.0
 text = "X"
