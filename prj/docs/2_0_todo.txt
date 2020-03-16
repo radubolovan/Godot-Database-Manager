@@ -24,13 +24,16 @@
 						- improve "structure" editor
 							- add scrolls (make it scroll view)
 							- make the Type option wider - DONE
-							- add tables as types
+							- add tables as types - DONE
 						- improve "data" editor
 							- find a way resize the witdh of the columns on the runtime
 							- for each property, the data must have different type of input
-								- boolean: CheckBox
-								- integer: LineEdit; accept only numbers; if the string starts with "0", drop the other digits
-								- float: LineEdit; accept only numbers and comma; if the string starts with "0", drop the other digits
+								- boolean: CheckBox - DONE
+								- integer: LineEdit
+									- accept only numbers - DONE
+									- if the string starts with "0", drop the other digits - DONE
+								- float: LineEdit
+									- accept only numbers and dot
 								- string: LineEdit + "edit_string_dialog_button"; accept any character
 									- make EditStringDialog:
 										- accept BBCode

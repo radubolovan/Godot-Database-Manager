@@ -92,9 +92,9 @@ func get_row_idx() -> int :
 func set_text(text : String) -> void :
 	# print("GDDBTableCell::set_text(" + text + ")")
 	m_text = text
-	$LineEdit.set_text(text)
-	$Button.set_text(text)
-	$CheckBox.set_text(text)
+	$LineEdit.set_text(m_text)
+	$Button.set_text(m_text)
+	$CheckBox.set_text(m_text)
 
 # called when the button is pressed
 func on_button_pressed() -> void:
@@ -106,4 +106,29 @@ func on_button_pressed() -> void:
 
 # called when edit the data
 func on_text_changed(new_text : String) -> void :
+	if(m_prop_type == db_types.e_prop_type_int):
+		if(!check_integer(new_text)):
+			return
 	emit_signal("edit_data", m_prop_id, m_row_idx, new_text)
+
+# checks if the text is integer
+func check_integer(text : String) -> bool :
+	if(text.empty()):
+		m_text = text
+		$LineEdit.set_text(m_text)
+		$LineEdit.set_cursor_position(0)
+		return false
+
+	if(text.is_valid_integer()):
+		if(text.begins_with("0")):
+			m_text = "0"
+			$LineEdit.set_text(m_text)
+			$LineEdit.set_cursor_position(1)
+			return true
+
+		m_text = text
+		return true
+
+	$LineEdit.set_text(m_text)
+	$LineEdit.set_cursor_position(m_text.length())
+	return false
