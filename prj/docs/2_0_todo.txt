@@ -30,24 +30,23 @@
 							- for each property, the data must have different type of input
 								- boolean: CheckBox - DONE
 								- integer: LineEdit
-									- accept only numbers - DONE
+									- accept only digits - DONE
 									- if the string starts with "0", drop the other digits - DONE
 								- float: LineEdit
-									- accept only numbers and dot
+									- accept digits and ".", but if the first digit is "0", the second character must be "." - DONE
 								- string: LineEdit + "edit_string_dialog_button"; accept any character
 									- make EditStringDialog:
 										- accept BBCode
 								- resource: Button; Open a "Link to resource" dialog
 									- make LinkToResourceDialog:
-										- brouse project files
+										- brouse project files - DONE
 								- game_data: Button; Open a "Link to data" dialog; link to other table's data <- add DB relationship support
 									- make LinkToDataDialog
-										- brouse database tables
+										- brouse database tables - DONE
 
 	- improve "new DB" dialog:
 		- handle DB name properly - DONE
 			- check for special characters - DONE
-			- implement unicode support (if not already supported)
 
 	- add db_man.gd as a singleton that will manage all databases - DONE
 
