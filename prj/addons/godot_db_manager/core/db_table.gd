@@ -232,6 +232,14 @@ func edit_data(prop_id : int, row_idx : int, data : String) -> void :
 			return
 	print("ERROR: GDDBDTable::edit_data(" + str(prop_id) + ", " + str(row_idx) + ", " + data + ") - can't find data to edit")
 
+# reindex data if is integer and has auto_increment
+func reindex_date(prop_id : int) -> void :
+	var index = 1
+	for idx in range(0, m_data.size()):
+		if(m_data.get_prop_id() == prop_id):
+			m_data.set_data(str(index))
+			index += 1
+
 # returns data count
 func get_data_size() -> int :
 	return m_data.size()

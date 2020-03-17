@@ -271,6 +271,15 @@ func on_enable_prop_autoincrement(prop_id : int, enable : bool) -> void :
 	emit_signal("set_dirty")
 	refresh_autocomplete_props(prop_id, enable)
 
+	# reindex all data
+	if(enable):
+		for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
+			var row = $tabs/data/data_holder/data_container.get_child(idx)
+			for jdx in range(0, row.get_child_count()):
+				var cell = row.get_child(jdx)
+				if(cell.get_prop_id() == prop_id):
+					cell.set_text(str(idx + 1))
+
 # called when edit data
 func on_edit_data(prop_id : int, row_idx : int, data : String) -> void:
 	m_parent_table.edit_data(prop_id, row_idx, data)
