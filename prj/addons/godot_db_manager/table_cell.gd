@@ -97,6 +97,10 @@ func set_text(text : String) -> void :
 	if(m_prop_type == db_types.e_prop_type_bool):
 		$CheckBox.set_pressed((text == "1"))
 
+# sets autocomplete
+func enable_autocomplete(enable : bool) -> void:
+	$LineEdit.set_editable(!enable)
+
 # called when the checkbox is toggled/untoggled
 func on_toggle_button(enable : bool) -> void :
 	var data = "0"

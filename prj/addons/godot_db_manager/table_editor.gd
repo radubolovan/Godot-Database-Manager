@@ -32,7 +32,7 @@ func on_new_property_btn_pressed() -> void:
 	var prop_name = "Property_" + str(prop_idx+1)
 	var prop_id = m_parent_table.add_prop(prop_type, prop_name)
 	add_prop_to_structure(prop_id, prop_type, prop_name)
-	add_prop_to_data(prop_id, prop_type, prop_name)
+	add_prop_to_data(prop_id, prop_type, prop_name, false)
 
 	# enable add data btn
 	$tabs/data/data_holder/btns/add_data_btn.set_disabled(false)
@@ -51,7 +51,7 @@ func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -
 	prop.connect("enable_autoincrement", self, "on_enable_prop_autoincrement")
 
 # adds a property to data tab
-func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String) -> void:
+func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_autocomplete : bool) -> void:
 	var prop = load(g_constants.c_addon_main_path + "data_label.tscn").instance()
 	$tabs/data/data_holder/data_header.add_child(prop)
 	prop.set_prop_id(prop_id)
@@ -66,6 +66,7 @@ func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String) -> voi
 		cell.set_row_idx(idx)
 		cell.set_prop_type(prop_type)
 		cell.set_text("")
+		cell.enable_autocomplete(has_autocomplete)
 		cell.connect("edit_data", self, "on_edit_data")
 		cell.connect("choose_resource", self, "on_choose_resource")
 		cell.connect("choose_data", self, "on_choose_data")
@@ -88,6 +89,7 @@ func on_add_row_data_btn_pressed() -> void:
 		cell.set_row_idx(row_idx)
 		cell.set_prop_type(prop.get_prop_type())
 		cell.set_text("")
+		cell.enable_autocomplete(prop.has_autoincrement())
 		cell.connect("edit_data", self, "on_edit_data")
 		cell.connect("choose_resource", self, "on_choose_resource")
 		cell.connect("choose_data", self, "on_choose_data")
@@ -145,10 +147,12 @@ func fill_data() -> void:
 				cell_data = g_globals.get_json_from_row(table, data_row_idx)
 
 			row.add_child(cell)
+
 			cell.set_prop_id(data_row[jdx].get_prop_id())
 			cell.set_row_idx(idx)
 			cell.set_prop_type(prop_type)
 			cell.set_text(cell_data)
+			cell.enable_autocomplete(db_prop.has_autoincrement())
 			cell.connect("edit_data", self, "on_edit_data")
 			cell.connect("choose_resource", self, "on_choose_resource")
 			cell.connect("choose_data", self, "on_choose_data")
@@ -159,6 +163,15 @@ func link_props() -> void :
 	for idx in range(0, $tabs/structure/properties.get_child_count()):
 		var prop = $tabs/structure/properties.get_child(idx)
 		prop.link()
+
+# refreshes autocomplete props
+func refresh_autocomplete_props(prop_id, enable) -> void:
+	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/data_holder/data_container.get_child(idx)
+		for jdx in range(0, row.get_child_count()):
+			var cell = row.get_child(jdx)
+			if(cell.get_prop_id() == prop_id):
+				cell.enable_autocomplete(enable)
 
 # cleares current layout
 func clear_current_layout() -> void:
@@ -256,6 +269,7 @@ func on_delete_property(prop_id : int) -> void:
 func on_enable_prop_autoincrement(prop_id : int, enable : bool) -> void :
 	m_parent_table.enable_prop_autoincrement(prop_id, enable)
 	emit_signal("set_dirty")
+	refresh_autocomplete_props(prop_id, enable)
 
 # called when edit data
 func on_edit_data(prop_id : int, row_idx : int, data : String) -> void:
