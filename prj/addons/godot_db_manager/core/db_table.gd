@@ -181,6 +181,8 @@ func add_blank_row() -> void :
 		var data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()
 		data.set_prop_id(m_props[idx].get_prop_id())
 		data.set_row_idx(m_rows_count)
+		if(m_props[idx].has_autoincrement()):
+			data.set_data(str(m_rows_count+1))
 		m_data.push_back(data)
 	m_rows_count += 1
 

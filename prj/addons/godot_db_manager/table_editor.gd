@@ -84,12 +84,17 @@ func on_add_row_data_btn_pressed() -> void:
 	for idx in range(0, $tabs/structure/properties.get_child_count()):
 		var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
 		var prop = $tabs/structure/properties.get_child(idx)
+		var db_prop = m_parent_table.get_prop_by_id(idx)
 		row.add_child(cell)
 		cell.set_prop_id(idx)
 		cell.set_row_idx(row_idx)
 		cell.set_prop_type(prop.get_prop_type())
-		cell.set_text("")
-		cell.enable_autocomplete(prop.has_autoincrement())
+		var autocomplete = db_prop.has_autoincrement()
+		cell.enable_autocomplete(db_prop.has_autoincrement())
+		if(autocomplete):
+			cell.set_text(str(row_idx+1))
+		else:
+			cell.set_text("")
 		cell.connect("edit_data", self, "on_edit_data")
 		cell.connect("choose_resource", self, "on_choose_resource")
 		cell.connect("choose_data", self, "on_choose_data")
