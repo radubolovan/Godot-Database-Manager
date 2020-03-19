@@ -37,11 +37,11 @@
 								- string: LineEdit + "edit_string_dialog_button"; accept any character
 									- make EditStringDialog:
 										- accept BBCode
-								- resource: Button; Open a "Link to resource" dialog
-									- make LinkToResourceDialog:
+								- resource: Button; Open a "Link to resource" dialog - DONE
+									- make LinkToResourceDialog - DONE
 										- brouse project files - DONE
-								- game_data: Button; Open a "Link to data" dialog; link to other table's data <- add DB relationship support
-									- make LinkToDataDialog
+								- game_data: Button; Open a "Link to data" dialog; link to other table's data <- add DB relationship support - DONE
+									- make LinkToDataDialog - DONE
 										- brouse database tables - DONE
 
 	- improve "new DB" dialog:
@@ -50,8 +50,30 @@
 
 	- add db_man.gd as a singleton that will manage all databases - DONE
 
-	- add more filtering options such as "<", ">", "<=", ">=" and "!="
+	- add more filters such as "==", "!=", "<", ">", "<=", ">="
+		- select * from "table" - DONE
+
+		- filter by property id:
+			- select * from "table" where "prop_id" is "xxx" - DONE
+			- select * from "table" where "prop_id" is NOT "xxx" - DONE
+			- select * from "table" where "prop_id" is LESS than "xxx" - DONE
+			- select * from "table" where "prop_id" is LESS or EQUAL than "xxx" - DONE
+			- select * from "table" where "prop_id" is GREATER than "xxx" - DONE
+			- select * from "table" where "prop_id" is GREATER or EQUAL than "xxx" - DONE
+
+		- filter by property name:
+			- select * from "table" where "prop_name" is "xxx" - DONE
+
+		- filter by data:
+			- select * from "table" where "data" is "xxx" - DONE
+			- select * from "table" where "data" is NOT "xxx" - DONE
+			- select * from "table" where "data" is LESS than "xxx" (not for resources and custom data) - DONE
+			- select * from "table" where "data" is LESS or EQUAL than "xxx" (not for resources and custom data) - DONE
+			- select * from "table" where "data" is GREATER than "xxx" (not for resources and custom data) - DONE
+			- select * from "table" where "data" is GREATER or EQUAL than "xxx" (not for resources and custom data) - DONE
 
 	- add "autoincrement" option to properties - DONE
 
 	- add exemples and documentation
+
+	- add stress tests to check functionalities
