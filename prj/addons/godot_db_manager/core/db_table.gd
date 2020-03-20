@@ -195,8 +195,16 @@ func add_row(data_array : Array) -> void :
 		var data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()
 		# print("adding data: [" + str(m_props[idx].get_prop_id()) + ", " + data_array[idx] + "]")
 		# print("setting prop id: " + str(m_props[idx].get_prop_id()))
+
 		data.set_prop_id(m_props[idx].get_prop_id())
 		data.set_row_idx(m_rows_count)
+
+		# ignore data if the property has autoincrement option
+		if(m_props[idx].has_autoincrement()):
+			data.set_data(str(m_rows_count+1))
+			m_data.push_back(data)
+			continue
+
 		if(m_props[idx].get_prop_type() == db_types.e_prop_type_bool):
 			data.set_data(str(data_array[idx]))
 		elif(m_props[idx].get_prop_type() == db_types.e_prop_type_int):
@@ -409,15 +417,20 @@ func clear() -> void :
 
 # dumps the table
 func dump() -> String :
-	var dump_text = "Table dump. id: " + str(m_table_id) + ", name: " + m_table_name + ", props_count: " + str(m_props.size()) + "rows_count: " + str(m_rows_count)
-	dump_text += "\n------------------------------------------------------------------------------------\n"
+	var dump_text = "Table dump. id: " + str(m_table_id) + ", name: " + m_table_name + ", props_count: " + str(m_props.size()) + ", rows_count: " + str(m_rows_count)
+	dump_text += "\n------------------------------------------------------------------------------------\nProperties:"
 
 	for idx in range(0, m_props.size()):
 		dump_text += "\n" + m_props[idx].dump()
 
-	dump_text += "\n------------------------------------------------------------------------------------\n"
+	dump_text += "\n------------------------------------------------------------------------------------\nData:\n"
 
-	for idx in range(0, m_data.size()):
-		dump_text += "\n" + m_data[idx].dump()
+	for idx in range(0, m_rows_count):
+		var tmp_text = "row_idx: " + "%" + str(g_globals.get_digits_count(m_rows_count)) + "d"
+		dump_text += tmp_text % idx
+		var row = get_data_at_row_idx(idx)
+		for jdx in range(0, row.size()):
+			dump_text += " | " + row[jdx].get_data()
+		dump_text += "\n"
 
 	return dump_text

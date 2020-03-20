@@ -36,5 +36,5 @@ func get_data() -> String:
 
 # dumps the data
 func dump() -> String :
-	var dump_text = "Data dump. prop_id: " + str(m_prop_id) + ", row_idx: " + str(m_row_idx) + ", data: " + m_data
+	var dump_text = "prop_id: " + str(m_prop_id) + ", row_idx: " + str(m_row_idx) + ", data: " + m_data
 	return dump_text

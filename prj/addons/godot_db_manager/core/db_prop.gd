@@ -47,6 +47,12 @@ func get_prop_name() -> String:
 
 # enables or disables the auto increment property
 func enable_autoincrement(enable : bool) -> void:
+	if(enable && m_prop_type != db_types.e_prop_type_int):
+		if(m_prop_type < db_types.e_data_types_count):
+			print("Error: autoincrement option can be set to integer data type only. Type is: " + db_types.get_data_name(m_prop_type))
+		else:
+			print("Error: autoincrement option can be set to integer data type only. Custom type is: " + m_custom_type)
+		return
 	m_autoincrement = enable
 
 # returns if the property has auto increment

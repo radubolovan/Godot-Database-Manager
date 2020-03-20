@@ -8,8 +8,10 @@ enum {
 	e_prop_type_int = 1,
 	e_prop_type_float = 2,
 	e_prop_type_string = 3,
+
+	# TODO: insert more data types here and increase e_prop_type_resource
+
 	e_prop_type_resource = 4,
-	# e_prop_type_data = 5,
 
 	e_data_types_count
 }
@@ -41,8 +43,6 @@ func get_data_name(data_type):
 		return "String"
 	elif(data_type == e_prop_type_resource):
 		return "Resource"
-	# elif(data_type == e_prop_type_data):
-	#	return "Data"
 
 # returns the name of the data function
 func get_data_function_name(data_func : int) -> String :

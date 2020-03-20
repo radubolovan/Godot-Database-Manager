@@ -73,10 +73,10 @@ func can_add_table(table_name : String, table_id : int = -1):
 
 # adds a new table
 # returns the table; if already exists, it will fire an warning on output console
-func add_table(table_name : String) -> Object :
+func add_table(table_name : String) -> int :
 	if(!can_add_table(table_name)):
 		print("WARNING: GDDatabase::add_table(" + table_name + ") - cannot add table")
-		return null
+		return g_constants.c_invalid_id
 
 	# print("GDDatabase::add_table(" + table_name + ") to \"" + m_db_name + "\" database")
 
@@ -86,7 +86,7 @@ func add_table(table_name : String) -> Object :
 	table.set_table_name(table_name)
 	table.set_parent_database(self)
 	m_tables.push_back(table)
-	return table
+	return table_id
 
 # edits a table name
 func edit_table_name(table_name : String, table_id : int) -> bool :
@@ -241,7 +241,8 @@ func load_db() -> void :
 	m_db_name = dictionary["name"]
 	var tables = dictionary["tables"]
 	for idx in range(0, tables.size()):
-		var table = add_table(tables[idx]["table_name"])
+		var table_id = add_table(tables[idx]["table_name"])
+		var table = get_table_by_id(table_id)
 
 		var props_count = tables[idx]["props"].size()
 		if(props_count == 0):
@@ -255,7 +256,7 @@ func load_db() -> void :
 				var table_name = tables[idx]["props"][jdx]["table_name"]
 				prop_id = table.add_table_prop(tables[idx]["props"][jdx]["name"], table_name)
 			else:
-				prop_id = table.add_prop(int(tables[idx]["props"][jdx]["type"]), tables[idx]["props"][jdx]["name"])
+				prop_id = table.add_prop(int(prop_type), tables[idx]["props"][jdx]["name"])
 
 			var prop = table.get_prop_by_id(prop_id)
 			var enable_autoincrement = tables[idx]["props"][jdx]["auto_increment"].to_int()

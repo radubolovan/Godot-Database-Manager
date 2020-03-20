@@ -76,6 +76,4 @@
 
 	- add exemples and documentation
 
-	- add stress tests to check functionalities
-		- check database manager - DONE
-		- check table
+	- add stress tests to check functionalities - in progress

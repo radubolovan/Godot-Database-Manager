@@ -19,3 +19,15 @@ func get_json_from_row(table : Object, row_idx : int) -> String:
 			json += ", "
 	json += "}"
 	return json
+
+# returns the digits count from a number
+func get_digits_count(number : int) -> int:
+	if(number == 0):
+		return 1
+
+	var digits_count = 0
+	while(number > 0):
+		number /= 10
+		digits_count += 1
+
+	return digits_count

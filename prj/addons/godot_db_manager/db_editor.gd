@@ -74,11 +74,12 @@ func on_add_table() -> void :
 
 # called when the user accepts the name of the table in the "new_table_dlg"
 func on_create_table(table_name : String) -> void :
-	var table = m_database.add_table(table_name)
-	if(null == table):
+	var table_id = m_database.add_table(table_name)
+	if(table_id == g_constants.c_invalid_id):
 		$error_dlg.set_text("Table with the name \"" + table_name + "\" already exists" )
 		$error_dlg.popup_centered()
 		return
+	var table = m_database.get_table_by_id(table_id)
 	$main_window/tables_panel/tables_list.create_table(table)
 	$main_window/tables_panel/table_editor.set_table(table)
 	$main_window/tables_panel/table_editor.show()
