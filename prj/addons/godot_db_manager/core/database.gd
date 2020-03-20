@@ -276,3 +276,13 @@ func load_db() -> void :
 	# link custom data to tables
 	for idx in range(0, m_tables.size()):
 		m_tables[idx].link_tables_props()
+
+# dumps the database
+func dump() -> String :
+	var dump_text = "\nDatabase dump. id: " + str(m_db_id) + ", name: " + m_db_name + ", filepath: " + m_db_filepath
+	dump_text += "\n------------------------------------------------------------------------------------\n"
+
+	for idx in range(0, m_tables.size()):
+		dump_text += "\n" + m_tables[idx].dump()
+
+	return dump_text

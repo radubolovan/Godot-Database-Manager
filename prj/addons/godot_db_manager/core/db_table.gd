@@ -7,7 +7,7 @@ class_name GDDBTable
 extends Object
 
 var m_table_id = g_constants.c_invalid_id
-var m_name = ""
+var m_table_name = ""
 var m_props = []
 var m_data = []
 var m_rows_count = 0
@@ -26,11 +26,11 @@ func get_table_id() -> int :
 # sets the table name
 func set_table_name(table_name: String) -> void :
 	# print("GDDBDTable::set_table_name(" + table_name + ")")
-	m_name = table_name
+	m_table_name = table_name
 
 # returns the table name
 func get_table_name() -> String :
-	return m_name
+	return m_table_name
 
 # sets the parent database
 func set_parent_database(db : Object) -> void :
@@ -406,3 +406,18 @@ func clear() -> void :
 	for idx in range(0, m_props.size()):
 		m_props[idx].free()
 	m_props.clear()
+
+# dumps the table
+func dump() -> String :
+	var dump_text = "Table dump. id: " + str(m_table_id) + ", name: " + m_table_name + ", props_count: " + str(m_props.size()) + "rows_count: " + str(m_rows_count)
+	dump_text += "\n------------------------------------------------------------------------------------\n"
+
+	for idx in range(0, m_props.size()):
+		dump_text += "\n" + m_props[idx].dump()
+
+	dump_text += "\n------------------------------------------------------------------------------------\n"
+
+	for idx in range(0, m_data.size()):
+		dump_text += "\n" + m_data[idx].dump()
+
+	return dump_text

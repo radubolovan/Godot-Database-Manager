@@ -33,3 +33,8 @@ func set_data(data : String) -> void:
 # returns the data
 func get_data() -> String:
 	return m_data
+
+# dumps the data
+func dump() -> String :
+	var dump_text = "Data dump. prop_id: " + str(m_prop_id) + ", row_idx: " + str(m_row_idx) + ", data: " + m_data
+	return dump_text

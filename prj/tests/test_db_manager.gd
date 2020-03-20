@@ -28,7 +28,7 @@ func test_1() -> void :
 		create_database(db_name)
 
 	# dump database manager
-	m_db_man.dump()
+	m_db_man.dump(true)
 
 	# save all databases
 	for idx in range(0, m_db_man.get_databases_count()):
@@ -44,7 +44,7 @@ func test_1() -> void :
 		m_db_man.load_database(c_base_dbs_path + db_name + ".json")
 
 	# dump database manager
-	m_db_man.dump()
+	m_db_man.dump(true)
 
 	# randomly erase 3 databases
 	for idx in range(0, 3):
@@ -54,7 +54,7 @@ func test_1() -> void :
 		m_db_man.erase_db_at(db_idx)
 
 	# dump database manager
-	m_db_man.dump()
+	m_db_man.dump(true)
 
 	# done db_man
 	done_db_man()

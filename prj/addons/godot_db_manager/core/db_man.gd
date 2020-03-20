@@ -112,16 +112,22 @@ func can_add_db(db_name : String) -> bool :
 	return true
 
 # deletes all databases
-func clear():
+func clear() -> void:
 	for idx in range(0, m_databases.size()):
 		m_databases[idx].clear()
 		m_databases[idx].free()
 	m_databases.clear()
 
 # dumps all databases
-func dump():
-	print("Database manager - dump - begin")
-	for idx in range(0, m_databases.size()):
-		print("DB: id = " + str(m_databases[idx].get_db_id()) + ", name: " + m_databases[idx].get_db_name())
-	print("Database manager - dump - end")
+func dump(to_console : bool = false) -> String:
+	var dump_text = "\nDatabase manager - dump"
 
+	dump_text += "\n===================================================================================="
+	for idx in range(0, m_databases.size()):
+		dump_text += m_databases[idx].dump()
+	dump_text += "===================================================================================="
+
+	if(to_console):
+		print(dump_text)
+
+	return dump_text
