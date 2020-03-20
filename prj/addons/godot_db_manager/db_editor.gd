@@ -131,7 +131,7 @@ func on_confirm_delete_table() -> void :
 	if(null == selected_table):
 		return
 	var selected_table_id = selected_table.get_table_id()
-	m_database.delete_table(table_id)
+	m_database.delete_table_by_id(table_id)
 	$main_window/tables_panel/tables_list.delete_table(table_id)
 	if(selected_table_id == table_id):
 		$main_window/tables_panel/tables_list.select_item_at(0)

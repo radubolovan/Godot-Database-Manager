@@ -98,15 +98,36 @@ func edit_table_name(table_name : String, table_id : int) -> bool :
 			break
 	return true
 
-# deletes a table
-func delete_table(table_id: int) -> void:
+# deletes a table at index
+func delete_table_at(idx : int) -> void:
+	if(idx < 0 || idx > m_tables.size() - 1):
+		print("GDDatabase::delete_table_at(" + str(idx) + ") - index out of bounds")
+		return
+	m_tables[idx].clear()
+	m_tables[idx].free()
+	m_tables.remove(idx)
+
+# deletes a table by id
+func delete_table_by_id(table_id: int) -> void:
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_id() == table_id):
-			# print("GDDatabase::delete_table(" + str(table_id) + ")")
+			# print("GDDatabase::delete_table_by_id(" + str(table_id) + ")")
+			m_tables[idx].clear()
 			m_tables[idx].free()
 			m_tables.remove(idx)
 			return
-	# print("GDDatabase::delete_table(" + str(table_id) + ") - cannot erase table; id not found")
+	print("ERROR: GDDatabase::delete_table_by_id(" + str(table_id) + ") - cannot erase table; id not found")
+
+# deletes a table by name
+func delete_table_by_name(table_name: String) -> void:
+	for idx in range(0, m_tables.size()):
+		if(m_tables[idx].get_table_name() == table_name):
+			# print("GDDatabase::delete_table_by_name(" + table_name + ")")
+			m_tables[idx].clear()
+			m_tables[idx].free()
+			m_tables.remove(idx)
+			return
+	print("ERROR: GDDatabase::delete_table_by_name(" + table_name + ") - cannot erase table; name not found")
 
 # generates a new table id
 func generate_new_table_id():

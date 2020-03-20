@@ -54,7 +54,7 @@ func erase_db_by_id(db_id : int) -> void :
 			break
 
 	if(!db_found):
-		print("Error: GDDBMan::erase_db_by_id(" + str(db_id) + ") - database not found")
+		print("ERROR: GDDBMan::erase_db_by_id(" + str(db_id) + ") - database not found")
 
 # erases a database by name
 # it does not erase the database file
@@ -69,7 +69,7 @@ func erase_db_by_name(db_name : String) -> void :
 			break
 
 	if(!db_found):
-		print("Error: GDDBMan::erase_db_by_id(" + db_name + ") - database not found")
+		print("ERROR: GDDBMan::erase_db_by_id(" + db_name + ") - database not found")
 
 # returns the databases count
 func get_databases_count() -> int :

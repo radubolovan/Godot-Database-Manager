@@ -19,6 +19,8 @@ func _ready():
 
 # test 1 => create / save / load / erase databases test
 func test_1() -> void :
+	OS.set_window_size(Vector2(640, 480))
+
 	# init db_manager
 	init_db_man()
 
