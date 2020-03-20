@@ -9,7 +9,7 @@ extends Object
 var m_databases = []
 
 # adds a database
-func add_database(db_name : String) -> int:
+func add_database(db_name : String) -> int :
 	if(!can_add_db(db_name)):
 		print("ERROR: GDDBMan::add_database(" + db_name + ") already exists")
 		return g_constants.c_invalid_id
@@ -30,6 +30,46 @@ func load_database(filepath : String) -> int :
 	db.load_db()
 	m_databases.push_back(db)
 	return db_id
+
+# erases a database at index
+# it does not erase the database file
+func erase_db_at(idx : int) -> void :
+	if(idx < 0 || idx > m_databases.size() - 1):
+		print("ERROR: GDDBMan::erase_db_at(" + str(idx) + ") - index out of bounds")
+
+	m_databases[idx].clear()
+	m_databases[idx].free()
+	m_databases.remove(idx)
+
+# erases a database by id
+# it does not erase the database file
+func erase_db_by_id(db_id : int) -> void :
+	var db_found = false
+	for idx in range(0, m_databases.size()):
+		if(m_databases[idx].get_db_id() == db_id):
+			m_databases[idx].clear()
+			m_databases[idx].free()
+			m_databases.remove(idx)
+			db_found = true
+			break
+
+	if(!db_found):
+		print("Error: GDDBMan::erase_db_by_id(" + str(db_id) + ") - database not found")
+
+# erases a database by name
+# it does not erase the database file
+func erase_db_by_name(db_name : String) -> void :
+	var db_found = false
+	for idx in range(0, m_databases.size()):
+		if(m_databases[idx].get_db_name() == db_name):
+			m_databases[idx].clear()
+			m_databases[idx].free()
+			m_databases.remove(idx)
+			db_found = true
+			break
+
+	if(!db_found):
+		print("Error: GDDBMan::erase_db_by_id(" + db_name + ") - database not found")
 
 # returns the databases count
 func get_databases_count() -> int :
@@ -70,3 +110,18 @@ func can_add_db(db_name : String) -> bool :
 			print("ERROR: Database with name \"" + db_name + "\" already exists")
 			return false
 	return true
+
+# deletes all databases
+func clear():
+	for idx in range(0, m_databases.size()):
+		m_databases[idx].clear()
+		m_databases[idx].free()
+	m_databases.clear()
+
+# dumps all databases
+func dump():
+	print("Database manager - dump - begin")
+	for idx in range(0, m_databases.size()):
+		print("DB: id = " + str(m_databases[idx].get_db_id()) + ", name: " + m_databases[idx].get_db_name())
+	print("Database manager - dump - end")
+
