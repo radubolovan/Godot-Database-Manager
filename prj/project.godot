@@ -165,7 +165,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ADatabase"
-run/main_scene="res://db_test.tscn"
+run/main_scene="res://tests/db_man_tests.tscn"
 config/icon="res://icon.png"
 
 [autoload]

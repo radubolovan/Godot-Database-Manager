@@ -14,8 +14,8 @@ var m_parent_table = null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$tabs/structure/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
-	$tabs/data/data_holder/btns/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
-	$tabs/data/data_holder/btns/add_data_btn.set_disabled(true)
+	$tabs/data/scroll/data_holder/btns/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
+	$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(true)
 
 	$load_res_path_dlg.connect("file_selected", self, "on_select_res_path")
 
@@ -35,7 +35,7 @@ func on_new_property_btn_pressed() -> void:
 	add_prop_to_data(prop_id, prop_type, prop_name, false)
 
 	# enable add data btn
-	$tabs/data/data_holder/btns/add_data_btn.set_disabled(false)
+	$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(false)
 
 	emit_signal("set_dirty")
 
@@ -53,13 +53,13 @@ func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -
 # adds a property to data tab
 func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_autocomplete : bool) -> void:
 	var prop = load(g_constants.c_addon_main_path + "data_label.tscn").instance()
-	$tabs/data/data_holder/data_header.add_child(prop)
+	$tabs/data/scroll/data_holder/data_header.add_child(prop)
 	prop.set_prop_id(prop_id)
 	prop.set_text(prop_name)
 
 	# add property to the existing rows
-	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
-		var row = $tabs/data/data_holder/data_container.get_child(idx)
+	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
 		var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
 		row.add_child(cell)
 		cell.set_prop_id(prop_id)
@@ -80,7 +80,7 @@ func on_add_row_data_btn_pressed() -> void:
 
 	# add row in the interface
 	var row = HBoxContainer.new()
-	$tabs/data/data_holder/data_container.add_child(row)
+	$tabs/data/scroll/data_holder/data_container.add_child(row)
 	for idx in range(0, $tabs/structure/properties.get_child_count()):
 		var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
 		var prop = $tabs/structure/properties.get_child(idx)
@@ -118,12 +118,12 @@ func fill_properties() -> void:
 		var db_prop = m_parent_table.get_prop_at(idx)
 		add_prop_to_structure(db_prop.get_prop_id(), db_prop.get_prop_type(), db_prop.get_prop_name())
 		var prop = load(g_constants.c_addon_main_path + "data_label.tscn").instance()
-		$tabs/data/data_holder/data_header.add_child(prop)
+		$tabs/data/scroll/data_holder/data_header.add_child(prop)
 		prop.set_prop_id(db_prop.get_prop_id())
 		prop.set_prop_type(db_prop.get_prop_type())
 		prop.set_text(db_prop.get_prop_name())
 	if(props_count > 0):
-		$tabs/data/data_holder/btns/add_data_btn.set_disabled(false)
+		$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(false)
 
 # fills the interface with current table's data
 func fill_data() -> void:
@@ -133,7 +133,7 @@ func fill_data() -> void:
 	#print("rows_count: " + str(rows_count))
 	for idx in range(0, rows_count):
 		var row = HBoxContainer.new()
-		$tabs/data/data_holder/data_container.add_child(row)
+		$tabs/data/scroll/data_holder/data_container.add_child(row)
 		var data_row = m_parent_table.get_data_at_row_idx(idx)
 		for jdx in range(0, data_row.size()):
 			var db_prop = m_parent_table.get_prop_at(jdx)
@@ -171,8 +171,8 @@ func link_props() -> void :
 
 # refreshes autocomplete props
 func refresh_autocomplete_props(prop_id, enable) -> void:
-	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
-		var row = $tabs/data/data_holder/data_container.get_child(idx)
+	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
 		for jdx in range(0, row.get_child_count()):
 			var cell = row.get_child(jdx)
 			if(cell.get_prop_id() == prop_id):
@@ -185,17 +185,17 @@ func clear_current_layout() -> void:
 		$tabs/structure/properties.get_child(idx).queue_free()
 
 	# clear data from data tab
-	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
-		var row = $tabs/data/data_holder/data_container.get_child(idx)
+	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
 		for jdx in range(0, row.get_child_count()):
 			row.get_child(jdx).queue_free()
 		row.queue_free()
 
 	# clear properties from data tab
-	for idx in range(0, $tabs/data/data_holder/data_header.get_child_count()):
-		$tabs/data/data_holder/data_header.get_child(idx).queue_free()
+	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
+		$tabs/data/scroll/data_holder/data_header.get_child(idx).queue_free()
 
-	$tabs/data/data_holder/btns/add_data_btn.set_disabled(true)
+	$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(true)
 
 # called when a property is edited
 func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> void:
@@ -212,14 +212,14 @@ func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> voi
 	m_parent_table.edit_prop(prop_id, prop_type, prop_name)
 
 	# refresh the prop name in data tab
-	for idx in range(0, $tabs/data/data_holder/data_header.get_child_count()):
-		var prop = $tabs/data/data_holder/data_header.get_child(idx)
+	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
+		var prop = $tabs/data/scroll/data_holder/data_header.get_child(idx)
 		if(prop.get_prop_id() == prop_id):
 			prop.set_text(prop_name)
 
 	# update data type
-	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
-		var row = $tabs/data/data_holder/data_container.get_child(idx)
+	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
 		for jdx in range(0, row.get_child_count()):
 			var cell = row.get_child(jdx)
 			if(cell.get_prop_id() == prop_id):
@@ -240,8 +240,8 @@ func on_delete_property(prop_id : int) -> void:
 	m_parent_table.delete_prop(prop_id)
 
 	# delete cells from data tab
-	for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
-		var row = $tabs/data/data_holder/data_container.get_child(idx)
+	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
 		for jdx in range(0, row.get_child_count()):
 			var cell = row.get_child(jdx)
 			if(cell.get_prop_id() == prop_id):
@@ -250,8 +250,8 @@ func on_delete_property(prop_id : int) -> void:
 				break
 
 	# delete property from data tab
-	for idx in range(0, $tabs/data/data_holder/data_header.get_child_count()):
-		var prop = $tabs/data/data_holder/data_header.get_child(idx)
+	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
+		var prop = $tabs/data/scroll/data_holder/data_header.get_child(idx)
 		if(prop.get_prop_id() == prop_id):
 			prop.queue_free()
 			break
@@ -266,7 +266,7 @@ func on_delete_property(prop_id : int) -> void:
 	# refresh the add data button
 	var props_count = m_parent_table.get_props_count()
 	if(props_count == 0):
-		$tabs/data/data_holder/btns/add_data_btn.set_disabled(true)
+		$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(true)
 
 	emit_signal("set_dirty")
 
@@ -278,8 +278,8 @@ func on_enable_prop_autoincrement(prop_id : int, enable : bool) -> void :
 
 	# reindex all data
 	if(enable):
-		for idx in range(0, $tabs/data/data_holder/data_container.get_child_count()):
-			var row = $tabs/data/data_holder/data_container.get_child(idx)
+		for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
+			var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
 			for jdx in range(0, row.get_child_count()):
 				var cell = row.get_child(jdx)
 				if(cell.get_prop_id() == prop_id):
@@ -314,7 +314,7 @@ func on_select_res_path(filepath : String) -> void:
 	var prop_id = $load_res_path_dlg.get_prop_id()
 	var row_idx = $load_res_path_dlg.get_row_idx()
 	m_parent_table.edit_data(prop_id, row_idx, filepath)
-	var row = $tabs/data/data_holder/data_container.get_child(row_idx)
+	var row = $tabs/data/scroll/data_holder/data_container.get_child(row_idx)
 	for idx in range(0, row.get_child_count()):
 		var cell = row.get_child(idx)
 		if(cell.get_prop_id() == prop_id):
@@ -326,7 +326,7 @@ func on_select_data(prop_id : int, row_idx : int, data_row_idx : int, data : Str
 	m_parent_table.edit_data(prop_id, row_idx, str(data_row_idx))
 
 	# fill in the interface cell with data
-	var row = $tabs/data/data_holder/data_container.get_child(row_idx)
+	var row = $tabs/data/scroll/data_holder/data_container.get_child(row_idx)
 	for idx in range(0, row.get_child_count()):
 		var cell = row.get_child(idx)
 		if(cell.get_prop_id() == prop_id):
