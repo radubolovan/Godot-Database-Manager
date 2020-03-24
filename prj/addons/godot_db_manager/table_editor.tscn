@@ -6,10 +6,8 @@
 [ext_resource path="res://addons/godot_db_manager/dlgs/data_dlg.tscn" type="PackedScene" id=4]
 
 [node name="table" type="Control"]
-anchor_right = 0.625
-anchor_bottom = 0.649
-margin_right = 6.10352e-05
-margin_bottom = -0.100037
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 584.0 ],
@@ -25,7 +23,6 @@ __meta__ = {
 }
 
 [node name="structure" type="Tabs" parent="tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -63,6 +60,7 @@ __meta__ = {
 }
 
 [node name="data" type="Tabs" parent="tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
