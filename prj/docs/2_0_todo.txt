@@ -17,16 +17,16 @@
 					- make the tables list more user friendly
 						- improve title - DONE
 							- Add "+" button to add a new table - DONE
-						- add scroll bars
+						- add scroll bars - DONE
 						- add editable table name to each item - DONE
 						- add "X" (remove table) for each item. The table should be removed after the user accept. - DONE
 					- improve tables editor
 						- improve "structure" editor
-							- add scrolls (make it scroll view)
+							- add scrolls (make it scroll view) - DONE
 							- make the Type option wider - DONE
 							- add tables as types - DONE
 						- improve "data" editor
-							- find a way resize the witdh of the columns on the runtime
+							- find a way resize the witdh of the columns on the runtime - DROPPED
 							- for each property, the data must have different type of input
 								- boolean: CheckBox - DONE
 								- integer: LineEdit
@@ -74,6 +74,9 @@
 
 	- add "autoincrement" option to properties - DONE
 
-	- add exemples and documentation
+	- add exemples
+	- add documentation
 
-	- add stress tests to check functionalities - in progress
+	- add stress tests to check functionalities - DONE
+		- stress database manager - DONE
+		- stress tables - DONE

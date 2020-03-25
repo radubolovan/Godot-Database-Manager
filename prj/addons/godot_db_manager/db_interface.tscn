@@ -18,7 +18,6 @@ margin_right = 1190.0
 margin_bottom = 655.0
 popup_exclusive = true
 window_title = "Godot Database Manager"
-resizable = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
