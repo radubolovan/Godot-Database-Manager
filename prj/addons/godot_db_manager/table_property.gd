@@ -90,6 +90,8 @@ func set_prop_type(prop_type : int) -> void:
 		var prop = m_parent_table.get_prop_by_id(m_prop_id)
 		if(prop.has_autoincrement()):
 			$align/autoincrement_btn.set_pressed(true)
+	else:
+		$align/autoincrement_btn.hide()
 
 # selects current property
 func select_current_prop() -> void:
@@ -182,6 +184,11 @@ func on_type_changed(option_idx : int) -> void:
 		print("GDDBTableProperty::on_type_changed(" + db_types.get_data_name(option_id) + ")")
 	#"""
 	m_prop_type = option_id
+	$align/autoincrement_btn.set_pressed(false)
+	if(m_prop_type == db_types.e_prop_type_int):
+		$align/autoincrement_btn.show()
+	else:
+		$align/autoincrement_btn.hide()
 	emit_signal("edit_property", m_prop_id, m_prop_type, m_prop_name)
 
 # called when the delete property button is pressed
