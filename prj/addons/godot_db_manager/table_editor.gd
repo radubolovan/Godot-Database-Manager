@@ -21,6 +21,8 @@ func _ready() -> void:
 
 	$data_dlg.connect("select_data", self, "on_select_data")
 
+	$edit_string_dlg.connect("string_edited", self, "on_text_edited")
+
 # called when the new_property button is pressed
 func on_new_property_btn_pressed() -> void:
 	# print("GDDBTableEditor::on_new_property_btn_pressed()")
@@ -51,7 +53,7 @@ func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -
 	prop.connect("enable_autoincrement", self, "on_enable_prop_autoincrement")
 
 # adds a property to data tab
-func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_autocomplete : bool) -> void:
+func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_autoincrement : bool) -> void:
 	var prop = load(g_constants.c_addon_main_path + "data_label.tscn").instance()
 	$tabs/data/scroll/data_holder/data_header.add_child(prop)
 	prop.set_prop_id(prop_id)
@@ -66,10 +68,11 @@ func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_au
 		cell.set_row_idx(idx)
 		cell.set_prop_type(prop_type)
 		cell.set_text("")
-		cell.enable_autocomplete(has_autocomplete)
+		cell.enable_autoincrement(has_autoincrement)
 		cell.connect("edit_data", self, "on_edit_data")
 		cell.connect("choose_resource", self, "on_choose_resource")
 		cell.connect("choose_data", self, "on_choose_data")
+		cell.connect("edit_string", self, "on_edit_string")
 
 # called when the add data button is pressed
 func on_add_row_data_btn_pressed() -> void:
@@ -89,15 +92,16 @@ func on_add_row_data_btn_pressed() -> void:
 		cell.set_prop_id(idx)
 		cell.set_row_idx(row_idx)
 		cell.set_prop_type(prop.get_prop_type())
-		var autocomplete = db_prop.has_autoincrement()
-		cell.enable_autocomplete(db_prop.has_autoincrement())
-		if(autocomplete):
+		var autoincrement = db_prop.has_autoincrement()
+		cell.enable_autoincrement(db_prop.has_autoincrement())
+		if(autoincrement):
 			cell.set_text(str(row_idx+1))
 		else:
 			cell.set_text("")
 		cell.connect("edit_data", self, "on_edit_data")
 		cell.connect("choose_resource", self, "on_choose_resource")
 		cell.connect("choose_data", self, "on_choose_data")
+		cell.connect("edit_string", self, "on_edit_string")
 
 	emit_signal("set_dirty")
 
@@ -157,10 +161,11 @@ func fill_data() -> void:
 			cell.set_row_idx(idx)
 			cell.set_prop_type(prop_type)
 			cell.set_text(cell_data)
-			cell.enable_autocomplete(db_prop.has_autoincrement())
+			cell.enable_autoincrement(db_prop.has_autoincrement())
 			cell.connect("edit_data", self, "on_edit_data")
 			cell.connect("choose_resource", self, "on_choose_resource")
 			cell.connect("choose_data", self, "on_choose_data")
+			cell.connect("edit_string", self, "on_edit_string")
 
 # links properties
 func link_props() -> void :
@@ -169,14 +174,14 @@ func link_props() -> void :
 		var prop = $tabs/structure/properties.get_child(idx)
 		prop.link()
 
-# refreshes autocomplete props
-func refresh_autocomplete_props(prop_id, enable) -> void:
+# refreshes autoincrement props
+func refresh_autoincrement_props(prop_id, enable) -> void:
 	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
 		var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
 		for jdx in range(0, row.get_child_count()):
 			var cell = row.get_child(jdx)
 			if(cell.get_prop_id() == prop_id):
-				cell.enable_autocomplete(enable)
+				cell.enable_autoincrement(enable)
 
 # cleares current layout
 func clear_current_layout() -> void:
@@ -274,7 +279,7 @@ func on_delete_property(prop_id : int) -> void:
 func on_enable_prop_autoincrement(prop_id : int, enable : bool) -> void :
 	m_parent_table.enable_prop_autoincrement(prop_id, enable)
 	emit_signal("set_dirty")
-	refresh_autocomplete_props(prop_id, enable)
+	refresh_autoincrement_props(prop_id, enable)
 
 	# reindex all data
 	if(enable):
@@ -308,6 +313,13 @@ func on_choose_data(prop_id : int, row_idx : int, prop_type : int) -> void:
 	$data_dlg.set_table(tbl)
 	$data_dlg.popup_centered()
 
+# called when choosing to edit string
+func on_edit_string(prop_id : int, row_idx : int, text : String) -> void:
+	$edit_string_dlg.set_prop_id(prop_id)
+	$edit_string_dlg.set_row_idx(row_idx)
+	$edit_string_dlg.set_data_text(text)
+	$edit_string_dlg.popup_centered()
+
 # called when selecting a resource filepath
 func on_select_res_path(filepath : String) -> void:
 	# print("GDDBTableEditor::on_select_res_path(" + filepath + ")")
@@ -331,4 +343,20 @@ func on_select_data(prop_id : int, row_idx : int, data_row_idx : int, data : Str
 		var cell = row.get_child(idx)
 		if(cell.get_prop_id() == prop_id):
 			cell.set_text(data)
+			break
+
+func on_text_edited():
+	var prop_id = $edit_string_dlg.get_prop_id()
+	var row_idx = $edit_string_dlg.get_row_idx()
+	var text_data = $edit_string_dlg.get_data_text()
+
+	# print("GDDBTableEditor::on_text_edited() - prop_id: " + str(prop_id) + ", row_idx: " + str(row_idx) + ", data: " + text_data)
+
+	m_parent_table.edit_data(prop_id, row_idx, text_data)
+
+	var row = $tabs/data/scroll/data_holder/data_container.get_child(row_idx)
+	for idx in range(0, row.get_child_count()):
+		var cell = row.get_child(idx)
+		if(cell.get_prop_id() == prop_id):
+			cell.set_text(text_data)
 			break

@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://addons/godot_db_manager/assets/tex/2_0_buttons.png" type="Texture" id=1]
 [ext_resource path="res://addons/godot_db_manager/table_cell.gd" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 28, 1.86734, 24, 24.1327 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 28, 54, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 28, 28, 24, 24 )
 
 [node name="table_cell" type="Control"]
 anchor_right = 1.0
@@ -18,14 +31,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 caret_blink = true
 caret_blink_speed = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="edit_btn" type="TextureButton" parent="LineEdit"]
+anchor_left = 0.833333
+anchor_top = 0.037037
+anchor_right = 0.993667
+anchor_bottom = 0.925445
+margin_right = -0.0500031
+margin_bottom = 0.0129967
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
 
 [node name="Button" type="Button" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+clip_text = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CheckBox" type="CheckBox" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0

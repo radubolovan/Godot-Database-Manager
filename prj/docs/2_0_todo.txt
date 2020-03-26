@@ -35,8 +35,7 @@
 								- float: LineEdit
 									- accept digits and ".", but if the first digit is "0", the second character must be "." - DONE
 								- string: LineEdit + "edit_string_dialog_button"; accept any character
-									- make EditStringDialog:
-										- accept BBCode
+									- make EditStringDialog - DONE
 								- resource: Button; Open a "Link to resource" dialog - DONE
 									- make LinkToResourceDialog - DONE
 										- brouse project files - DONE
