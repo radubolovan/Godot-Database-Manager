@@ -345,14 +345,17 @@ func on_select_data(prop_id : int, row_idx : int, data_row_idx : int, data : Str
 			cell.set_text(data)
 			break
 
+# called when the text is edited
 func on_text_edited():
 	var prop_id = $edit_string_dlg.get_prop_id()
 	var row_idx = $edit_string_dlg.get_row_idx()
 	var text_data = $edit_string_dlg.get_data_text()
 
+	var data = handle_string(text_data)
+
 	# print("GDDBTableEditor::on_text_edited() - prop_id: " + str(prop_id) + ", row_idx: " + str(row_idx) + ", data: " + text_data)
 
-	m_parent_table.edit_data(prop_id, row_idx, text_data)
+	m_parent_table.edit_data(prop_id, row_idx, data)
 
 	var row = $tabs/data/scroll/data_holder/data_container.get_child(row_idx)
 	for idx in range(0, row.get_child_count()):
@@ -360,3 +363,14 @@ func on_text_edited():
 		if(cell.get_prop_id() == prop_id):
 			cell.set_text(text_data)
 			break
+
+# replace special characters in a string to handle properly saving into database
+func handle_string(text : String) -> String:
+	var string = ""
+	for idx in range(0, text.length()):
+		if(text[idx] == "\n"):
+			string += "\\n"
+		else:
+			string += text[idx]
+	print("GDDBTableEditor::handle_string => " + string)
+	return string
