@@ -11,30 +11,30 @@
 			- Autosave on close (checkbox) - DONE
 
 	- improve layout
-		- add multiple databases support
+		- add multiple databases support - DONE
 			- make the main_window as TabContainer - DONE
 				- make each Tab be the interface for each database - DONE
-					- make the tables list more user friendly
+					- make the tables list more user friendly - DONE
 						- improve title - DONE
 							- Add "+" button to add a new table - DONE
 						- add scroll bars - DONE
 						- add editable table name to each item - DONE
 						- add "X" (remove table) for each item. The table should be removed after the user accept. - DONE
-					- improve tables editor
-						- improve "structure" editor
+					- improve tables editor - DONE
+						- improve "structure" editor - DONE
 							- add scrolls (make it scroll view) - DONE
 							- make the Type option wider - DONE
 							- add tables as types - DONE
-						- improve "data" editor
+						- improve "data" editor - DONE
 							- find a way resize the witdh of the columns on the runtime - DROPPED
-							- for each property, the data must have different type of input
+							- for each property, the data must have different type of input - DONE
 								- boolean: CheckBox - DONE
-								- integer: LineEdit
+								- integer: LineEdit - DONE
 									- accept only digits - DONE
 									- if the string starts with "0", drop the other digits - DONE
-								- float: LineEdit
+								- float: LineEdit - DONE
 									- accept digits and ".", but if the first digit is "0", the second character must be "." - DONE
-								- string: LineEdit + "edit_string_dialog_button"; accept any character
+								- string: LineEdit + "edit_string_dialog_button"; accept any character - DONE
 									- make EditStringDialog - DONE
 								- resource: Button; Open a "Link to resource" dialog - DONE
 									- make LinkToResourceDialog - DONE

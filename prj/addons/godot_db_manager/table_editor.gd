@@ -364,6 +364,8 @@ func on_text_edited():
 			cell.set_text(text_data)
 			break
 
+	emit_signal("set_dirty")
+
 # replace special characters in a string to handle properly saving into database
 func handle_string(text : String) -> String:
 	var string = ""
