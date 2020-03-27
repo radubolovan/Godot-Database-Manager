@@ -1,16 +1,18 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_12.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/godot_db_manager/dlgs/new_table_dlg.gd" type="Script" id=2]
-
-[sub_resource type="DynamicFont" id=1]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_14.tres" type="DynamicFont" id=3]
 
 [node name="new_table_dlg" type="WindowDialog"]
+visible = true
 anchor_right = 0.257
 anchor_bottom = 0.084
 margin_right = 0.799988
 margin_bottom = 0.399994
 focus_next = NodePath("v_layout/table_info/table_edt")
 focus_mode = 1
+custom_fonts/title_font = ExtResource( 3 )
 popup_exclusive = true
 window_title = "New table (max 16 characters)"
 script = ExtResource( 2 )
@@ -25,35 +27,38 @@ __meta__ = {
 }
 
 [node name="table_info" type="HBoxContainer" parent="v_layout"]
-margin_top = 11.0
+margin_top = 8.0
 margin_right = 412.0
 margin_bottom = 35.0
 alignment = 1
 
 [node name="table_lbl" type="Label" parent="v_layout/table_info"]
-margin_left = 7.0
+margin_left = 10.0
 margin_top = 5.0
-margin_right = 101.0
-margin_bottom = 19.0
-custom_fonts/font = SubResource( 1 )
+margin_right = 97.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 3 )
 text = "Table name:    "
 
 [node name="table_edt" type="LineEdit" parent="v_layout/table_info"]
-margin_left = 105.0
-margin_right = 405.0
-margin_bottom = 24.0
+margin_left = 101.0
+margin_right = 401.0
+margin_bottom = 27.0
 rect_min_size = Vector2( 300, 20 )
+custom_fonts/font = ExtResource( 3 )
 caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="buttons" type="HBoxContainer" parent="v_layout"]
 margin_top = 45.0
 margin_right = 412.0
-margin_bottom = 65.0
+margin_bottom = 66.0
 alignment = 1
 
 [node name="ok_btn" type="Button" parent="v_layout/buttons"]
-margin_left = 190.0
-margin_right = 221.0
-margin_bottom = 20.0
+margin_left = 156.0
+margin_right = 256.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 1 )
 text = "OK"

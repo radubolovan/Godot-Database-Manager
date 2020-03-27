@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "AcceptDialog",
-"class": "GDDBConfirmNewDBDlg",
-"language": "GDScript",
-"path": "res://addons/godot_db_manager/dlgs/confirm_new_db_dlg.gd"
-}, {
 "base": "Node",
 "class": "GDDBConstants",
 "language": "GDScript",
@@ -140,7 +135,6 @@ _global_script_classes=[ {
 "path": "res://addons/godot_db_manager/core/database.gd"
 } ]
 _global_script_class_icons={
-"GDDBConfirmNewDBDlg": "",
 "GDDBConstants": "",
 "GDDBData": "",
 "GDDBDataLabel": "",
