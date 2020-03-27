@@ -23,42 +23,42 @@ __meta__ = {
 }
 
 [node name="Label1" type="Label" parent="align"]
+visible = false
 margin_top = 5.0
 margin_right = 19.0
 margin_bottom = 19.0
 text = "ID:"
 
 [node name="prop_id" type="LineEdit" parent="align"]
-margin_left = 23.0
-margin_right = 83.0
+visible = false
+margin_right = 60.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 60, 0 )
 text = "999"
 editable = false
 
 [node name="Label2" type="Label" parent="align"]
-margin_left = 87.0
 margin_top = 5.0
-margin_right = 129.0
+margin_right = 42.0
 margin_bottom = 19.0
 text = "Name:"
 
 [node name="prop_name" type="LineEdit" parent="align"]
-margin_left = 133.0
-margin_right = 433.0
+margin_left = 46.0
+margin_right = 346.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 300, 0 )
 
 [node name="Label3" type="Label" parent="align"]
-margin_left = 437.0
+margin_left = 350.0
 margin_top = 5.0
-margin_right = 471.0
+margin_right = 384.0
 margin_bottom = 19.0
 text = "Type:"
 
 [node name="prop_type" type="OptionButton" parent="align"]
-margin_left = 475.0
-margin_right = 725.0
+margin_left = 388.0
+margin_right = 638.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 250, 0 )
 text = "Bool"
@@ -66,6 +66,7 @@ items = [ "Bool", null, false, 0, null, "Integer", null, false, 1, null, "Float"
 selected = 0
 
 [node name="autoincrement_btn" type="CheckBox" parent="align"]
+visible = false
 margin_left = 729.0
 margin_right = 857.0
 margin_bottom = 24.0
@@ -75,7 +76,7 @@ __meta__ = {
 }
 
 [node name="delete_button" type="Button" parent="align"]
-margin_left = 861.0
-margin_right = 881.0
+margin_left = 642.0
+margin_right = 662.0
 margin_bottom = 24.0
 text = "X"

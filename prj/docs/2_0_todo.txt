@@ -25,6 +25,7 @@
 							- add scrolls (make it scroll view) - DONE
 							- make the Type option wider - DONE
 							- add tables as types - DONE
+							- hide property ids
 						- improve "data" editor - DONE
 							- find a way resize the witdh of the columns on the runtime - DROPPED
 							- for each property, the data must have different type of input - DONE
