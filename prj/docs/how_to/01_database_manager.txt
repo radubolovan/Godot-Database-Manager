@@ -112,5 +112,4 @@ func dump_db_manager() -> void :
 	var f = File.new()
 	f.open("res://db_man_dump.txt", File.WRITE)
 	f.store_string(dump_text)
-    f.close()
-	
+	f.close()
