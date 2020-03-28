@@ -1,6 +1,0 @@
-Database manager How To:
-================================
-- Initiate database manager:
-
-func init_db_manager():
-	pass

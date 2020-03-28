@@ -1,0 +1,19 @@
+Database manager How To:
+================================
+
+- Declare a variable for database manager usage
+var m_db_man = null
+
+- Initiate the database manager
+func init_db_manager() -> void :
+	m_db_man = load(gddb_constants.c_addon_main_path + "core/db_man.gd").new()
+
+- Clear and destroy the database manager
+func done_db_manager() -> void :
+	m_db_man.clear()
+	m_db_man.free()
+	m_db_man = null
+
+- Dump the database manager
+func dump_db_manager() -> void :
+	m_db_man.dump(true)
