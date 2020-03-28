@@ -6,7 +6,7 @@ class_name GDDBTable
 
 extends Object
 
-var m_table_id = g_constants.c_invalid_id
+var m_table_id = gddb_constants.c_invalid_id
 var m_table_name = ""
 var m_props = []
 var m_data = []
@@ -47,7 +47,7 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 	var prop_id = generate_new_prop_id()
 
 	# print("GDDBDTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
-	var prop = load(g_constants.c_addon_main_path + "core/db_prop.gd").new()
+	var prop = load(gddb_constants.c_addon_main_path + "core/db_prop.gd").new()
 	prop.set_prop_id(prop_id)
 	prop.set_prop_type(prop_type)
 	prop.set_prop_name(prop_name)
@@ -64,7 +64,7 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 			row_idx = data.get_row_idx()
 			if(data.get_prop_id() + 1 == prop_id):
 				new_data_array.push_back(data)
-				var new_data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()
+				var new_data = load(gddb_constants.c_addon_main_path + "core/db_data.gd").new()
 				new_data.set_prop_id(prop_id)
 				new_data.set_row_idx(row_idx)
 				new_data.set_data("empty")
@@ -89,7 +89,7 @@ func add_table_prop(prop_name : String, table_name : String) -> int :
 	var prop_id = generate_new_prop_id()
 
 	# print("GDDBDTable::add_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
-	var prop = load(g_constants.c_addon_main_path + "core/db_prop.gd").new()
+	var prop = load(gddb_constants.c_addon_main_path + "core/db_prop.gd").new()
 	prop.set_prop_id(prop_id)
 	prop.set_prop_name(prop_name)
 	prop.set_prop_custom_type(table_name)
@@ -103,7 +103,7 @@ func link_tables_props() -> void :
 		var custom_prop_type = m_props[idx].get_prop_custom_type()
 		if(!custom_prop_type.empty()):
 			var table = m_parent_database.get_table_by_name(custom_prop_type)
-			m_props[idx].set_prop_type(db_types.e_data_types_count + table.get_table_id())
+			m_props[idx].set_prop_type(gddb_types.e_data_types_count + table.get_table_id())
 			m_props[idx].set_prop_custom_type("")
 
 # edits a property in the table structure
@@ -178,7 +178,7 @@ func get_prop_by_id(prop_id : int) -> Object :
 # adds a row with blank data
 func add_blank_row() -> void :
 	for idx in range(0, m_props.size()):
-		var data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()
+		var data = load(gddb_constants.c_addon_main_path + "core/db_data.gd").new()
 		data.set_prop_id(m_props[idx].get_prop_id())
 		data.set_row_idx(m_rows_count)
 		if(m_props[idx].has_autoincrement()):
@@ -192,7 +192,7 @@ func add_row(data_array : Array) -> void :
 		print("ERROR: GDDBDTable::add_row( " + str(data_array) + " ) - cannot add row; properties count = " + str(m_props.size()) + " and data size = " + str(data_array.size()))
 		return
 	for idx in range(0, m_props.size()):
-		var data = load(g_constants.c_addon_main_path + "core/db_data.gd").new()
+		var data = load(gddb_constants.c_addon_main_path + "core/db_data.gd").new()
 		# print("adding data: [" + str(m_props[idx].get_prop_id()) + ", " + data_array[idx] + "]")
 		# print("setting prop id: " + str(m_props[idx].get_prop_id()))
 
@@ -205,15 +205,15 @@ func add_row(data_array : Array) -> void :
 			m_data.push_back(data)
 			continue
 
-		if(m_props[idx].get_prop_type() == db_types.e_prop_type_bool):
+		if(m_props[idx].get_prop_type() == gddb_types.e_prop_type_bool):
 			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == db_types.e_prop_type_int):
+		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_int):
 			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == db_types.e_prop_type_float):
+		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_float):
 			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == db_types.e_prop_type_string):
+		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_string):
 			data.set_data(data_array[idx])
-		elif(m_props[idx].get_prop_type() == db_types.e_prop_type_resource):
+		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_resource):
 			data.set_data(data_array[idx])
 		else:
 			print("ERROR: data type doesn't exist - " + str(m_props[idx].get_prop_type()))
@@ -284,40 +284,40 @@ func get_data_at_row_idx(row_idx : int) -> Array :
 	return data
 
 # returns an array of data filtered by property id
-func get_data_by_prop_id(prop_id : int, data_filter : int = db_types.e_data_filter_equal) -> Array :
+func get_data_by_prop_id(prop_id : int, data_filter : int = gddb_types.e_data_filter_equal) -> Array :
 	var data = []
 
-	if(data_filter < db_types.e_data_filter_equal || data_filter >= db_types.e_data_filter_gequal):
+	if(data_filter < gddb_types.e_data_filter_equal || data_filter >= gddb_types.e_data_filter_gequal):
 		print("ERROR: cannot process filter " + str(data_filter))
 		return data
 
 	for idx in range(0, m_data.size()):
-		if(data_filter == db_types.e_data_filter_equal):
+		if(data_filter == gddb_types.e_data_filter_equal):
 			if(m_data[idx].get_prop_id() == prop_id):
 				data.push_back(m_data[idx])
 
-		elif(data_filter == db_types.e_data_filter_not_equal):
+		elif(data_filter == gddb_types.e_data_filter_not_equal):
 			if(m_data[idx].get_prop_id() != prop_id):
 				data.push_back(m_data[idx])
 
-		elif(data_filter == db_types.e_data_filter_less):
+		elif(data_filter == gddb_types.e_data_filter_less):
 			if(m_data[idx].get_prop_id() < prop_id):
 				data.push_back(m_data[idx])
 
-		elif(data_filter == db_types.e_data_filter_greater):
+		elif(data_filter == gddb_types.e_data_filter_greater):
 			if(m_data[idx].get_prop_id() > prop_id):
 				data.push_back(m_data[idx])
 
-		elif(data_filter == db_types.e_data_filter_lequal):
+		elif(data_filter == gddb_types.e_data_filter_lequal):
 			if(m_data[idx].get_prop_id() <= prop_id):
 				data.push_back(m_data[idx])
 
-		elif(data_filter == db_types.e_data_filter_gequal):
+		elif(data_filter == gddb_types.e_data_filter_gequal):
 			if(m_data[idx].get_prop_id() >= prop_id):
 				data.push_back(m_data[idx])
 
 	if(data.size() == 0):
-		print("ERROR: GDDBDTable::get_data_by_prop_id(" + str(prop_id) + ", " +  db_types.get_data_function_name(data_filter) + ") - filtered data not found")
+		print("ERROR: GDDBDTable::get_data_by_prop_id(" + str(prop_id) + ", " +  gddb_types.get_data_function_name(data_filter) + ") - filtered data not found")
 
 	return data
 
@@ -335,44 +335,44 @@ func get_data_by_prop_name(prop_name : String) -> Array :
 
 # returns an array of data filtered by data
 # filters "<", ">", "<=" and ">=" are working for integer and float data types
-func get_data_by_data(data_value : String, data_filter : int = db_types.e_data_filter_equal) -> Array:
+func get_data_by_data(data_value : String, data_filter : int = gddb_types.e_data_filter_equal) -> Array:
 	var data = []
 
-	if(data_filter < db_types.e_data_filter_equal || data_filter >= db_types.e_data_filter_gequal):
+	if(data_filter < gddb_types.e_data_filter_equal || data_filter >= gddb_types.e_data_filter_gequal):
 		print("ERROR: cannot process filter " + str(data_filter))
 		return data
 
 	for idx in range(0, m_data.size()):
-		if(data_filter == db_types.e_data_filter_equal):
+		if(data_filter == gddb_types.e_data_filter_equal):
 			if(m_data[idx].get_data() == data_value):
 				data.push_back(m_data[idx])
 
-		elif(data_filter == db_types.e_data_filter_not_equal):
+		elif(data_filter == gddb_types.e_data_filter_not_equal):
 			if(m_data[idx].get_data() != data_value):
 				data.push_back(m_data[idx])
 
-		elif(data_filter == db_types.e_data_filter_less):
-			if(m_props[idx].get_prop_type() < db_types.e_prop_type_resource):
+		elif(data_filter == gddb_types.e_data_filter_less):
+			if(m_props[idx].get_prop_type() < gddb_types.e_prop_type_resource):
 				if(m_data[idx].get_data() < data_value):
 					data.push_back(m_data[idx])
 
-		elif(data_filter == db_types.e_data_filter_greater):
-			if(m_props[idx].get_prop_type() < db_types.e_prop_type_resource):
+		elif(data_filter == gddb_types.e_data_filter_greater):
+			if(m_props[idx].get_prop_type() < gddb_types.e_prop_type_resource):
 				if(m_data[idx].get_data() > data_value):
 					data.push_back(m_data[idx])
 
-		elif(data_filter == db_types.e_data_filter_lequal):
-			if(m_props[idx].get_prop_type() < db_types.e_prop_type_resource):
+		elif(data_filter == gddb_types.e_data_filter_lequal):
+			if(m_props[idx].get_prop_type() < gddb_types.e_prop_type_resource):
 				if(m_data[idx].get_data() <= data_value):
 					data.push_back(m_data[idx])
 
-		elif(data_filter == db_types.e_data_filter_gequal):
-			if(m_props[idx].get_prop_type() < db_types.e_prop_type_resource):
+		elif(data_filter == gddb_types.e_data_filter_gequal):
+			if(m_props[idx].get_prop_type() < gddb_types.e_prop_type_resource):
 				if(m_data[idx].get_data() >= data_value):
 					data.push_back(m_data[idx])
 
 	if(data.size() == 0):
-		print("ERROR: GDDBDTable::get_data_by_data(" + data_value + ", " + db_types.get_data_function_name(data_filter) + ") - filtered data not found")
+		print("ERROR: GDDBDTable::get_data_by_data(" + data_value + ", " + gddb_types.get_data_function_name(data_filter) + ") - filtered data not found")
 
 	return data
 
@@ -426,7 +426,7 @@ func dump() -> String :
 	dump_text += "\n------------------------------------------------------------------------------------\nData:\n"
 
 	for idx in range(0, m_rows_count):
-		var tmp_text = "row_idx: " + "%" + str(g_globals.get_digits_count(m_rows_count)) + "d"
+		var tmp_text = "row_idx: " + "%" + str(gddb_globals.get_digits_count(m_rows_count)) + "d"
 		dump_text += tmp_text % idx
 		var row = get_data_at_row_idx(idx)
 		for jdx in range(0, row.size()):

@@ -74,8 +74,7 @@
 
 	- add "autoincrement" option to properties - DONE
 
-	- add exemples
-	- add documentation
+	- add exemples & documentation - In Progress
 
 	- add stress tests to check functionalities - DONE
 		- stress database manager - DONE

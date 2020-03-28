@@ -30,7 +30,7 @@ func on_new_property_btn_pressed() -> void:
 		print("ERROR: GDDBTableEditor::on_new_property_btn_pressed() - m_parent_table is null")
 		return
 	var prop_idx = m_parent_table.get_props_count()
-	var prop_type = db_types.e_prop_type_bool
+	var prop_type = gddb_types.e_prop_type_bool
 	var prop_name = "Property_" + str(prop_idx+1)
 	var prop_id = m_parent_table.add_prop(prop_type, prop_name)
 	add_prop_to_structure(prop_id, prop_type, prop_name)
@@ -44,7 +44,7 @@ func on_new_property_btn_pressed() -> void:
 # adds a property to structure tab
 func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -> void:
 	# print("GDDBTableEditor::add_prop_to_structure(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
-	var prop = load(g_constants.c_addon_main_path + "table_property.tscn").instance()
+	var prop = load(gddb_constants.c_addon_main_path + "table_property.tscn").instance()
 	$tabs/structure/properties.add_child(prop)
 	prop.set_parent_table(m_parent_table)
 	prop.setup(prop_id, prop_type, prop_name)
@@ -54,7 +54,7 @@ func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -
 
 # adds a property to data tab
 func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_autoincrement : bool) -> void:
-	var prop = load(g_constants.c_addon_main_path + "data_label.tscn").instance()
+	var prop = load(gddb_constants.c_addon_main_path + "data_label.tscn").instance()
 	$tabs/data/scroll/data_holder/data_header.add_child(prop)
 	prop.set_prop_id(prop_id)
 	prop.set_text(prop_name)
@@ -62,7 +62,7 @@ func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_au
 	# add property to the existing rows
 	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
 		var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
-		var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
+		var cell = load(gddb_constants.c_addon_main_path + "table_cell.tscn").instance()
 		row.add_child(cell)
 		cell.set_prop_id(prop_id)
 		cell.set_row_idx(idx)
@@ -85,7 +85,7 @@ func on_add_row_data_btn_pressed() -> void:
 	var row = HBoxContainer.new()
 	$tabs/data/scroll/data_holder/data_container.add_child(row)
 	for idx in range(0, $tabs/structure/properties.get_child_count()):
-		var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
+		var cell = load(gddb_constants.c_addon_main_path + "table_cell.tscn").instance()
 		var prop = $tabs/structure/properties.get_child(idx)
 		var db_prop = m_parent_table.get_prop_by_id(idx)
 		row.add_child(cell)
@@ -121,7 +121,7 @@ func fill_properties() -> void:
 	for idx in range(0, props_count):
 		var db_prop = m_parent_table.get_prop_at(idx)
 		add_prop_to_structure(db_prop.get_prop_id(), db_prop.get_prop_type(), db_prop.get_prop_name())
-		var prop = load(g_constants.c_addon_main_path + "data_label.tscn").instance()
+		var prop = load(gddb_constants.c_addon_main_path + "data_label.tscn").instance()
 		$tabs/data/scroll/data_holder/data_header.add_child(prop)
 		prop.set_prop_id(db_prop.get_prop_id())
 		prop.set_prop_type(db_prop.get_prop_type())
@@ -145,15 +145,15 @@ func fill_data() -> void:
 			#print("Prop type: " + str(db_prop.get_prop_type()))
 			#print("Prop name: " + str(db_prop.get_prop_name()))
 
-			var cell = load(g_constants.c_addon_main_path + "table_cell.tscn").instance()
+			var cell = load(gddb_constants.c_addon_main_path + "table_cell.tscn").instance()
 			var cell_data = data_row[jdx].get_data()
 
 			var prop_type = db_prop.get_prop_type()
-			if(prop_type >= db_types.e_data_types_count):
+			if(prop_type >= gddb_types.e_data_types_count):
 				var db = m_parent_table.get_parent_database()
-				var table = db.get_table_by_id(prop_type - db_types.e_data_types_count)
+				var table = db.get_table_by_id(prop_type - gddb_types.e_data_types_count)
 				var data_row_idx = cell_data.to_int()
-				cell_data = g_globals.get_json_from_row(table, data_row_idx)
+				cell_data = gddb_globals.get_json_from_row(table, data_row_idx)
 
 			row.add_child(cell)
 
@@ -206,12 +206,12 @@ func clear_current_layout() -> void:
 func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> void:
 	"""
 	print("GDDBTableEditor::on_edit_property(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
-	if(prop_type >= db_types.e_data_types_count):
+	if(prop_type >= gddb_types.e_data_types_count):
 		var db = m_parent_table.get_parent_database()
-		var selected_table = db.get_table_by_id(db_types.e_data_types_count - prop_type)
+		var selected_table = db.get_table_by_id(gddb_types.e_data_types_count - prop_type)
 		print("GDDBTableEditor::on_edit_property(" + str(prop_id) + ", " + selected_table.get_table_name() + ", " + prop_name + ")")
 	else:
-		print("GDDBTableEditor::on_edit_property(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
+		print("GDDBTableEditor::on_edit_property(" + str(prop_id) + ", " + gddb_types.get_data_name(prop_type) + ", " + prop_name + ")")
 	#"""
 	# edit prop in the table
 	m_parent_table.edit_prop(prop_id, prop_type, prop_name)
@@ -229,8 +229,8 @@ func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> voi
 			var cell = row.get_child(jdx)
 			if(cell.get_prop_id() == prop_id):
 				"""
-				if(prop_type < db_types.e_data_types_count):
-					print("Prop type: " + db_types.get_data_name(prop_type))
+				if(prop_type < gddb_types.e_data_types_count):
+					print("Prop type: " + gddb_types.get_data_name(prop_type))
 				else:
 					print("Prop type: custom")
 				"""
@@ -307,7 +307,7 @@ func on_choose_data(prop_id : int, row_idx : int, prop_type : int) -> void:
 	# print("GDDBTableEditor::on_choose_data(" + str(prop_id) + ", " + str(row_idx) + ", " + str(prop_type) + ")")
 	$data_dlg.set_prop_id(prop_id)
 	$data_dlg.set_row_idx(row_idx)
-	var table_id = prop_type - db_types.e_data_types_count
+	var table_id = prop_type - gddb_types.e_data_types_count
 	var db = m_parent_table.get_parent_database()
 	var tbl = db.get_table_by_id(table_id)
 	$data_dlg.set_table(tbl)

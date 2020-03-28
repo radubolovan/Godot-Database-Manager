@@ -12,7 +12,7 @@ var m_db_manager = null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# init db_manager
-	m_db_manager = load(g_constants.c_addon_main_path + "core/db_man.gd").new()
+	m_db_manager = load(gddb_constants.c_addon_main_path + "core/db_man.gd").new()
 
 	# menu connections
 	$dlg/menu.connect("new_database", self, "on_menu_new_database")
@@ -59,7 +59,7 @@ func on_menu_save_database_as():
 func on_new_database(db_name : String) -> void:
 	var tmp_name = db_name.to_lower()
 	var db_id = m_db_manager.add_database(db_name)
-	if(db_id == g_constants.c_invalid_id):
+	if(db_id == gddb_constants.c_invalid_id):
 		$dlg/error_dlg.set_text("Database with name \"" + db_name + "\" already exists")
 		$dlg/error_dlg.popup_centered()
 		return
@@ -67,7 +67,7 @@ func on_new_database(db_name : String) -> void:
 	var db = m_db_manager.get_db_by_id(db_id)
 	# print("new DB added: " + str(db))
 
-	var db_editor = load(g_constants.c_addon_main_path + "db_editor.tscn").instance()
+	var db_editor = load(gddb_constants.c_addon_main_path + "db_editor.tscn").instance()
 	$dlg/databases.add_child(db_editor)
 	db_editor.set_name(db_name)
 	db.set_dirty(true)
@@ -98,7 +98,7 @@ func load_database(filepath : String) -> void:
 	db.set_dirty(false)
 	# print("new DB added: " + str(db))
 
-	var db_editor = load(g_constants.c_addon_main_path + "db_editor.tscn").instance()
+	var db_editor = load(gddb_constants.c_addon_main_path + "db_editor.tscn").instance()
 	$dlg/databases.add_child(db_editor)
 	db_editor.set_name(db.get_db_name())
 	db_editor.set_database(db)

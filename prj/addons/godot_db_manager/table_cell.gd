@@ -13,7 +13,7 @@ signal choose_data
 signal edit_string
 
 var m_prop_id : int = -1
-var m_prop_type : int = g_constants.c_invalid_id
+var m_prop_type : int = gddb_constants.c_invalid_id
 var m_row_idx : int = -1
 var m_text : String = ""
 
@@ -37,7 +37,7 @@ func get_prop_id() -> int :
 
 # sets property type
 func set_prop_type(data_type : int) -> void :
-	# print("GDDBTableCell::set_prop_type(" + db_types.get_data_name(data_type) + ")")
+	# print("GDDBTableCell::set_prop_type(" + gddb_types.get_data_name(data_type) + ")")
 
 	var data_type_changed = false
 
@@ -48,35 +48,35 @@ func set_prop_type(data_type : int) -> void :
 	if(!data_type_changed):
 		return
 
-	if(m_prop_type == db_types.e_prop_type_bool):
+	if(m_prop_type == gddb_types.e_prop_type_bool):
 		$LineEdit.hide()
 		$Button.hide()
 		$CheckBox.show()
 		set_text("")
-	elif(m_prop_type == db_types.e_prop_type_int):
+	elif(m_prop_type == gddb_types.e_prop_type_int):
 		$LineEdit.show()
 		$LineEdit/edit_btn.hide()
 		$Button.hide()
 		$CheckBox.hide()
 		set_text("0")
-	elif(m_prop_type == db_types.e_prop_type_float):
+	elif(m_prop_type == gddb_types.e_prop_type_float):
 		$LineEdit.show()
 		$LineEdit/edit_btn.hide()
 		$Button.hide()
 		$CheckBox.hide()
 		set_text("0.0")
-	elif(m_prop_type == db_types.e_prop_type_string):
+	elif(m_prop_type == gddb_types.e_prop_type_string):
 		$LineEdit.show()
 		$LineEdit/edit_btn.show()
 		$Button.hide()
 		$CheckBox.hide()
 		set_text("")
-	elif(m_prop_type == db_types.e_prop_type_resource):
+	elif(m_prop_type == gddb_types.e_prop_type_resource):
 		$LineEdit.hide()
 		$Button.show()
 		$CheckBox.hide()
 		set_text("res://")
-	elif(m_prop_type >= db_types.e_data_types_count):
+	elif(m_prop_type >= gddb_types.e_data_types_count):
 		$LineEdit.hide()
 		$Button.show()
 		$CheckBox.hide()
@@ -99,7 +99,7 @@ func set_text(text : String) -> void :
 	m_text = text
 	$LineEdit.set_text(m_text)
 	$Button.set_text(m_text)
-	if(m_prop_type == db_types.e_prop_type_bool):
+	if(m_prop_type == gddb_types.e_prop_type_bool):
 		$CheckBox.set_pressed((text == "1"))
 
 # sets autoincrement
@@ -115,10 +115,10 @@ func on_toggle_button(enable : bool) -> void :
 
 # called when the button is pressed
 func on_button_pressed() -> void:
-	if(m_prop_type == db_types.e_prop_type_resource):
+	if(m_prop_type == gddb_types.e_prop_type_resource):
 		# print("GDDBTableCell::on_button_pressed()")
 		emit_signal("choose_resource", m_prop_id, m_row_idx)
-	elif(m_prop_type >= db_types.e_data_types_count):
+	elif(m_prop_type >= gddb_types.e_data_types_count):
 		emit_signal("choose_data", m_prop_id, m_row_idx, m_prop_type)
 
 # called when the edit string button is pressed
@@ -133,11 +133,11 @@ func on_text_changed(new_text : String) -> void :
 		$LineEdit.set_cursor_position(0)
 		return
 
-	if(m_prop_type == db_types.e_prop_type_int):
+	if(m_prop_type == gddb_types.e_prop_type_int):
 		if(!check_integer(new_text)):
 			return
 
-	if(m_prop_type == db_types.e_prop_type_float):
+	if(m_prop_type == gddb_types.e_prop_type_float):
 		if(!check_float(new_text)):
 			return
 

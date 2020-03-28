@@ -9,8 +9,8 @@ extends PopupPanel
 
 signal select_data
 
-var m_prop_id = g_constants.c_invalid_id
-var m_row_idx = g_constants.c_invalid_id
+var m_prop_id = gddb_constants.c_invalid_id
+var m_row_idx = gddb_constants.c_invalid_id
 
 var m_table = null
 
@@ -47,7 +47,7 @@ func get_table() -> Object:
 func on_about_to_show() -> void :
 	$ItemList.clear()
 	for idx in range(0, m_table.get_rows_count()):
-		var option = g_globals.get_json_from_row(m_table, idx)
+		var option = gddb_globals.get_json_from_row(m_table, idx)
 		$ItemList.add_item(option)
 
 # called when an item is selected

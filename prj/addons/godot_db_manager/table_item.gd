@@ -11,7 +11,7 @@ signal select_item
 signal edit_table
 signal delete_table
 
-var m_table_id = g_constants.c_invalid_id
+var m_table_id = gddb_constants.c_invalid_id
 var m_table_name = ""
 
 var m_is_selected = false

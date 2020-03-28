@@ -9,7 +9,7 @@ extends WindowDialog
 
 signal delete_table
 
-var m_table_id = g_constants.c_invalid_id
+var m_table_id = gddb_constants.c_invalid_id
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

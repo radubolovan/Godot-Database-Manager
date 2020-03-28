@@ -7,8 +7,8 @@ class_name GDDBDataLabel
 tool
 extends Label
 
-var m_prop_id : int = g_constants.c_invalid_id
-var m_prop_type : int = g_constants.c_invalid_id
+var m_prop_id : int = gddb_constants.c_invalid_id
+var m_prop_type : int = gddb_constants.c_invalid_id
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

@@ -42,12 +42,12 @@ func test_1() -> void :
 	var table = db.get_table_by_id(table_id)
 
 	# create "id" property with autoincrement option
-	var prop_id = table.add_prop(db_types.e_prop_type_int, "id")
+	var prop_id = table.add_prop(gddb_types.e_prop_type_int, "id")
 	var prop = table.get_prop_by_id(prop_id)
 	prop.enable_autoincrement(true)
 
 	# create "name" property
-	prop_id = table.add_prop(db_types.e_prop_type_string, "name")
+	prop_id = table.add_prop(gddb_types.e_prop_type_string, "name")
 
 	# create 100 data rows of data
 	for idx in range(0, 100):
@@ -79,7 +79,7 @@ func test_1() -> void :
 
 # init database manager
 func init_db_man() -> void :
-	m_db_man = load(g_constants.c_addon_main_path + "core/db_man.gd").new()
+	m_db_man = load(gddb_constants.c_addon_main_path + "core/db_man.gd").new()
 
 # destroys database manager
 func done_db_man() -> void :

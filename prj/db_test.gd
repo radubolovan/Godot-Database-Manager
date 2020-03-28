@@ -9,7 +9,7 @@ var m_player_name_prop_id = -1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# init database manager
-	m_db_manager = load(g_constants.c_addon_main_path + "core/db_man.gd").new()
+	m_db_manager = load(gddb_constants.c_addon_main_path + "core/db_man.gd").new()
 	var db_id = m_db_manager.load_database("res://game_data.json")
 
 	# load the database

@@ -11,9 +11,9 @@ var DBInterface = preload("./db_interface.tscn")
 var db_interface : Node
 
 func _enter_tree():
-	add_autoload_singleton("g_constants", "res://addons/godot_db_manager/constants.gd")
-	add_autoload_singleton("db_types", "res://addons/godot_db_manager/core/db_types.gd")
-	add_autoload_singleton("g_globals", "res://addons/godot_db_manager/globals.gd")
+	add_autoload_singleton("gddb_constants", "res://addons/godot_db_manager/GDDBConstants.gd")
+	add_autoload_singleton("gddb_types", "res://addons/godot_db_manager/core/GDDBtypes.gd")
+	add_autoload_singleton("gddb_globals", "res://addons/godot_db_manager/GDDBGlobals.gd")
 
 	# Initialization of the plugin goes here
 	db_interface = DBInterface.instance()

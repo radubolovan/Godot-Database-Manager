@@ -25,7 +25,7 @@ func on_add_table() -> void:
 # creates a table
 func create_table(db_table : Object, select_table : bool = true) -> void:
 	# print("GDDBTablesList::create_table(" + str(db_table) + ")")
-	var table = load(g_constants.c_addon_main_path + "table_item.tscn").instance()
+	var table = load(gddb_constants.c_addon_main_path + "table_item.tscn").instance()
 	var table_id = db_table.get_table_id()
 	table.set_table_id(table_id)
 	table.set_table_name(db_table.get_table_name())

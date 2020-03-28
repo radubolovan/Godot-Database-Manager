@@ -71,7 +71,7 @@ func test_2() -> void:
 
 # init database manager
 func init_db_man() -> void :
-	m_db_man = load(g_constants.c_addon_main_path + "core/db_man.gd").new()
+	m_db_man = load(gddb_constants.c_addon_main_path + "core/db_man.gd").new()
 
 # destroys database manager
 func done_db_man() -> void :

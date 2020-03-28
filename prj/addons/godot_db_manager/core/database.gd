@@ -16,7 +16,7 @@ enum {
 var m_db_type = e_db_type_json
 
 # the id of the database
-var m_db_id = g_constants.c_invalid_id
+var m_db_id = gddb_constants.c_invalid_id
 
 # the name of the database
 var m_db_name : String = ""
@@ -41,7 +41,7 @@ func get_db_id() -> int :
 # set the name of the database
 # the name of the database should not contain special characters
 func set_db_name(name : String) -> bool :
-	if(!g_constants.check_db_name(name)):
+	if(!gddb_constants.check_db_name(name)):
 		print("ERROR: GDDatabase::set_db_name(" + name + ") - the name of the database contains invalid characters")
 		return false
 	# print("GDDatabase::set_db_name(" + name + ")")
@@ -76,12 +76,12 @@ func can_add_table(table_name : String, table_id : int = -1):
 func add_table(table_name : String) -> int :
 	if(!can_add_table(table_name)):
 		print("WARNING: GDDatabase::add_table(" + table_name + ") - cannot add table")
-		return g_constants.c_invalid_id
+		return gddb_constants.c_invalid_id
 
 	# print("GDDatabase::add_table(" + table_name + ") to \"" + m_db_name + "\" database")
 
 	var table_id = generate_new_table_id()
-	var table = load(g_constants.c_addon_main_path + "core/db_table.gd").new()
+	var table = load(gddb_constants.c_addon_main_path + "core/db_table.gd").new()
 	table.set_table_id(table_id)
 	table.set_table_name(table_name)
 	table.set_parent_database(self)
@@ -210,11 +210,11 @@ func save_db() -> void :
 			text += "\"name\":\"" + str(db_prop.get_prop_name()) + "\","
 
 			var prop_type = db_prop.get_prop_type()
-			if(prop_type < db_types.e_data_types_count):
+			if(prop_type < gddb_types.e_data_types_count):
 				text += "\"type\":\"" + str(prop_type) + "\","
 			else:
 				# print("GDDatabase::save_db() - prop_type: " + str(prop_type))
-				var table_id = prop_type - db_types.e_data_types_count
+				var table_id = prop_type - gddb_types.e_data_types_count
 				var table = get_table_by_id(table_id)
 				if(null == table):
 					print("GDDatabase::save_db() - table not found with id: " + str(table_id))

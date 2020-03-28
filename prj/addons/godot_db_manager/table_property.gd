@@ -22,8 +22,8 @@ func _ready() -> void:
 	$align/prop_name.connect("text_changed", self, "on_name_changed")
 
 	$align/prop_type.clear()
-	for idx in range(0, db_types.e_data_types_count):
-		$align/prop_type.add_item(db_types.get_data_name(idx), db_types.e_prop_type_bool + idx)
+	for idx in range(0, gddb_types.e_data_types_count):
+		$align/prop_type.add_item(gddb_types.get_data_name(idx), gddb_types.e_prop_type_bool + idx)
 	$align/prop_type.select(0)
 
 	$align/prop_type.get_popup().connect("about_to_show", self, "on_about_to_show")
@@ -37,11 +37,11 @@ func _ready() -> void:
 # setup property
 func setup(prop_id : int, prop_type : int, prop_name : String) -> void:
 	"""
-	if(prop_type < db_types.e_data_types_count):
-		print("GDDBTableProperty::setup(" + str(prop_id) + ", " + db_types.get_data_name(prop_type) + ", " + prop_name + ")")
+	if(prop_type < gddb_types.e_data_types_count):
+		print("GDDBTableProperty::setup(" + str(prop_id) + ", " + gddb_types.get_data_name(prop_type) + ", " + prop_name + ")")
 	else:
 		var db = m_parent_table.get_parent_database()
-		var table = db.get_table_by_id(prop_type - db_types.e_data_types_count)
+		var table = db.get_table_by_id(prop_type - gddb_types.e_data_types_count)
 		print("GDDBTableProperty::setup(" + str(prop_id) + ", " + table.get_table_name() + ", " + prop_name + ")")
 	#"""
 	set_prop_id(prop_id)
@@ -57,7 +57,7 @@ func set_parent_table(table):
 		var tbl = db.get_table_at(idx)
 		if(tbl == m_parent_table):
 			continue
-		$align/prop_type.add_item(tbl.get_table_name(), db_types.e_data_types_count + tbl.get_table_id())
+		$align/prop_type.add_item(tbl.get_table_name(), gddb_types.e_data_types_count + tbl.get_table_id())
 
 # sets proprty id
 func set_prop_id(prop_id : int) -> void:
@@ -73,19 +73,19 @@ func get_prop_id() -> int:
 func set_prop_type(prop_type : int) -> void:
 	"""
 	print("GDDBTableProperty::set_prop_type(" + str(prop_type) + ")")
-	if(prop_type < db_types.e_data_types_count):
-		print("GDDBTableProperty::set_prop_type(" + db_types.get_data_name(prop_type) + ")")
+	if(prop_type < gddb_types.e_data_types_count):
+		print("GDDBTableProperty::set_prop_type(" + gddb_types.get_data_name(prop_type) + ")")
 	else:
 		var db = m_parent_table.get_parent_database()
-		var table = db.get_table_by_id(prop_type - db_types.e_data_types_count)
+		var table = db.get_table_by_id(prop_type - gddb_types.e_data_types_count)
 		print("GDDBTableProperty::set_prop_type(" + table.get_table_name() + ")")
 	#"""
-	#if(prop_type >= db_types.e_data_types_count):
+	#if(prop_type >= gddb_types.e_data_types_count):
 	#	print("GDDBTableProperty::set_prop_type(" + str(prop_type) + ")")
 	m_prop_type = prop_type
 	select_current_prop()
 
-	if(m_prop_type == db_types.e_prop_type_int):
+	if(m_prop_type == gddb_types.e_prop_type_int):
 		$align/autoincrement_btn.show()
 		var prop = m_parent_table.get_prop_by_id(m_prop_id)
 		if(prop.has_autoincrement()):
@@ -95,14 +95,14 @@ func set_prop_type(prop_type : int) -> void:
 
 # selects current property
 func select_current_prop() -> void:
-	if(m_prop_type < db_types.e_data_types_count):
+	if(m_prop_type < gddb_types.e_data_types_count):
 		$align/prop_type.select(m_prop_type)
 
 # links property type to other tables
 func link():
 	# print("GDDBTableProperty::link()")
 	refill_list()
-	if(m_prop_type >= db_types.e_data_types_count):
+	if(m_prop_type >= gddb_types.e_data_types_count):
 		"""
 		print("m_prop_id : " + str(m_prop_id))
 		print("m_prop_type : " + str(m_prop_type))
@@ -142,8 +142,8 @@ func on_about_to_show():
 # refills the list
 func refill_list() -> void :
 	$align/prop_type.clear()
-	for idx in range(0, db_types.e_data_types_count):
-		$align/prop_type.add_item(db_types.get_data_name(idx), db_types.e_prop_type_bool + idx)
+	for idx in range(0, gddb_types.e_data_types_count):
+		$align/prop_type.add_item(gddb_types.get_data_name(idx), gddb_types.e_prop_type_bool + idx)
 
 	if(null != m_parent_table):
 		var db = m_parent_table.get_parent_database()
@@ -156,8 +156,8 @@ func refill_list() -> void :
 			print("table id: " + str(table.get_table_id()))
 			print("table name: " + table.get_table_name())
 			#"""
-			# print("GDDBTableProperty::prop_type.add_item(" + table.get_table_name() + ", " + str(db_types.e_data_types_count + table.get_table_id()) + ")" )
-			$align/prop_type.add_item(table.get_table_name(), db_types.e_data_types_count + table.get_table_id())
+			# print("GDDBTableProperty::prop_type.add_item(" + table.get_table_name() + ", " + str(gddb_types.e_data_types_count + table.get_table_id()) + ")" )
+			$align/prop_type.add_item(table.get_table_name(), gddb_types.e_data_types_count + table.get_table_id())
 	# $align/prop_type.select(selected_idx)
 
 # sets selection
@@ -178,14 +178,14 @@ func on_type_changed(option_idx : int) -> void:
 	"""
 	print("GDDBTableProperty::on_type_changed(" + str(option_idx) + ")")
 	print("option_id = " + str(option_id))
-	if(option_id >= db_types.e_data_types_count):
+	if(option_id >= gddb_types.e_data_types_count):
 		print("GDDBTableProperty::on_type_changed(" + str(option_id) + ")")
 	else:
-		print("GDDBTableProperty::on_type_changed(" + db_types.get_data_name(option_id) + ")")
+		print("GDDBTableProperty::on_type_changed(" + gddb_types.get_data_name(option_id) + ")")
 	#"""
 	m_prop_type = option_id
 	$align/autoincrement_btn.set_pressed(false)
-	if(m_prop_type == db_types.e_prop_type_int):
+	if(m_prop_type == gddb_types.e_prop_type_int):
 		$align/autoincrement_btn.show()
 	else:
 		$align/autoincrement_btn.hide()

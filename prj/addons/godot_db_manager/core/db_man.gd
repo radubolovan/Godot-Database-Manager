@@ -12,10 +12,10 @@ var m_databases = []
 func add_database(db_name : String) -> int :
 	if(!can_add_db(db_name)):
 		print("ERROR: GDDBMan::add_database(" + db_name + ") already exists")
-		return g_constants.c_invalid_id
+		return gddb_constants.c_invalid_id
 	# print("GDDBMan::add_database(" + db_name + ")")
 	var db_id = generate_new_db_id()
-	var db = load(g_constants.c_addon_main_path + "core/database.gd").new()
+	var db = load(gddb_constants.c_addon_main_path + "core/database.gd").new()
 	db.set_db_id(db_id)
 	db.set_db_name(db_name)
 	m_databases.push_back(db)
@@ -24,7 +24,7 @@ func add_database(db_name : String) -> int :
 # loads a database from a file
 func load_database(filepath : String) -> int :
 	var db_id = generate_new_db_id()
-	var db = load(g_constants.c_addon_main_path + "core/database.gd").new()
+	var db = load(gddb_constants.c_addon_main_path + "core/database.gd").new()
 	db.set_db_id(db_id)
 	db.set_db_filepath(filepath)
 	db.load_db()

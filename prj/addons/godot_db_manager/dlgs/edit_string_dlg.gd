@@ -9,8 +9,8 @@ extends WindowDialog
 
 signal string_edited
 
-var m_prop_id = g_constants.c_invalid_id
-var m_row_idx = g_constants.c_invalid_id
+var m_prop_id = gddb_constants.c_invalid_id
+var m_row_idx = gddb_constants.c_invalid_id
 var m_data_text = ""
 
 # Called when the node enters the scene tree for the first time.

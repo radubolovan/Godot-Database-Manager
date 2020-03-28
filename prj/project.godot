@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "GDDBConstants",
 "language": "GDScript",
-"path": "res://addons/godot_db_manager/constants.gd"
+"path": "res://addons/godot_db_manager/GDDBConstants.gd"
 }, {
 "base": "Object",
 "class": "GDDBData",
@@ -47,7 +47,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "GDDBGlobals",
 "language": "GDScript",
-"path": "res://addons/godot_db_manager/globals.gd"
+"path": "res://addons/godot_db_manager/GDDBGlobals.gd"
 }, {
 "base": "Control",
 "class": "GDDBInterface",
@@ -127,7 +127,7 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "GDDBTypes",
 "language": "GDScript",
-"path": "res://addons/godot_db_manager/core/db_types.gd"
+"path": "res://addons/godot_db_manager/core/GDDBtypes.gd"
 }, {
 "base": "Object",
 "class": "GDDatabase",
@@ -170,9 +170,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-g_constants="*res://addons/godot_db_manager/constants.gd"
-db_types="*res://addons/godot_db_manager/core/db_types.gd"
-g_globals="*res://addons/godot_db_manager/globals.gd"
+gddb_constants="*res://addons/godot_db_manager/GDDBConstants.gd"
+gddb_types="*res://addons/godot_db_manager/core/GDDBtypes.gd"
+gddb_globals="*res://addons/godot_db_manager/GDDBGlobals.gd"
 
 [debug]
 

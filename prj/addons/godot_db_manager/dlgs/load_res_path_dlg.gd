@@ -52,8 +52,8 @@ const file_filters = [
 	"*.dat, *.raw ; Binary data file types"
 ]
 
-var m_prop_id = g_constants.c_invalid_id
-var m_row_idx = g_constants.c_invalid_id
+var m_prop_id = gddb_constants.c_invalid_id
+var m_row_idx = gddb_constants.c_invalid_id
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

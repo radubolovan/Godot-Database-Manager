@@ -9,7 +9,7 @@ extends WindowDialog
 
 signal create_new_table
 
-var m_table_id = g_constants.c_invalid_id
+var m_table_id = gddb_constants.c_invalid_id
 var m_current_table_name = ""
 
 # Called when the node enters the scene tree for the first time.
@@ -35,10 +35,10 @@ func set_init_name(table_name : String) -> void:
 
 func on_text_changed(new_text: String) -> void:
 	var change_text = true
-	if(!g_constants.check_db_name(new_text)):
+	if(!gddb_constants.check_db_name(new_text)):
 		change_text = false
 	else:
-		if(new_text.length() > g_constants.c_max_db_name_len):
+		if(new_text.length() > gddb_constants.c_max_db_name_len):
 			change_text = false
 		else:
 			change_text = true

@@ -56,7 +56,7 @@ func set_database(db) -> void :
 # returns the database id
 func get_db_id() -> int :
 	if(null == m_database):
-		return g_constants.c_invalid_id
+		return gddb_constants.c_invalid_id
 	return m_database.get_db_id()
 
 # sets the database to be dirty; should be saved
@@ -75,7 +75,7 @@ func on_add_table() -> void :
 # called when the user accepts the name of the table in the "new_table_dlg"
 func on_create_table(table_name : String) -> void :
 	var table_id = m_database.add_table(table_name)
-	if(table_id == g_constants.c_invalid_id):
+	if(table_id == gddb_constants.c_invalid_id):
 		$error_dlg.set_text("Table with the name \"" + table_name + "\" already exists" )
 		$error_dlg.popup_centered()
 		return
