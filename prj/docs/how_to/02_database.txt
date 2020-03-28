@@ -6,7 +6,7 @@ var m_database = null
 
 
 - Create the database (without using the database manager)
-func create_db(db_name, db_filepath) -> void:
+func create_db(db_name : String, db_filepath : String) -> void:
 	if(null != m_database):
 		print("Error: database is already created")
 		return
@@ -58,7 +58,7 @@ func erase_table(table_name : String) -> void:
 
 
 - Adding properties and data to a table
-func fill_table(table) -> void :
+func fill_table(table : Object) -> void :
 	# add properties
 	table.add_prop(gddb_types.e_prop_type_int, "ID")
 	table.add_prop(gddb_types.e_prop_type_string, "Name")
