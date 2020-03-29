@@ -22,7 +22,7 @@ func create_db(db_name : String, db_filepath : String) -> void:
 
 
 - Destroy a database (without using the database manager)
-func destroy_database():
+func destroy_database() -> void :
 	if(null == m_database):
 		print("Error: database doesn not exists")
 		return
