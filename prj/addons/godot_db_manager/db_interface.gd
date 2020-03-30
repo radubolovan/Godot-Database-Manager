@@ -52,7 +52,10 @@ func on_menu_save_database_as():
 	# print("on_menu_save_database_as")
 	$dlg/load_db_dlg.set_mode(FileDialog.MODE_SAVE_FILE)
 	$dlg/load_db_dlg.set_title("Save Database As ...")
-	$dlg/load_db_dlg.set_current_file("")
+
+	var currnet_tab = $dlg/databases.get_current_tab_control()
+
+	$dlg/load_db_dlg.set_current_file(currnet_tab.get_db_name())
 	$dlg/load_db_dlg.popup_centered()
 
 # called when adding a new database

@@ -59,6 +59,12 @@ func get_db_id() -> int :
 		return gddb_constants.c_invalid_id
 	return m_database.get_db_id()
 
+# returns the database name
+func get_db_name() -> String :
+	if(null == m_database):
+		return ""
+	return m_database.get_db_name()
+
 # sets the database to be dirty; should be saved
 func set_dirty(dirty) -> void :
 	if(dirty):
