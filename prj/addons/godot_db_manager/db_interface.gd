@@ -83,8 +83,29 @@ func on_new_database(db_name : String) -> void:
 
 # called when selecting a file from save / load dialog
 func on_file_selected(filepath : String) -> void:
+	# print("GDDBInterface::on_file_selected(" + filepath + ")")
+
 	if($dlg/load_db_dlg.get_mode() == FileDialog.MODE_SAVE_FILE):
+		var filepath_low = filepath.to_lower()
+
+		# check for the file extension
+		if(!filepath_low.ends_with(".json")):
+			$dlg/error_dlg.set_text("The extension of the file must be \".json\"")
+			$dlg/error_dlg.popup_centered()
+			return
+	
+		var current_filename = $dlg/load_db_dlg.get_current_file().to_lower()
+		var filename_dot = current_filename.length() - 5
+		current_filename.erase(filename_dot, 5)
+	
+		# check the filename
+		if(!gddb_constants.check_db_name(current_filename)):
+			$dlg/error_dlg.set_text("Invalid characters in the database filename.\n\nThe filename cannot contain any of these characters: " + gddb_constants.c_invalid_characters)
+			$dlg/error_dlg.popup_centered()
+			return
+
 		save_database_as(filepath)
+
 	elif($dlg/load_db_dlg.get_mode() == FileDialog.MODE_OPEN_FILE):
 		load_database(filepath)
 
