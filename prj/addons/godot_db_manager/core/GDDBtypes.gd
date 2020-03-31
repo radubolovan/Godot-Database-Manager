@@ -4,6 +4,12 @@ extends Node
 class_name GDDBTypes
 
 enum {
+	e_db_invalid_file = -11,
+	e_db_invalid_ver = -10,
+	e_db_valid = 0
+}
+
+enum {
 	e_prop_type_bool = 0
 	e_prop_type_int = 1,
 	e_prop_type_float = 2,

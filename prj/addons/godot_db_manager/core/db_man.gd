@@ -27,7 +27,15 @@ func load_database(filepath : String) -> int :
 	var db = load(gddb_constants.c_addon_main_path + "core/database.gd").new()
 	db.set_db_id(db_id)
 	db.set_db_filepath(filepath)
-	db.load_db()
+
+	if(db.load_db() == gddb_types.e_db_invalid_file):
+		db.free()
+		return gddb_types.e_db_invalid_file
+
+	elif(db.load_db() == gddb_types.e_db_invalid_ver):
+		db.free()
+		return gddb_types.e_db_invalid_ver
+
 	m_databases.push_back(db)
 	return db_id
 

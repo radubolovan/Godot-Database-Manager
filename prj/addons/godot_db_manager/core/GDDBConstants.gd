@@ -7,6 +7,12 @@ class_name GDDBConstants
 tool
 extends Node
 
+# GDDB signature
+const c_gddb_signature = "GDDB_ver"
+
+# GDDB ver
+const c_gddb_ver = "2.0"
+
 # invalid id to initialize integer properties
 const c_invalid_id = -1
 

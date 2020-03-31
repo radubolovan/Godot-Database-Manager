@@ -12,6 +12,12 @@ func _ready() -> void:
 	m_db_manager = load(gddb_constants.c_addon_main_path + "core/db_man.gd").new()
 	var db_id = m_db_manager.load_database("res://game_data.json")
 
+	if(db_id == gddb_types.e_db_invalid_file):
+		return
+
+	if(db_id == gddb_types.e_db_invalid_ver):
+		return
+
 	# load the database
 	m_database = m_db_manager.get_db_by_id(db_id)
 

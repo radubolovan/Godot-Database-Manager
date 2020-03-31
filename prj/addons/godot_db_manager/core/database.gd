@@ -198,7 +198,8 @@ func save_db() -> void :
 
 	# print("GDDatabase::save_db() - " + m_db_name + " to: " + m_db_filepath)
 	var text = "{"
-	text += "\"name\":\"" + m_db_name + "\","
+	text += "\"" + gddb_constants.c_gddb_signature + "\":\"" + gddb_constants.c_gddb_ver + "\","
+	text += "\"db_name\":\"" + m_db_name + "\","
 	text += "\"tables\":["
 	for idx in range(0, m_tables.size()):
 		text += "{"
@@ -251,15 +252,25 @@ func save_db() -> void :
 	set_dirty(false)
 
 # deserialization
-func load_db() -> void :
+func load_db() -> int :
 	var file = File.new()
 	file.open(get_db_filepath(), File.READ)
 	var content = file.get_as_text()
 	file.close()
 	var dictionary = JSON.parse(content).result
 
+	# check the signature
+	if(!dictionary.has(gddb_constants.c_gddb_signature)):
+		print("GDDatabase::load_db() - invalid database file")
+		return gddb_types.e_db_invalid_file
+
+	var gddb_signature = dictionary[gddb_constants.c_gddb_signature]
+	if(gddb_signature != gddb_constants.c_gddb_ver):
+		print("GDDatabase::load_db() - invalid database version")
+		return gddb_types.e_db_invalid_ver
+
 	clear()
-	m_db_name = dictionary["name"]
+	m_db_name = dictionary["db_name"]
 	var tables = dictionary["tables"]
 	for idx in range(0, tables.size()):
 		var table_id = add_table(tables[idx]["table_name"])
@@ -298,6 +309,8 @@ func load_db() -> void :
 	# link custom data to tables
 	for idx in range(0, m_tables.size()):
 		m_tables[idx].link_tables_props()
+
+	return gddb_types.e_db_valid
 
 # dumps the database
 func dump() -> String :

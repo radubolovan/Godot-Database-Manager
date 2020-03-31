@@ -118,6 +118,17 @@ func save_database_as(filepath : String) -> void:
 
 func load_database(filepath : String) -> void:
 	var db_id = m_db_manager.load_database(filepath)
+
+	if(db_id == gddb_types.e_db_invalid_file):
+		$dlg/error_dlg.set_text("Invalid database")
+		$dlg/error_dlg.popup_centered()
+		return
+
+	if(db_id == gddb_types.e_db_invalid_ver):
+		$dlg/error_dlg.set_text("Wrong database version. Currently is: " + gddb_constants.c_gddb_ver)
+		$dlg/error_dlg.popup_centered()
+		return
+
 	var db = m_db_manager.get_db_by_id(db_id)
 	db.set_dirty(false)
 	# print("new DB added: " + str(db))
