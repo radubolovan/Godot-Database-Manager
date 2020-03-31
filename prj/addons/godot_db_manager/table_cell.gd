@@ -145,14 +145,47 @@ func on_text_changed(new_text : String) -> void :
 
 # checks if the text is integer
 func check_integer(text : String) -> bool :
+	var is_negative = false
+
+	# check if the string is probably a number, but starts with "-"
+	if(text.begins_with("-")):
+		text.erase(0, 1)
+		is_negative = true
+
+	# check if the current string is only "-"
+	if(text.empty()):
+		m_text = "-"
+		$LineEdit.set_text(m_text)
+		$LineEdit.set_cursor_position(m_text.length())
+		return true
+
 	if(text.is_valid_integer()):
 		if(text.begins_with("0")):
+			# a negative integer cannot start with "0"
+			if(is_negative):
+				m_text = "-"
+				$LineEdit.set_text(m_text)
+				$LineEdit.set_cursor_position(1)
+				return true
+
+			# a positive number starting with "0" can be only "0"
 			m_text = "0"
 			$LineEdit.set_text(m_text)
 			$LineEdit.set_cursor_position(1)
 			return true
 
-		m_text = text
+		# don't add more "-" in front of the number
+		if(text.begins_with("-")):
+			text.erase(0, 1)
+
+		# add back the "-"
+		if(is_negative):
+			m_text = "-" + text
+		else:
+			m_text = text
+
+		$LineEdit.set_text(m_text)
+		$LineEdit.set_cursor_position(m_text.length())
 		return true
 
 	$LineEdit.set_text(m_text)
