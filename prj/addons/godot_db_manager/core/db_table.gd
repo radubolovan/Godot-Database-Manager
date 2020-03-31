@@ -191,6 +191,10 @@ func add_row(data_array : Array) -> void :
 	if(data_array.size() != m_props.size()):
 		print("ERROR: GDDBDTable::add_row( " + str(data_array) + " ) - cannot add row; properties count = " + str(m_props.size()) + " and data size = " + str(data_array.size()))
 		return
+
+	var prop_type = gddb_types.e_prop_type_bool
+	var the_data = ""
+
 	for idx in range(0, m_props.size()):
 		var data = load(gddb_constants.c_addon_main_path + "core/db_data.gd").new()
 		# print("adding data: [" + str(m_props[idx].get_prop_id()) + ", " + data_array[idx] + "]")
@@ -205,16 +209,19 @@ func add_row(data_array : Array) -> void :
 			m_data.push_back(data)
 			continue
 
-		if(m_props[idx].get_prop_type() == gddb_types.e_prop_type_bool):
-			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_int):
-			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_float):
-			data.set_data(str(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_string):
-			data.set_data(gddb_globals.handle_string(data_array[idx]))
-		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_resource):
-			data.set_data(data_array[idx])
+		prop_type = m_props[idx].get_prop_type()
+		the_data = data_array[idx]
+
+		if(prop_type == gddb_types.e_prop_type_bool):
+			data.set_data(str(the_data))
+		elif(prop_type == gddb_types.e_prop_type_int):
+			data.set_data(str(the_data))
+		elif(prop_type == gddb_types.e_prop_type_float):
+			data.set_data(str(the_data))
+		elif(prop_type == gddb_types.e_prop_type_string):
+			data.set_data(gddb_globals.handle_string(the_data))
+		elif(prop_type == gddb_types.e_prop_type_resource):
+			data.set_data(the_data)
 		else:
 			print("ERROR: data type doesn't exist - " + str(m_props[idx].get_prop_type()))
 		m_data.push_back(data)

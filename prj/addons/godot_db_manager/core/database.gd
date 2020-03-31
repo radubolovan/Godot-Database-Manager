@@ -289,7 +289,7 @@ func load_db() -> void :
 			var row_data = []
 			for kdx in range(0, props_count):
 				var cell_data = tables[idx]["data"][jdx * props_count + kdx]
-				#print("cell_data: " + cell_data)
+				# print("cell_data: " + cell_data)
 				row_data.push_back(cell_data)
 			#print("row_data: " + str(row_data))
 			table.add_row(row_data)
