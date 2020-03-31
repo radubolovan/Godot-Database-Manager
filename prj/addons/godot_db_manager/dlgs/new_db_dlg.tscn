@@ -59,15 +59,24 @@ caret_blink_speed = 0.5
 margin_top = 58.0
 margin_right = 412.0
 margin_bottom = 79.0
+custom_constants/separation = 80
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ok_button" type="Button" parent="v_layout/buttons"]
-margin_left = 156.0
-margin_right = 256.0
+[node name="ok_btn" type="Button" parent="v_layout/buttons"]
+margin_left = 66.0
+margin_right = 166.0
 margin_bottom = 21.0
 rect_min_size = Vector2( 100, 0 )
 custom_fonts/font = ExtResource( 3 )
 text = "OK"
+
+[node name="cancel_btn" type="Button" parent="v_layout/buttons"]
+margin_left = 246.0
+margin_right = 346.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 3 )
+text = "Cancel"
