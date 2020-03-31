@@ -332,6 +332,8 @@ func on_select_res_path(filepath : String) -> void:
 		if(cell.get_prop_id() == prop_id):
 			cell.set_text(filepath)
 
+	emit_signal("set_dirty")
+
 # called when data from a table is choosen
 func on_select_data(prop_id : int, row_idx : int, data_row_idx : int, data : String) -> void:
 	# set the data in the databes / table
@@ -344,6 +346,8 @@ func on_select_data(prop_id : int, row_idx : int, data_row_idx : int, data : Str
 		if(cell.get_prop_id() == prop_id):
 			cell.set_text(data)
 			break
+
+	emit_signal("set_dirty")
 
 # called when the text is edited
 func on_text_edited():
