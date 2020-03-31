@@ -15,6 +15,7 @@ var m_current_table_name = ""
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$v_layout/buttons/ok_btn.connect("pressed", self, "on_ok_btn_pressed")
+	$v_layout/buttons/cancel_btn.connect("pressed", self, "on_cancel_btn_pressed")
 	$v_layout/table_info/table_edt.connect("text_changed", self, "on_text_changed")
 	$v_layout/table_info/table_edt.connect("text_entered", self, "on_text_confirmed")
 	m_current_table_name = ""
@@ -61,6 +62,10 @@ func on_ok_btn_pressed() -> void:
 	if(!m_current_table_name.empty()):
 		handle_table_name()
 		hide()
+
+# called when the Cancel button is pressed
+func on_cancel_btn_pressed() -> void :
+	hide()
 
 # handles the text in the EditLine
 func handle_table_name() -> void:
