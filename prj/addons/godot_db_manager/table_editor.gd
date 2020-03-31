@@ -23,6 +23,8 @@ func _ready() -> void:
 
 	$edit_string_dlg.connect("string_edited", self, "on_text_edited")
 
+	$delete_prop_dlg.connect("delete_prop", self, "on_confirm_delete_property")
+
 # called when the new_property button is pressed
 func on_new_property_btn_pressed() -> void:
 	# print("GDDBTableEditor::on_new_property_btn_pressed()")
@@ -241,7 +243,16 @@ func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> voi
 # called when a property is deleted
 func on_delete_property(prop_id : int) -> void:
 	# print("GDDBTableEditor::on_delete_property(" + str(prop_id) + ")")
-	# deletes property from table; also all data by this property
+	var prop = m_parent_table.get_prop_by_id(prop_id)
+	$delete_prop_dlg.set_prop_id(prop_id)
+	$delete_prop_dlg.set_prop_name(prop.get_prop_name())
+	$delete_prop_dlg.popup_centered()
+
+# called when a property is deleted
+func on_confirm_delete_property() -> void:
+	var prop_id = $delete_prop_dlg.get_prop_id()
+
+	# deletes a property from table; also all data by this property
 	m_parent_table.delete_prop(prop_id)
 
 	# delete cells from data tab

@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://addons/godot_db_manager/dlgs/data_dlg.gd"
 }, {
 "base": "WindowDialog",
+"class": "GDDBDeletePropDlg",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/dlgs/delete_prop_dlg.gd"
+}, {
+"base": "WindowDialog",
 "class": "GDDBDeleteTableDlg",
 "language": "GDScript",
 "path": "res://addons/godot_db_manager/dlgs/delete_table_dlg.gd"
@@ -139,6 +144,7 @@ _global_script_class_icons={
 "GDDBData": "",
 "GDDBDataLabel": "",
 "GDDBDataPanel": "",
+"GDDBDeletePropDlg": "",
 "GDDBDeleteTableDlg": "",
 "GDDBEditStringDlg": "",
 "GDDBEditor": "",
