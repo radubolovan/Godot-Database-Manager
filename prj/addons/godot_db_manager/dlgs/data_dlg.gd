@@ -46,11 +46,16 @@ func get_table() -> Object:
 # called when the popup is about to show
 func on_about_to_show() -> void :
 	$ItemList.clear()
+	$ItemList.add_item("None")
 	for idx in range(0, m_table.get_rows_count()):
 		var option = gddb_globals.get_json_from_row(m_table, idx)
 		$ItemList.add_item(option)
 
 # called when an item is selected
 func on_item_selected(idx : int) -> void:
-	emit_signal("select_data", m_prop_id, m_row_idx, idx, $ItemList.get_item_text(idx) )
+	# the first index is ""
+	if(idx == 0):
+		emit_signal("select_data", m_prop_id, m_row_idx, idx, "" )
+	else:
+		emit_signal("select_data", m_prop_id, m_row_idx, idx, $ItemList.get_item_text(idx) )
 	hide()

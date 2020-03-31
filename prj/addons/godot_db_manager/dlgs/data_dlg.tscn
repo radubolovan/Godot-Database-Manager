@@ -4,7 +4,6 @@
 [ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_12.tres" type="DynamicFont" id=2]
 
 [node name="data_dlg" type="PopupPanel"]
-visible = true
 anchor_right = 0.285625
 anchor_bottom = 0.351111
 script = ExtResource( 1 )
