@@ -31,3 +31,13 @@ func get_digits_count(number : int) -> int:
 		digits_count += 1
 
 	return digits_count
+
+# replace special characters in a string to handle properly saving into database
+func handle_string(text : String) -> String:
+	var string = ""
+	for idx in range(0, text.length()):
+		if(text[idx] == "\n"):
+			string += "\\n"
+		else:
+			string += text[idx]
+	return string

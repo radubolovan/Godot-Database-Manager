@@ -5,7 +5,6 @@
 [ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_12.tres" type="DynamicFont" id=3]
 
 [node name="edit_string_dlg" type="WindowDialog"]
-visible = true
 anchor_right = 0.430625
 anchor_bottom = 0.423333
 focus_next = NodePath("v_layout/text")

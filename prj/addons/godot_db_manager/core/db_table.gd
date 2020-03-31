@@ -212,7 +212,7 @@ func add_row(data_array : Array) -> void :
 		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_float):
 			data.set_data(str(data_array[idx]))
 		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_string):
-			data.set_data(data_array[idx])
+			data.set_data(gddb_globals.handle_string(data_array[idx]))
 		elif(m_props[idx].get_prop_type() == gddb_types.e_prop_type_resource):
 			data.set_data(data_array[idx])
 		else:

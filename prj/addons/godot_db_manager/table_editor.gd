@@ -355,7 +355,7 @@ func on_text_edited():
 	var row_idx = $edit_string_dlg.get_row_idx()
 	var text_data = $edit_string_dlg.get_data_text()
 
-	var data = handle_string(text_data)
+	var data = gddb_globals.handle_string(text_data)
 
 	# print("GDDBTableEditor::on_text_edited() - prop_id: " + str(prop_id) + ", row_idx: " + str(row_idx) + ", data: " + text_data)
 
@@ -369,14 +369,3 @@ func on_text_edited():
 			break
 
 	emit_signal("set_dirty")
-
-# replace special characters in a string to handle properly saving into database
-func handle_string(text : String) -> String:
-	var string = ""
-	for idx in range(0, text.length()):
-		if(text[idx] == "\n"):
-			string += "\\n"
-		else:
-			string += text[idx]
-	print("GDDBTableEditor::handle_string => " + string)
-	return string
