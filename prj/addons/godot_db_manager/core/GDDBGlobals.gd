@@ -8,7 +8,7 @@ tool
 extends Node
 
 # returns the name of the data type
-func get_data_name(data_type):
+func get_data_name(data_type : int) -> String :
 	if(data_type == gddb_types.e_prop_type_bool):
 		return "Bool"
 	elif(data_type == gddb_types.e_prop_type_int):
@@ -20,21 +20,26 @@ func get_data_name(data_type):
 	elif(data_type == gddb_types.e_prop_type_resource):
 		return "Resource"
 
-# returns the name of the data function
-func get_data_function_name(data_func : int) -> String :
-	if(data_func == gddb_types.e_data_filter_equal):
+	print("GDDBGlobals::get_data_name(" + str(data_type) + ")")
+	return "Unknown data type"
+
+# returns the name of the data filter
+func get_data_filter_name(data_filter_type : int) -> String :
+	if(data_filter_type == gddb_types.e_data_filter_equal):
 		return "Equal"
-	elif(data_func == gddb_types.e_data_filter_not_equal):
+	elif(data_filter_type == gddb_types.e_data_filter_not_equal):
 		return "Not equal"
-	elif(data_func == gddb_types.e_data_filter_less):
+	elif(data_filter_type == gddb_types.e_data_filter_less):
 		return "Less"
-	elif(data_func == gddb_types.e_data_filter_greater):
+	elif(data_filter_type == gddb_types.e_data_filter_greater):
 		return "Greater"
-	elif(data_func == gddb_types.e_data_filter_lequal):
+	elif(data_filter_type == gddb_types.e_data_filter_lequal):
 		return "Less or equal"
-	elif(data_func == gddb_types.e_data_filter_gequal):
+	elif(data_filter_type == gddb_types.e_data_filter_gequal):
 		return "Greater or equal"
-	return "ERROR: Unknown data function :" + str(data_func)
+
+	print("GDDBGlobals::get_data_filter_name(" + str(data_filter_type) + ")")
+	return "Unknown data filter type"
 
 # checks the name of the database
 func check_db_name(db_name : String) -> bool :

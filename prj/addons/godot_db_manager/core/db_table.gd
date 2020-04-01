@@ -324,7 +324,7 @@ func get_data_by_prop_id(prop_id : int, data_filter : int = gddb_types.e_data_fi
 				data.push_back(m_data[idx])
 
 	if(data.size() == 0):
-		print("ERROR: GDDBDTable::get_data_by_prop_id(" + str(prop_id) + ", " +  gddb_types.get_data_function_name(data_filter) + ") - filtered data not found")
+		print("ERROR: GDDBDTable::get_data_by_prop_id(" + str(prop_id) + ", " +  gddb_globals.get_data_filter_name(data_filter) + ") - filtered data not found")
 
 	return data
 
@@ -379,7 +379,7 @@ func get_data_by_data(data_value : String, data_filter : int = gddb_types.e_data
 					data.push_back(m_data[idx])
 
 	if(data.size() == 0):
-		print("ERROR: GDDBDTable::get_data_by_data(" + data_value + ", " + gddb_types.get_data_function_name(data_filter) + ") - filtered data not found")
+		print("ERROR: GDDBDTable::get_data_by_data(" + data_value + ", " + gddb_globals.get_data_filter_name(data_filter) + ") - filtered data not found")
 
 	return data
 

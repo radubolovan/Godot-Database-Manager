@@ -23,7 +23,7 @@ func _ready() -> void:
 
 	$align/prop_type.clear()
 	for idx in range(0, gddb_types.e_data_types_count):
-		$align/prop_type.add_item(gddb_types.get_data_name(idx), gddb_types.e_prop_type_bool + idx)
+		$align/prop_type.add_item(gddb_globals.get_data_name(idx), gddb_types.e_prop_type_bool + idx)
 	$align/prop_type.select(0)
 
 	$align/prop_type.get_popup().connect("about_to_show", self, "on_about_to_show")
@@ -38,7 +38,7 @@ func _ready() -> void:
 func setup(prop_id : int, prop_type : int, prop_name : String) -> void:
 	"""
 	if(prop_type < gddb_types.e_data_types_count):
-		print("GDDBTableProperty::setup(" + str(prop_id) + ", " + gddb_types.get_data_name(prop_type) + ", " + prop_name + ")")
+		print("GDDBTableProperty::setup(" + str(prop_id) + ", " + gddb_globals.get_data_name(prop_type) + ", " + prop_name + ")")
 	else:
 		var db = m_parent_table.get_parent_database()
 		var table = db.get_table_by_id(prop_type - gddb_types.e_data_types_count)
@@ -74,7 +74,7 @@ func set_prop_type(prop_type : int) -> void:
 	"""
 	print("GDDBTableProperty::set_prop_type(" + str(prop_type) + ")")
 	if(prop_type < gddb_types.e_data_types_count):
-		print("GDDBTableProperty::set_prop_type(" + gddb_types.get_data_name(prop_type) + ")")
+		print("GDDBTableProperty::set_prop_type(" + gddb_globals.get_data_name(prop_type) + ")")
 	else:
 		var db = m_parent_table.get_parent_database()
 		var table = db.get_table_by_id(prop_type - gddb_types.e_data_types_count)
@@ -143,7 +143,7 @@ func on_about_to_show():
 func refill_list() -> void :
 	$align/prop_type.clear()
 	for idx in range(0, gddb_types.e_data_types_count):
-		$align/prop_type.add_item(gddb_types.get_data_name(idx), gddb_types.e_prop_type_bool + idx)
+		$align/prop_type.add_item(gddb_globals.get_data_name(idx), gddb_types.e_prop_type_bool + idx)
 
 	if(null != m_parent_table):
 		var db = m_parent_table.get_parent_database()
@@ -181,7 +181,7 @@ func on_type_changed(option_idx : int) -> void:
 	if(option_id >= gddb_types.e_data_types_count):
 		print("GDDBTableProperty::on_type_changed(" + str(option_id) + ")")
 	else:
-		print("GDDBTableProperty::on_type_changed(" + gddb_types.get_data_name(option_id) + ")")
+		print("GDDBTableProperty::on_type_changed(" + gddb_globals.get_data_name(option_id) + ")")
 	#"""
 	m_prop_type = option_id
 	$align/autoincrement_btn.set_pressed(false)

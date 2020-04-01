@@ -37,7 +37,7 @@ func get_prop_id() -> int :
 
 # sets property type
 func set_prop_type(data_type : int) -> void :
-	# print("GDDBTableCell::set_prop_type(" + gddb_types.get_data_name(data_type) + ")")
+	# print("GDDBTableCell::set_prop_type(" + gddb_globals.get_data_name(data_type) + ")")
 
 	var data_type_changed = false
 
