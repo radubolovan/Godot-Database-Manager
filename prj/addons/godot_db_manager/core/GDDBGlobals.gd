@@ -50,7 +50,7 @@ func check_db_name(db_name : String) -> bool :
 	return true
 
 # returns a json from a row from a table
-func get_json_from_row(table : Object, row_idx : int) -> String:
+func get_json_from_row(table : Object, row_idx : int) -> String :
 	var json = "{"
 	var row = table.get_data_at_row_idx(row_idx)
 	for jdx in range(0, row.size()):
@@ -63,7 +63,7 @@ func get_json_from_row(table : Object, row_idx : int) -> String:
 	return json
 
 # returns the digits count from a number
-func get_digits_count(number : int) -> int:
+func get_digits_count(number : int) -> int :
 	if(number == 0):
 		return 1
 
@@ -75,7 +75,7 @@ func get_digits_count(number : int) -> int:
 	return digits_count
 
 # replace special characters in a string to handle properly saving into database
-func handle_string(text : String) -> String:
+func handle_string(text : String) -> String :
 	var string = ""
 	for idx in range(0, text.length()):
 		if(text[idx] == "\n"):

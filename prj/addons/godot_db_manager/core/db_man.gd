@@ -106,7 +106,7 @@ func get_db_by_name(db_name : String) -> Object :
 	return null
 
 # generates a new table id
-func generate_new_db_id() -> int:
+func generate_new_db_id() -> int :
 	if(m_databases.size() == 0):
 		return 0
 	return m_databases[m_databases.size()-1].get_db_id() + 1
@@ -120,14 +120,14 @@ func can_add_db(db_name : String) -> bool :
 	return true
 
 # deletes all databases
-func clear() -> void:
+func clear() -> void :
 	for idx in range(0, m_databases.size()):
 		m_databases[idx].clear()
 		m_databases[idx].free()
 	m_databases.clear()
 
 # dumps all databases
-func dump(to_console : bool = false) -> String:
+func dump(to_console : bool = false) -> String :
 	var dump_text = "\nDatabase manager - dump"
 
 	dump_text += "\n===================================================================================="
