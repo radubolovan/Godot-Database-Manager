@@ -41,7 +41,7 @@ func get_db_id() -> int :
 # set the name of the database
 # the name of the database should not contain special characters
 func set_db_name(name : String) -> bool :
-	if(!gddb_constants.check_db_name(name)):
+	if(!gddb_globals.check_db_name(name)):
 		print("ERROR: GDDatabase::set_db_name(" + name + ") - the name of the database contains invalid characters")
 		return false
 	# print("GDDatabase::set_db_name(" + name + ")")

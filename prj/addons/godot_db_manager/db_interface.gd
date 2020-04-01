@@ -99,7 +99,7 @@ func on_file_selected(filepath : String) -> void:
 		current_filename.erase(filename_dot, 5)
 	
 		# check the filename
-		if(!gddb_constants.check_db_name(current_filename)):
+		if(!gddb_globals.check_db_name(current_filename)):
 			$dlg/error_dlg.set_text("Invalid characters in the database filename.\n\nThe filename cannot contain any of these characters: " + gddb_constants.c_invalid_characters)
 			$dlg/error_dlg.popup_centered()
 			return

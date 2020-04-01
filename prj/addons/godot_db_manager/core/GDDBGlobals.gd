@@ -7,6 +7,14 @@ class_name GDDBGlobals
 tool
 extends Node
 
+# checks the name of the database
+func check_db_name(db_name : String) -> bool :
+	for idx in range(0, db_name.length()):
+		for jdx in range(0, gddb_constants.c_invalid_characters.length()):
+			if(db_name[idx] == gddb_constants.c_invalid_characters[jdx]):
+				return false
+	return true
+
 # returns a json from a row from a table
 func get_json_from_row(table : Object, row_idx : int) -> String:
 	var json = "{"

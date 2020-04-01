@@ -27,7 +27,7 @@ func on_about_to_show() -> void :
 # called everytime the text is changed
 func on_text_changed(new_text: String) -> void :
 	var change_text = true
-	if(!gddb_constants.check_db_name(new_text)):
+	if(!gddb_globals.check_db_name(new_text)):
 		change_text = false
 	else:
 		if(new_text.length() > gddb_constants.c_max_db_name_len):
