@@ -7,6 +7,35 @@ class_name GDDBGlobals
 tool
 extends Node
 
+# returns the name of the data type
+func get_data_name(data_type):
+	if(data_type == gddb_types.e_prop_type_bool):
+		return "Bool"
+	elif(data_type == gddb_types.e_prop_type_int):
+		return "Integer"
+	elif(data_type == gddb_types.e_prop_type_float):
+		return "Float"
+	elif(data_type == gddb_types.e_prop_type_string):
+		return "String"
+	elif(data_type == gddb_types.e_prop_type_resource):
+		return "Resource"
+
+# returns the name of the data function
+func get_data_function_name(data_func : int) -> String :
+	if(data_func == gddb_types.e_data_filter_equal):
+		return "Equal"
+	elif(data_func == gddb_types.e_data_filter_not_equal):
+		return "Not equal"
+	elif(data_func == gddb_types.e_data_filter_less):
+		return "Less"
+	elif(data_func == gddb_types.e_data_filter_greater):
+		return "Greater"
+	elif(data_func == gddb_types.e_data_filter_lequal):
+		return "Less or equal"
+	elif(data_func == gddb_types.e_data_filter_gequal):
+		return "Greater or equal"
+	return "ERROR: Unknown data function :" + str(data_func)
+
 # checks the name of the database
 func check_db_name(db_name : String) -> bool :
 	for idx in range(0, db_name.length()):
