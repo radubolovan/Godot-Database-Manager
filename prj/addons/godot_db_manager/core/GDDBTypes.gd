@@ -3,12 +3,14 @@ extends Node
 
 class_name GDDBTypes
 
+# Database loading errors
 enum {
 	e_db_invalid_file = -11,
 	e_db_invalid_ver = -10,
 	e_db_valid = 0
 }
 
+# Property types
 enum {
 	e_prop_type_bool = 0
 	e_prop_type_int = 1,
@@ -22,6 +24,7 @@ enum {
 	e_data_types_count
 }
 
+# Data filters
 enum {
 	e_data_filter_equal = 0,
 	e_data_filter_not_equal = 1,
