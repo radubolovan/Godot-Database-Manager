@@ -24,11 +24,11 @@ var m_db_name : String = ""
 # tables in the database
 var m_tables : Array = []
 
+# the path of the database
+var m_db_filepath : String = ""
+
 # if the database is not saved, it is dirty
 var m_is_dirty : bool = false
-
-# the path of the database
-var m_db_filepath = ""
 
 # sets the id of the database
 func set_db_id(db_id : int) -> void :
