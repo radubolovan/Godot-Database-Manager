@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/godot_db_manager/dlgs/data_dlg.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_12.tres" type="DynamicFont" id=2]
+
+[node name="data_dlg" type="PopupPanel"]
+anchor_right = 0.285625
+anchor_bottom = 0.351111
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemList" type="ItemList" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+custom_fonts/font = ExtResource( 2 )
+items = [ "ababab", null, false, "cdcdcd", null, false, "efefef", null, false ]
+__meta__ = {
+"_edit_use_anchors_": false
+}

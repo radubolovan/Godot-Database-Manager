@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/godot_db_manager/db_interface.gd" type="Script" id=4]
+[ext_resource path="res://addons/godot_db_manager/dlgs/new_db_dlg.tscn" type="PackedScene" id=5]
+[ext_resource path="res://addons/godot_db_manager/menu.tscn" type="PackedScene" id=7]
+
+[node name="db_interface" type="Control"]
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 27.9785 ],
+"_edit_use_anchors_": false
+}
+
+[node name="dlg" type="WindowDialog" parent="."]
+visible = true
+margin_right = 1190.0
+margin_bottom = 655.0
+popup_exclusive = true
+window_title = "Godot Database Manager"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="databases" type="TabContainer" parent="dlg"]
+anchor_top = 0.043
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -0.165001
+tab_align = 0
+drag_to_rearrange_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="menu" parent="dlg" instance=ExtResource( 7 )]
+anchor_bottom = 0.043
+margin_bottom = -0.165001
+
+[node name="new_db_dlg" parent="dlg" instance=ExtResource( 5 )]
+visible = false
+
+[node name="error_dlg" parent="dlg" instance=ExtResource( 3 )]
+visible = false
+anchor_right = 0.187
+anchor_bottom = 0.136
+margin_right = 0.469986
+margin_bottom = -0.0800018
+
+[node name="load_db_dlg" type="FileDialog" parent="dlg"]
+anchor_right = 0.349
+anchor_bottom = 0.418
+margin_right = -0.309998
+margin_bottom = 0.209991
+window_title = "Open a File"
+mode = 0
+filters = PoolStringArray( "*.json" )
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/godot_db_manager/tables_list.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_db_manager/tables_header.tscn" type="PackedScene" id=2]
+
+[node name="tables_list" type="Control"]
+anchor_right = 0.106
+anchor_bottom = 0.25
+margin_right = 0.400024
+margin_bottom = 1.52588e-05
+rect_min_size = Vector2( 170, 225 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 29.9686, 584.0 ],
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [ 170.149 ]
+}
+
+[node name="v_align" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 2.596
+margin_bottom = -350.1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tables_header" parent="v_align" instance=ExtResource( 2 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 170.0
+margin_bottom = 30.0
+
+[node name="tables_container" type="ScrollContainer" parent="v_align"]
+margin_top = 34.0
+margin_right = 170.0
+margin_bottom = 584.0
+rect_min_size = Vector2( 170, 550 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="tables" type="VBoxContainer" parent="v_align/tables_container"]
+margin_right = 170.0
+margin_bottom = 550.0
+rect_min_size = Vector2( 170, 550 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

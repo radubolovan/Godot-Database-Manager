@@ -1,0 +1,82 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/godot_db_manager/table_property.gd" type="Script" id=2]
+
+[node name="table_property" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -600.0
+margin_bottom = -876.0
+rect_min_size = Vector2( 1000, 24 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 24.0 ],
+"_edit_use_anchors_": false
+}
+
+[node name="align" type="HBoxContainer" parent="."]
+margin_right = 1000.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 1000, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label1" type="Label" parent="align"]
+visible = false
+margin_top = 5.0
+margin_right = 19.0
+margin_bottom = 19.0
+text = "ID:"
+
+[node name="prop_id" type="LineEdit" parent="align"]
+visible = false
+margin_right = 60.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 60, 0 )
+text = "999"
+editable = false
+
+[node name="Label2" type="Label" parent="align"]
+margin_top = 5.0
+margin_right = 42.0
+margin_bottom = 19.0
+text = "Name:"
+
+[node name="prop_name" type="LineEdit" parent="align"]
+margin_left = 46.0
+margin_right = 346.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 300, 0 )
+
+[node name="Label3" type="Label" parent="align"]
+margin_left = 350.0
+margin_top = 5.0
+margin_right = 384.0
+margin_bottom = 19.0
+text = "Type:"
+
+[node name="prop_type" type="OptionButton" parent="align"]
+margin_left = 388.0
+margin_right = 638.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 250, 0 )
+text = "Bool"
+items = [ "Bool", null, false, 0, null, "Integer", null, false, 1, null, "Float", null, false, 2, null, "String", null, false, 3, null, "Resource", null, false, 4, null ]
+selected = 0
+
+[node name="autoincrement_btn" type="CheckBox" parent="align"]
+visible = false
+margin_left = 729.0
+margin_right = 857.0
+margin_bottom = 24.0
+text = "Auto increment"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="delete_button" type="Button" parent="align"]
+margin_left = 642.0
+margin_right = 662.0
+margin_bottom = 24.0
+text = "X"

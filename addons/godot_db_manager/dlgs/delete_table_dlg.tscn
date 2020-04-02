@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/godot_db_manager/dlgs/delete_table_dlg.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_14.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_12.tres" type="DynamicFont" id=3]
+
+[node name="delete_table_dlg" type="WindowDialog"]
+visible = true
+anchor_right = 0.257
+anchor_bottom = 0.084
+margin_right = 0.799988
+margin_bottom = 0.399994
+focus_next = NodePath("v_layout/buttons/ok_btn")
+focus_mode = 1
+custom_fonts/title_font = ExtResource( 2 )
+popup_exclusive = true
+window_title = "Delete table"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="v_layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 10
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="table_info" type="HBoxContainer" parent="v_layout"]
+margin_top = 13.0
+margin_right = 412.0
+margin_bottom = 30.0
+alignment = 1
+
+[node name="table_lbl" type="Label" parent="v_layout/table_info"]
+margin_left = 162.0
+margin_right = 249.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 2 )
+text = "Table name:    "
+
+[node name="buttons" type="HBoxContainer" parent="v_layout"]
+margin_top = 40.0
+margin_right = 412.0
+margin_bottom = 61.0
+custom_constants/separation = 50
+alignment = 1
+
+[node name="ok_btn" type="Button" parent="v_layout/buttons"]
+margin_left = 81.0
+margin_right = 181.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 3 )
+text = "OK"
+
+[node name="cancel_btn" type="Button" parent="v_layout/buttons"]
+margin_left = 231.0
+margin_right = 331.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 3 )
+text = "Cancel"

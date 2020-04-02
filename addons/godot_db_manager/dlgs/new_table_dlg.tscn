@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_12.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/godot_db_manager/dlgs/new_table_dlg.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_14.tres" type="DynamicFont" id=3]
+
+[node name="new_table_dlg" type="WindowDialog"]
+visible = true
+anchor_right = 0.257
+anchor_bottom = 0.084
+margin_right = 0.799988
+margin_bottom = 0.399994
+focus_next = NodePath("v_layout/table_info/table_edt")
+focus_mode = 1
+custom_fonts/title_font = ExtResource( 3 )
+popup_exclusive = true
+window_title = "New table (max 16 characters)"
+script = ExtResource( 2 )
+
+[node name="v_layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 10
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="table_info" type="HBoxContainer" parent="v_layout"]
+margin_top = 8.0
+margin_right = 412.0
+margin_bottom = 35.0
+alignment = 1
+
+[node name="table_lbl" type="Label" parent="v_layout/table_info"]
+margin_left = 10.0
+margin_top = 5.0
+margin_right = 97.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 3 )
+text = "Table name:    "
+
+[node name="table_edt" type="LineEdit" parent="v_layout/table_info"]
+margin_left = 101.0
+margin_right = 401.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 300, 20 )
+custom_fonts/font = ExtResource( 3 )
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="buttons" type="HBoxContainer" parent="v_layout"]
+margin_top = 45.0
+margin_right = 412.0
+margin_bottom = 66.0
+custom_constants/separation = 80
+alignment = 1
+
+[node name="ok_btn" type="Button" parent="v_layout/buttons"]
+margin_left = 66.0
+margin_right = 166.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 1 )
+text = "OK"
+
+[node name="cancel_btn" type="Button" parent="v_layout/buttons"]
+margin_left = 246.0
+margin_right = 346.0
+margin_bottom = 21.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 1 )
+text = "Cancel"
