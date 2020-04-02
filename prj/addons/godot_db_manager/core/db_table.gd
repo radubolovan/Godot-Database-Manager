@@ -38,7 +38,7 @@ func set_parent_database(db : Object) -> void :
 	m_parent_database = db
 
 # returns parent database
-func get_parent_database() -> Object:
+func get_parent_database() -> Object :
 	return m_parent_database
 
 # adds a property in the table structure as a base type
@@ -116,7 +116,7 @@ func edit_prop(prop_id : int, prop_type : int, prop_name: String) -> void :
 	print("ERROR: GDDBDTable::edit_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ") - property not found")
 
 # enables or disables autoincrement on a property
-func enable_prop_autoincrement(prop_id : int, enable : bool) -> void:
+func enable_prop_autoincrement(prop_id : int, enable : bool) -> void :
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_id() == prop_id):
 			m_props[idx].enable_autoincrement(enable)
@@ -235,7 +235,7 @@ func remove_row(row_idx : int) -> void :
 			m_rows_count -= 1
 
 # returns the rows count
-func get_rows_count() -> int:
+func get_rows_count() -> int :
 	return m_rows_count
 
 # edits the data
@@ -249,20 +249,12 @@ func edit_data(prop_id : int, row_idx : int, data : String) -> void :
 			return
 	print("ERROR: GDDBDTable::edit_data(" + str(prop_id) + ", " + str(row_idx) + ", " + data + ") - can't find data to edit")
 
-# reindex data if is integer and has auto_increment
-func reindex_date(prop_id : int) -> void :
-	var index = 1
-	for idx in range(0, m_data.size()):
-		if(m_data.get_prop_id() == prop_id):
-			m_data.set_data(str(index))
-			index += 1
-
 # returns data count
 func get_data_size() -> int :
 	return m_data.size()
 
 # returns all data
-func get_all_data() -> Array:
+func get_all_data() -> Array :
 	return m_data
 
 # returns the data from at index
@@ -342,7 +334,7 @@ func get_data_by_prop_name(prop_name : String) -> Array :
 
 # returns an array of data filtered by data
 # filters "<", ">", "<=" and ">=" are working for integer and float data types
-func get_data_by_data(data_value : String, data_filter : int = gddb_types.e_data_filter_equal) -> Array:
+func get_data_by_data(data_value : String, data_filter : int = gddb_types.e_data_filter_equal) -> Array :
 	var data = []
 
 	if(data_filter < gddb_types.e_data_filter_equal || data_filter >= gddb_types.e_data_filter_gequal):

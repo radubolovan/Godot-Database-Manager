@@ -72,7 +72,7 @@ func can_add_table(table_name : String, table_id : int = -1) -> bool :
 	return true
 
 # adds a new table
-# returns the table; if already exists, it will fire an warning on output console
+# returns the table id; if already exists, it will fire an warning on output console and returns an invalid id
 func add_table(table_name : String) -> int :
 	if(!can_add_table(table_name)):
 		print("WARNING: GDDatabase::add_table(" + table_name + ") - cannot add table")
