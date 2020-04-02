@@ -30,4 +30,4 @@ Here is a template
 Current version: working on 2.0_pre_alpha
 - Warning: this is not a final(stable) version. When using this tool, make sure to backup JSON files provided by this tool.
 
-TODO: https://github.com/radubolovan/Godot-Database-Manager/blob/2.0/prj/docs/2_0_todo.txt
+TODO: https://github.com/radubolovan/Godot-Database-Manager/blob/2.0/docs/2_0_todo.txt
