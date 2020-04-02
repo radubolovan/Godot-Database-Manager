@@ -67,7 +67,28 @@ func add_prop(prop_type : int, prop_name : String) -> int :
 				var new_data = load(gddb_constants.c_addon_main_path + "core/db_data.gd").new()
 				new_data.set_prop_id(prop_id)
 				new_data.set_row_idx(row_idx)
-				new_data.set_data("empty")
+
+				if(prop_type == gddb_types.e_prop_type_bool):
+					new_data.set_data("0")
+		
+				elif(prop_type == gddb_types.e_prop_type_int):
+					if(prop.has_autoincrement()):
+						new_data.set_data(str(m_rows_count+1))
+					else:
+						new_data.set_data("0")
+		
+				elif(prop_type == gddb_types.e_prop_type_float):
+					new_data.set_data("0.0")
+		
+				elif(prop_type == gddb_types.e_prop_type_string):
+					new_data.set_data("")
+		
+				elif(prop_type == gddb_types.e_prop_type_resource):
+					new_data.set_data("res://")
+		
+				elif(prop_type >= gddb_types.e_prop_types_count):
+					new_data.set_data(str(-1))
+
 				new_data_array.push_back(new_data)
 			else:
 				new_data_array.push_back(data)
@@ -103,7 +124,7 @@ func link_tables_props() -> void :
 		var custom_prop_type = m_props[idx].get_prop_custom_type()
 		if(!custom_prop_type.empty()):
 			var table = m_parent_database.get_table_by_name(custom_prop_type)
-			m_props[idx].set_prop_type(gddb_types.e_data_types_count + table.get_table_id())
+			m_props[idx].set_prop_type(gddb_types.e_prop_types_count + table.get_table_id())
 			m_props[idx].set_prop_custom_type("")
 
 # edits a property in the table structure
@@ -177,12 +198,37 @@ func get_prop_by_id(prop_id : int) -> Object :
 
 # adds a row with blank data
 func add_blank_row() -> void :
+	# print("GDDBTable::add_blank_row()")
+	var prop_type = gddb_types.e_prop_type_bool
+
 	for idx in range(0, m_props.size()):
 		var data = load(gddb_constants.c_addon_main_path + "core/db_data.gd").new()
 		data.set_prop_id(m_props[idx].get_prop_id())
 		data.set_row_idx(m_rows_count)
-		if(m_props[idx].has_autoincrement()):
-			data.set_data(str(m_rows_count+1))
+
+		prop_type = m_props[idx].get_prop_type()
+
+		if(prop_type == gddb_types.e_prop_type_bool):
+			data.set_data("0")
+
+		elif(prop_type == gddb_types.e_prop_type_int):
+			if(m_props[idx].has_autoincrement()):
+				data.set_data(str(m_rows_count+1))
+			else:
+				data.set_data("0")
+
+		elif(prop_type == gddb_types.e_prop_type_float):
+			data.set_data("0.0")
+
+		elif(prop_type == gddb_types.e_prop_type_string):
+			data.set_data("")
+
+		elif(prop_type == gddb_types.e_prop_type_resource):
+			data.set_data("res://")
+
+		elif(prop_type >= gddb_types.e_prop_types_count):
+			data.set_data(str(-1))
+
 		m_data.push_back(data)
 	m_rows_count += 1
 

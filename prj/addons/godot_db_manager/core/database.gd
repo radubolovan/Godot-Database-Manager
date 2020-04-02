@@ -211,11 +211,11 @@ func save_db() -> void :
 			text += "\"name\":\"" + str(db_prop.get_prop_name()) + "\","
 
 			var prop_type = db_prop.get_prop_type()
-			if(prop_type < gddb_types.e_data_types_count):
+			if(prop_type < gddb_types.e_prop_types_count):
 				text += "\"type\":\"" + str(prop_type) + "\","
 			else:
 				# print("GDDatabase::save_db() - prop_type: " + str(prop_type))
-				var table_id = prop_type - gddb_types.e_data_types_count
+				var table_id = prop_type - gddb_types.e_prop_types_count
 				var table = get_table_by_id(table_id)
 				if(null == table):
 					print("GDDatabase::save_db() - table not found with id: " + str(table_id))

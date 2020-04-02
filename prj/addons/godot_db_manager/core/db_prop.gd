@@ -48,7 +48,7 @@ func get_prop_name() -> String :
 # enables or disables the auto increment property
 func enable_autoincrement(enable : bool) -> void :
 	if(enable && m_prop_type != gddb_types.e_prop_type_int):
-		if(m_prop_type < gddb_types.e_data_types_count):
+		if(m_prop_type < gddb_types.e_prop_types_count):
 			print("ERROR: autoincrement option can be set to integer data type only. Type is: " + gddb_types.get_data_name(m_prop_type))
 		else:
 			print("ERROR: autoincrement option can be set to integer data type only. Custom type is: " + m_custom_type)

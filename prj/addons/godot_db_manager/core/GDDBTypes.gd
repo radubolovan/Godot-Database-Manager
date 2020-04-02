@@ -25,7 +25,7 @@ enum {
 
 	e_prop_type_resource = 4,
 
-	e_data_types_count
+	e_prop_types_count
 }
 
 # Data filters

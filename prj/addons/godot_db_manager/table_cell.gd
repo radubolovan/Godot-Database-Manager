@@ -20,9 +20,11 @@ var m_text : String = ""
 func _ready() -> void :
 	$LineEdit.connect("text_changed", self, "on_text_changed")
 	$LineEdit/edit_btn.connect("pressed", self, "on_edit_string")
-	$Button.connect("pressed", self, "on_button_pressed")
 
+	$Button.connect("pressed", self, "on_button_pressed")
 	$Button.set_clip_text(true)
+
+	$CheckBox.connect("toggled", self, "on_toggle_button")
 
 func _exit_tree() -> void :
 	$LineEdit.disconnect("text_changed", self, "on_text_changed")
@@ -37,7 +39,7 @@ func get_prop_id() -> int :
 
 # sets property type
 func set_prop_type(data_type : int) -> void :
-	# print("GDDBTableCell::set_prop_type(" + gddb_globals.get_data_name(data_type) + ")")
+	# print("GDDBTableCell::set_prop_type(" + str(data_type) + ")")
 
 	var data_type_changed = false
 
@@ -76,7 +78,7 @@ func set_prop_type(data_type : int) -> void :
 		$Button.show()
 		$CheckBox.hide()
 		set_text("res://")
-	elif(m_prop_type >= gddb_types.e_data_types_count):
+	elif(m_prop_type >= gddb_types.e_prop_types_count):
 		$LineEdit.hide()
 		$Button.show()
 		$CheckBox.hide()
@@ -118,7 +120,7 @@ func on_button_pressed() -> void:
 	if(m_prop_type == gddb_types.e_prop_type_resource):
 		# print("GDDBTableCell::on_button_pressed()")
 		emit_signal("choose_resource", m_prop_id, m_row_idx)
-	elif(m_prop_type >= gddb_types.e_data_types_count):
+	elif(m_prop_type >= gddb_types.e_prop_types_count):
 		emit_signal("choose_data", m_prop_id, m_row_idx, m_prop_type)
 
 # called when the edit string button is pressed

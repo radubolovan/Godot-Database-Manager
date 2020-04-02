@@ -55,7 +55,7 @@ func on_about_to_show() -> void :
 func on_item_selected(idx : int) -> void:
 	# the first index is ""
 	if(idx == 0):
-		emit_signal("select_data", m_prop_id, m_row_idx, -1, "" )
+		emit_signal("select_data", m_prop_id, m_row_idx, -1, "{}" )
 	else:
 		emit_signal("select_data", m_prop_id, m_row_idx, idx, $ItemList.get_item_text(idx) )
 	hide()
