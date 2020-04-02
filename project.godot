@@ -190,8 +190,7 @@ gdscript/warnings/unused_argument=false
 
 [display]
 
-window/size/width=1600
-window/size/height=900
+window/size/height=768
 
 [editor_plugins]
 
