@@ -13,10 +13,10 @@ enum {
 }
 
 # database type
-var m_db_type = e_db_type_json
+var m_db_type : int = e_db_type_json
 
 # the id of the database
-var m_db_id = gddb_constants.c_invalid_id
+var m_db_id : int = gddb_constants.c_invalid_id
 
 # the name of the database
 var m_db_name : String = ""

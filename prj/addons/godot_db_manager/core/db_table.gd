@@ -6,13 +6,13 @@ class_name GDDBTable
 
 extends Object
 
-var m_table_id = gddb_constants.c_invalid_id
-var m_table_name = ""
-var m_props = []
-var m_data = []
-var m_rows_count = 0
+var m_table_id : int = gddb_constants.c_invalid_id
+var m_table_name : String = ""
+var m_props : Array = []
+var m_data : Array = []
+var m_rows_count : int = 0
 
-var m_parent_database = null
+var m_parent_database : Object = null
 
 # sets the table id
 func set_table_id(table_id : int) -> void :
