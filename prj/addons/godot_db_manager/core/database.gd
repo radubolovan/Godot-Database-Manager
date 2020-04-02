@@ -61,7 +61,7 @@ func get_db_filepath() -> String :
 	return m_db_filepath
 
 # checks if a table with the name "table_name" can be added into database
-func can_add_table(table_name : String, table_id : int = -1):
+func can_add_table(table_name : String, table_id : int = -1) -> bool :
 	# print("GDDatabase::can_add_table(" + table_name + ", " + str(table_id) + ")")
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_name() == table_name):
@@ -99,7 +99,7 @@ func edit_table_name(table_name : String, table_id : int) -> bool :
 	return true
 
 # deletes a table at index
-func delete_table_at(idx : int) -> void:
+func delete_table_at(idx : int) -> void :
 	if(idx < 0 || idx > m_tables.size() - 1):
 		print("GDDatabase::delete_table_at(" + str(idx) + ") - index out of bounds")
 		return
@@ -108,7 +108,7 @@ func delete_table_at(idx : int) -> void:
 	m_tables.remove(idx)
 
 # deletes a table by id
-func delete_table_by_id(table_id: int) -> void:
+func delete_table_by_id(table_id: int) -> void :
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_id() == table_id):
 			# print("GDDatabase::delete_table_by_id(" + str(table_id) + ")")
@@ -119,7 +119,7 @@ func delete_table_by_id(table_id: int) -> void:
 	print("ERROR: GDDatabase::delete_table_by_id(" + str(table_id) + ") - cannot erase table; id not found")
 
 # deletes a table by name
-func delete_table_by_name(table_name: String) -> void:
+func delete_table_by_name(table_name: String) -> void :
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_name() == table_name):
 			# print("GDDatabase::delete_table_by_name(" + table_name + ")")
@@ -130,7 +130,7 @@ func delete_table_by_name(table_name: String) -> void:
 	print("ERROR: GDDatabase::delete_table_by_name(" + table_name + ") - cannot erase table; name not found")
 
 # generates a new table id
-func generate_new_table_id():
+func generate_new_table_id() -> int :
 	if(m_tables.size() == 0):
 		return 0
 	return m_tables[m_tables.size()-1].get_table_id() + 1
@@ -141,7 +141,7 @@ func get_tables_count() -> int :
 
 # returns true if the table exists in the database, false otherwise
 # this is equivalent with (get_table_by_name(table name) != null) function, but without firing the error in case the table doesn't exist
-func is_table_exists(table_name : String) -> bool:
+func is_table_exists(table_name : String) -> bool :
 	for idx in range(0, m_tables.size()):
 		if(m_tables[idx].get_table_name() == table_name):
 			return true
@@ -179,11 +179,11 @@ func clear() -> void :
 	m_tables.clear()
 
 # sets the database dirty; it is not saved
-func set_dirty(dirty):
+func set_dirty(dirty : bool) -> void :
 	m_is_dirty = dirty
 
 # returns true if a database is dirty (should be saved), false otherwise
-func is_dirty():
+func is_dirty() -> bool :
 	return m_is_dirty
 
 # serialization
