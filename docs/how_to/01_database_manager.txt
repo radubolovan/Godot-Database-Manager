@@ -1,0 +1,115 @@
+Database manager How To:
+================================
+
+- Declare a variable for database manager usage
+var m_db_man = null
+
+
+- Initialize the database manager
+func init_db_manager() -> void :
+	if(null != m_db_man):
+		print("Error: database manager is already initializated")
+		return
+
+	m_db_man = load(gddb_constants.c_addon_main_path + "core/db_man.gd").new()
+
+
+- Clear and destroy the database manager
+func done_db_manager() -> void :
+	if(null == m_db_man):
+		print("Error: database manager is not initializated")
+		return
+
+	m_db_man.clear()
+	m_db_man.free()
+	m_db_man = null
+
+
+- Adding a database in the manager
+func add_database(db_name: String) -> int :
+	if(null == m_db_man):
+		print("Error: database manager is not initializated")
+		return -1
+
+	# returns the database id
+	return m_db_man.add_database(db_name)
+
+
+- Loading a database from a JSON file - v1
+func load_database_1(filepath : String) -> int:
+	if(null == m_db_man):
+		print("Error: database manager is not initializated")
+		return -1
+
+	# returns the loaded database's id
+	return m_db_man.load_database(filepath)
+
+
+- Loading a database from a JSON file - v2
+func load_database_2(filepath : String) -> Object:
+	if(null == m_db_man):
+		print("Error: database manager is not initializated")
+		return null
+
+	# create the database
+	var db_id = m_db_man.add_database("my_new_database")
+
+	# get the database
+	var db = m_db_man.get_db_by_id(db_id)
+
+	# set the database filepath
+	db.set_db_filepath(filepath)
+
+	# load the database
+	# OBS: after loading the database, its name will be overwritten from the file
+	db.load_db()
+
+	# returns the loaded database
+	return db
+
+
+- Looping through databases in the manager example - printing info on the debug console
+func test_looping_databases() -> void :
+	if(null == m_db_man):
+		print("Error: database manager is not initializated")
+		return
+
+	for idx in range(0, m_db_man.get_databases_count()):
+		# getting the database
+		var db = m_db_man.get_db_at(idx)
+
+		# printing database info
+		print("Database id: " + str(db.get_db_id()))
+		print("Database name: " + db.get_db_name())
+		print("Database filepath: " + db.get_db_filepath())
+
+
+- Getting a database at an index
+func test_get_database_1(db_idx : int) -> Object :
+	return m_db_man.get_db_at(db_id)
+
+
+- Getting a database by an id
+func test_get_database_2(db_id : int) -> Object :
+	return m_db_man.get_db_by_id(db_id)
+
+
+- Getting a database by a name
+func test_get_database_3(db_name : String) -> Object :
+	return m_db_man.get_db_by_name(db_name)
+
+
+- Dump the database manager
+func dump_db_manager() -> void :
+	if(null == m_db_man):
+		print("Error: database manager is not initializated")
+		return
+
+	# the argument will tell the manager to dump the text in the console(true) or not(false)
+	var dump_text = m_db_man.dump(true)
+
+	# saving the dump text to a file
+	var f = File.new()
+	f.open("res://db_man_dump.txt", File.WRITE)
+	f.store_string(dump_text)
+	f.close()

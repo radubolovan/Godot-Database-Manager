@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://addons/godot_db_manager/data_label.gd" type="Script" id=1]
-
-
-[node name="lbl" type="Label"]
-margin_right = 122.0
-margin_bottom = 32.0
-script = ExtResource( 1 )

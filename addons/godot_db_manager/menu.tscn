@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/godot_db_manager/menu.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_16.tres" type="DynamicFont" id=3]
+
+[node name="menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 0.0311111
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 28.0 ],
+"_edit_use_anchors_": true
+}
+
+[node name="layout" type="HBoxContainer" parent="."]
+margin_right = 1600.0
+margin_bottom = 28.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="File" type="MenuButton" parent="layout"]
+margin_right = 37.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 3 )
+text = "File"
+
+[node name="Options" type="MenuButton" parent="layout"]
+margin_left = 41.0
+margin_right = 108.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 3 )
+text = "Options"

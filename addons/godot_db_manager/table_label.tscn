@@ -1,0 +1,12 @@
+[gd_scene format=2]
+
+[node name="table_label" type="Label"]
+anchor_right = 0.062
+anchor_bottom = 0.016
+margin_right = -99.2
+margin_bottom = -0.400001
+rect_min_size = Vector2( 100, 0 )
+text = "ID"
+__meta__ = {
+"_edit_use_anchors_": false
+}

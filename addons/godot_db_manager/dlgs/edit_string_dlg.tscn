@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/godot_db_manager/dlgs/edit_string_dlg.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_14.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_12.tres" type="DynamicFont" id=3]
+
+[node name="edit_string_dlg" type="WindowDialog"]
+anchor_right = 0.430625
+anchor_bottom = 0.423333
+focus_next = NodePath("v_layout/text")
+custom_fonts/title_font = ExtResource( 3 )
+window_title = "Edit string"
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="v_layout" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="edit_text_btns" type="HBoxContainer" parent="v_layout"]
+margin_right = 689.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
+
+[node name="text" type="TextEdit" parent="v_layout"]
+margin_top = 34.0
+margin_right = 689.0
+margin_bottom = 334.0
+rect_min_size = Vector2( 0, 300 )
+custom_fonts/font = ExtResource( 2 )
+caret_blink = true
+
+[node name="btns" type="HBoxContainer" parent="v_layout"]
+margin_top = 338.0
+margin_right = 689.0
+margin_bottom = 368.0
+rect_min_size = Vector2( 0, 30 )
+custom_constants/separation = 200
+alignment = 1
+
+[node name="ok_btn" type="Button" parent="v_layout/btns"]
+margin_left = 144.0
+margin_right = 244.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 3 )
+text = "OK"
+
+[node name="cancel_btn" type="Button" parent="v_layout/btns"]
+margin_left = 444.0
+margin_right = 544.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 3 )
+text = "Cancel"

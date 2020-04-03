@@ -14,7 +14,7 @@ How to install in your project:
 Contributing to the project:
 1) Reporting bugs:
 Here is a template
-- Title: should be explicit as much as possible. Add "[BUG]" tag in the title
+- Title: should be explicit as much as possible. Add "[BUG]" and "[Version]" tags in the title
 - Description: must NOT be blank; add as much words as possible explaining the bug and add reproduction steps
 - Add links to screenshots / movies if possible.
 
@@ -27,4 +27,7 @@ Here is a template
 3) Ask to become a collaborator:
 - Send an e-mail to the owner of the project
 
-Current version: 1.0 official stable
+Current version: working on 2.0 alpha
+- Warning: this is not a final(stable) version. When using this tool, make sure to backup JSON files provided by this tool.
+
+TODO: https://github.com/radubolovan/Godot-Database-Manager/blob/2.0/docs/2_0_todo.txt

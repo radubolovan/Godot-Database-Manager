@@ -1,0 +1,71 @@
+Database How To:
+================================
+
+- Declare a variable for database usage
+var m_database = null
+
+
+- Create the database (without using the database manager)
+func create_db(db_name : String, db_filepath : String) -> void:
+	if(null != m_database):
+		print("Error: database is already created")
+		return
+
+	# creating the database
+	m_database = load(gddb_constants.c_addon_main_path + "core/database.gd").new()
+
+	# setting the database name
+	m_database.set_db_name(db_name)
+
+	# setting the database file path
+	m_database.set_db_filepath(db_filepath)
+
+
+- Destroy a database (without using the database manager)
+func destroy_database() -> void :
+	if(null == m_database):
+		print("Error: database doesn not exists")
+		return
+
+	m_database.clear()
+	m_database.free()
+	m_database = null
+
+
+- Creating a table in the database
+func create_table(table_name : String) -> Object :
+	if(null == m_database):
+		print("Error: database doesn not exists")
+		return
+
+	# creating the table in the database; the name must be
+	var table_id = m_database.add_table(table_name)
+	if(table_id == gddb_constants.c_invalid_id)
+		return null
+
+	# getting the table from the database
+	var table = m_database.get_table_by_id()
+	return table
+
+
+- Erasing a table from the database
+func erase_table(table_name : String) -> void:
+	if(null == m_database):
+		print("Error: database doesn not exists")
+		return
+
+	m_database.delete_table_by_name(table_name)
+
+
+- Adding properties and data to a table
+func fill_table(table : Object) -> void :
+	# add properties
+	table.add_prop(gddb_types.e_prop_type_int, "ID")
+	table.add_prop(gddb_types.e_prop_type_string, "Name")
+
+	# add 50 rows of data
+	for idx in range(0, 50):
+		var data_row = []
+		data_row.push_back(idx + 1)
+		data_row.push_back("Test_" + str(idx + 1))
+		table.add_row(data_row)

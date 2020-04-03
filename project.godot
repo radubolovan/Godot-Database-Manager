@@ -1,0 +1,201 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "GDDBConstants",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/core/GDDBConstants.gd"
+}, {
+"base": "Object",
+"class": "GDDBData",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/core/db_data.gd"
+}, {
+"base": "Label",
+"class": "GDDBDataLabel",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/data_label.gd"
+}, {
+"base": "PopupPanel",
+"class": "GDDBDataPanel",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/dlgs/data_dlg.gd"
+}, {
+"base": "WindowDialog",
+"class": "GDDBDeletePropDlg",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/dlgs/delete_prop_dlg.gd"
+}, {
+"base": "WindowDialog",
+"class": "GDDBDeleteTableDlg",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/dlgs/delete_table_dlg.gd"
+}, {
+"base": "WindowDialog",
+"class": "GDDBEditStringDlg",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/dlgs/edit_string_dlg.gd"
+}, {
+"base": "Tabs",
+"class": "GDDBEditor",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/db_editor.gd"
+}, {
+"base": "Node",
+"class": "GDDBGlobals",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/core/GDDBGlobals.gd"
+}, {
+"base": "Control",
+"class": "GDDBInterface",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/db_interface.gd"
+}, {
+"base": "FileDialog",
+"class": "GDDBLoadResourcePathDlg",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/dlgs/load_res_path_dlg.gd"
+}, {
+"base": "Object",
+"class": "GDDBMan",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/core/db_man.gd"
+}, {
+"base": "EditorPlugin",
+"class": "GDDBManager",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/db_manager.gd"
+}, {
+"base": "Control",
+"class": "GDDBMenu",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/menu.gd"
+}, {
+"base": "WindowDialog",
+"class": "GDDBNewDBDlg",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/dlgs/new_db_dlg.gd"
+}, {
+"base": "WindowDialog",
+"class": "GDDBNewTableDlg",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/dlgs/new_table_dlg.gd"
+}, {
+"base": "Object",
+"class": "GDDBProperty",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/core/db_prop.gd"
+}, {
+"base": "Object",
+"class": "GDDBTable",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/core/db_table.gd"
+}, {
+"base": "Control",
+"class": "GDDBTableCell",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/table_cell.gd"
+}, {
+"base": "Control",
+"class": "GDDBTableEditor",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/table_editor.gd"
+}, {
+"base": "Control",
+"class": "GDDBTableItem",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/table_item.gd"
+}, {
+"base": "Control",
+"class": "GDDBTableProperty",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/table_property.gd"
+}, {
+"base": "Control",
+"class": "GDDBTablesHeader",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/tables_header.gd"
+}, {
+"base": "Control",
+"class": "GDDBTablesList",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/tables_list.gd"
+}, {
+"base": "Node",
+"class": "GDDBTypes",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/core/GDDBTypes.gd"
+}, {
+"base": "Object",
+"class": "GDDatabase",
+"language": "GDScript",
+"path": "res://addons/godot_db_manager/core/database.gd"
+} ]
+_global_script_class_icons={
+"GDDBConstants": "",
+"GDDBData": "",
+"GDDBDataLabel": "",
+"GDDBDataPanel": "",
+"GDDBDeletePropDlg": "",
+"GDDBDeleteTableDlg": "",
+"GDDBEditStringDlg": "",
+"GDDBEditor": "",
+"GDDBGlobals": "",
+"GDDBInterface": "",
+"GDDBLoadResourcePathDlg": "",
+"GDDBMan": "",
+"GDDBManager": "",
+"GDDBMenu": "",
+"GDDBNewDBDlg": "",
+"GDDBNewTableDlg": "",
+"GDDBProperty": "",
+"GDDBTable": "",
+"GDDBTableCell": "",
+"GDDBTableEditor": "",
+"GDDBTableItem": "",
+"GDDBTableProperty": "",
+"GDDBTablesHeader": "",
+"GDDBTablesList": "",
+"GDDBTypes": "",
+"GDDatabase": ""
+}
+
+[application]
+
+config/name="GodotDBMan"
+run/main_scene="res://examples/db_test.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+gddb_constants="*res://addons/godot_db_manager/core/GDDBConstants.gd"
+gddb_types="*res://addons/godot_db_manager/core/GDDBTypes.gd"
+gddb_globals="*res://addons/godot_db_manager/core/GDDBGlobals.gd"
+
+[debug]
+
+gdscript/warnings/enable=false
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unassigned_variable_op_assign=false
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_argument=false
+
+[display]
+
+window/size/height=768
+
+[editor_plugins]
+
+enabled=PoolStringArray( "godot_db_manager" )
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

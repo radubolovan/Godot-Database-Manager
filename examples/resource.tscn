@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://examples/resources/energy.png" type="Texture" id=1]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_20.tres" type="DynamicFont" id=2]
+[ext_resource path="res://examples/resource.gd" type="Script" id=3]
+
+
+[node name="resource" type="HBoxContainer"]
+anchor_right = 0.167
+anchor_bottom = 0.044
+margin_right = -229.2
+margin_bottom = -25.6
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="tex_holder" type="Control" parent="."]
+margin_right = 60.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 60, 40 )
+
+[node name="tex" type="Sprite" parent="tex_holder"]
+texture = ExtResource( 1 )
+centered = false
+
+[node name="name" type="Label" parent="."]
+margin_left = 64.0
+margin_top = 8.0
+margin_right = 164.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 2 )
+text = "Name"
+
+[node name="amount" type="LineEdit" parent="."]
+margin_left = 168.0
+margin_right = 268.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 0 )
+custom_fonts/font = ExtResource( 2 )
+text = "10000"
+editable = false

@@ -1,0 +1,138 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://examples/db_test.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_16.tres" type="DynamicFont" id=2]
+[ext_resource path="res://examples/resource.tscn" type="PackedScene" id=3]
+
+[node name="db_test" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.006
+anchor_top = 0.011
+anchor_right = 0.044125
+anchor_bottom = 0.032
+margin_left = 0.4
+margin_top = 0.0999994
+margin_right = -0.600006
+margin_bottom = 0.199999
+custom_fonts/font = ExtResource( 2 )
+text = "Name:"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="player_name_btn" type="Button" parent="."]
+anchor_left = 0.0644531
+anchor_top = 0.00807292
+anchor_right = 0.153906
+anchor_bottom = 0.0408854
+margin_top = -0.2
+margin_right = 0.399994
+margin_bottom = -0.400002
+custom_fonts/font = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="edit_player_dlg" type="WindowDialog" parent="."]
+anchor_right = 0.142
+anchor_bottom = 0.076
+margin_right = 0.799988
+margin_bottom = -0.400002
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="edit_player_dlg"]
+anchor_left = 0.044
+anchor_top = 0.091
+anchor_right = 0.246
+anchor_bottom = 0.264
+margin_left = -0.0320005
+margin_top = -0.0100002
+margin_right = -0.0880013
+margin_bottom = -0.039999
+custom_fonts/font = ExtResource( 2 )
+text = "Name:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="player_name" type="LineEdit" parent="edit_player_dlg"]
+anchor_left = 0.280702
+anchor_top = 0.0454545
+anchor_right = 0.965
+anchor_bottom = 0.472
+margin_right = -0.0200195
+margin_bottom = -11.074
+custom_fonts/font = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="OK_btn" type="Button" parent="edit_player_dlg"]
+anchor_left = 0.425
+anchor_top = 0.550807
+anchor_right = 0.575
+anchor_bottom = 0.918
+margin_left = 0.0999985
+margin_top = -0.0300026
+margin_right = -0.100006
+margin_bottom = 0.000911713
+custom_fonts/font = ExtResource( 2 )
+text = "OK"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="error_dlg" type="AcceptDialog" parent="."]
+anchor_right = 0.052
+anchor_bottom = 0.064
+margin_right = -0.200005
+margin_bottom = 0.399998
+
+[node name="energy" parent="." instance=ExtResource( 3 )]
+anchor_left = 0.014
+anchor_top = 0.0582222
+anchor_right = 0.134
+anchor_bottom = 0.102
+margin_left = -0.400009
+margin_top = -0.400009
+margin_right = -42.4
+margin_bottom = 0.199997
+
+[node name="food" parent="." instance=ExtResource( 3 )]
+anchor_left = 0.014
+anchor_top = 0.112667
+anchor_right = 0.134
+anchor_bottom = 0.157
+margin_left = -0.400009
+margin_top = -0.400009
+margin_right = -42.4
+margin_bottom = -0.300003
+
+[node name="wood" parent="." instance=ExtResource( 3 )]
+anchor_left = 0.014
+anchor_top = 0.167111
+anchor_right = 0.134
+anchor_bottom = 0.211
+margin_left = -0.400009
+margin_top = -0.400009
+margin_right = -42.4
+margin_bottom = 0.0999908
+
+[node name="stone" parent="." instance=ExtResource( 3 )]
+anchor_left = 0.014
+anchor_top = 0.222667
+anchor_right = 0.134
+anchor_bottom = 0.267
+margin_left = -0.400009
+margin_top = -0.400009
+margin_right = -42.4
+margin_bottom = -0.299988
