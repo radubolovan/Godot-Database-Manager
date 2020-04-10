@@ -377,7 +377,7 @@ func get_dictionary_at_row_idx(row_idx : int) -> Array :
 			dict[data_prop_name] = m_data[idx].get_data()
 			prop_idx += 1
 
-	if(dict.empty() == -1):
+	if(dict.empty()):
 		print("ERROR: GDDBDTable::get_data_at_row_idx(" + str(row_idx) + ") - invalid row index")
 
 	return dict
