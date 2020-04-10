@@ -134,6 +134,7 @@ func edit_prop(prop_id : int, prop_type : int, prop_name: String) -> void :
 			m_props[idx].set_prop_type(prop_type)
 			m_props[idx].set_prop_name(prop_name)
 			return
+
 	print("ERROR: GDDBDTable::edit_prop(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ") - property not found")
 
 # enables or disables autoincrement on a property
@@ -154,6 +155,7 @@ func delete_prop(prop_id : int) -> void :
 			m_props.remove(idx)
 			prop_found = true
 			break
+
 	if(!prop_found):
 		print("ERROR: GDDBDTable::delete_prop( " + str(prop_id) + " ) - property not found !")
 		return
@@ -175,6 +177,7 @@ func delete_prop(prop_id : int) -> void :
 func generate_new_prop_id() -> int :
 	if(m_props.size() == 0):
 		return 0
+
 	return m_props[m_props.size()-1].get_prop_id() + 1
 
 # returns the properties count
@@ -186,6 +189,7 @@ func get_prop_at(idx : int) -> Object :
 	if(idx < 0 || idx >= m_props.size()):
 		print("ERROR: GDDBDTable::get_prop_id( " + str(idx) + " ) - index out of bounds; max properties: " + str(m_props.size()))
 		return null
+
 	return m_props[idx]
 
 # returns a property by id or null if the id is not found
@@ -193,6 +197,7 @@ func get_prop_by_id(prop_id : int) -> Object :
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_id() == prop_id):
 			return m_props[idx]
+
 	print("ERROR: GDDBDTable::get_prop_by_id(" + str(prop_id) + ") - property with id not found")
 	return null
 
@@ -230,6 +235,7 @@ func add_blank_row() -> void :
 			data.set_data(str(-1))
 
 		m_data.push_back(data)
+
 	m_rows_count += 1
 
 # adds a row with data
@@ -270,7 +276,9 @@ func add_row(data_array : Array) -> void :
 			data.set_data(the_data)
 		else:
 			print("ERROR: data type doesn't exist - " + str(m_props[idx].get_prop_type()))
+
 		m_data.push_back(data)
+
 	m_rows_count += 1
 
 # removes a row
@@ -293,6 +301,7 @@ func edit_data(prop_id : int, row_idx : int, data : String) -> void :
 			# print("#2: GDDBTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
 			m_data[idx].set_data(data)
 			return
+
 	print("ERROR: GDDBDTable::edit_data(" + str(prop_id) + ", " + str(row_idx) + ", " + data + ") - can't find data to edit")
 
 # returns data count
@@ -303,20 +312,48 @@ func get_data_size() -> int :
 func get_all_data() -> Array :
 	return m_data
 
-# returns the data from at index
+# returns the data at index
 func get_data_at(idx : int) -> String :
 	if(idx < 0 || idx >= m_data.size()):
 		print("ERROR: GDDBDTable::get_data_at( " + str(idx) + ") - max data size: " + str(m_data.size()))
 		return ""
+
 	return m_data[idx].get_data()
+
+# returns a dictionary containing the data at index
+func get_dictionary_at(idx : int) -> String :
+	if(idx < 0 || idx >= m_data.size()):
+		print("ERROR: GDDBDTable::get_data_at( " + str(idx) + ") - max data size: " + str(m_data.size()))
+		return ""
+
+	var dict = {}
+	var prop_idx = idx % m_props.size()
+	var data_prop_name = m_props[prop_idx].get_prop_name()
+	dict[data_prop_name] = m_data[idx].get_data()
+
+	return dict
 
 # returns the data from by a property id and a row index
 func get_data(prop_id : int, row_idx : int) -> String :
 	for idx in range(m_data.size()-1, 0, -1):
 		if(m_data[idx].get_row_idx() == row_idx && m_data[idx].get_prop_id() == prop_id):
 			return m_data[idx].get_data()
+
 	print("ERROR: GDDBDTable::get_data(" + str(prop_id) + ", " + str(row_idx) +  ")")
 	return ""
+
+# returns a dictionary containing the data from by a property id and a row index
+func get_dictionary(prop_id : int, row_idx : int) -> String :
+	var dict = {}
+	for idx in range(m_data.size()-1, 0, -1):
+		if(m_data[idx].get_row_idx() == row_idx && m_data[idx].get_prop_id() == prop_id):
+			var prop = get_prop_by_id(prop_id)
+			var data_prop_name = prop.get_prop_name()
+			dict[data_prop_name] = m_data[idx].get_data()
+			return dict
+
+	print("ERROR: GDDBDTable::get_data(" + str(prop_id) + ", " + str(row_idx) +  ")")
+	return dict
 
 # returns an array of data at row index
 func get_data_at_row_idx(row_idx : int) -> Array :
@@ -324,9 +361,26 @@ func get_data_at_row_idx(row_idx : int) -> Array :
 	for idx in range(0, m_data.size()):
 		if(m_data[idx].get_row_idx() == row_idx):
 			data.push_back(m_data[idx])
+
 	if(data.size() == -1):
-		print("ERROR: GDDBDTable::get_data_at_row_idx(" + str(row_idx) + ")")
+		print("ERROR: GDDBDTable::get_data_at_row_idx(" + str(row_idx) + ") - invalid row index")
+
 	return data
+
+# returns an array of data at row index
+func get_dictionary_at_row_idx(row_idx : int) -> Array :
+	var dict = {}
+	var prop_idx = 0
+	for idx in range(0, m_data.size()):
+		if(m_data[idx].get_row_idx() == row_idx):
+			var data_prop_name = m_props[prop_idx].get_prop_name()
+			dict[data_prop_name] = m_data[idx].get_data()
+			prop_idx += 1
+
+	if(dict.empty() == -1):
+		print("ERROR: GDDBDTable::get_data_at_row_idx(" + str(row_idx) + ") - invalid row index")
+
+	return dict
 
 # returns an array of data filtered by property id
 func get_data_by_prop_id(prop_id : int, data_filter : int = gddb_types.e_data_filter_equal) -> Array :
@@ -373,9 +427,11 @@ func get_data_by_prop_name(prop_name : String) -> Array :
 		if(m_props[idx].get_prop_name() == prop_name):
 			prop_id = m_props[idx].get_prop_id()
 			break
+
 	if(prop_id == -1):
 		print("ERROR: GDDBDTable::get_data_by_prop_name(" + prop_name + ") - property not found")
 		return []
+
 	return get_data_by_prop_id(prop_id)
 
 # returns an array of data filtered by data
@@ -456,7 +512,7 @@ func get_data_by_prop_name_and_data(prop_name : String, data_value : String) -> 
 
 # returns a dictionary of data by a property name and a data value
 # similar to: select * from users where user_id = 1
-func get_dict_by_prop_name_and_data(prop_name : String, data_value : String) -> Array :
+func get_dictionary_by_prop_name_and_data(prop_name : String, data_value : String) -> Array :
 	var prop_id = -1
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_name() == prop_name):
