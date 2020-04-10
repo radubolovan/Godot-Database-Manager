@@ -57,5 +57,5 @@ func on_item_selected(idx : int) -> void:
 	if(idx == 0):
 		emit_signal("select_data", m_prop_id, m_row_idx, -1, "{}" )
 	else:
-		emit_signal("select_data", m_prop_id, m_row_idx, idx, $ItemList.get_item_text(idx) )
+		emit_signal("select_data", m_prop_id, m_row_idx, idx-1, $ItemList.get_item_text(idx) )
 	hide()
