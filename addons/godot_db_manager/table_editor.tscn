@@ -66,11 +66,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="properties" type="VBoxContainer" parent="tabs/structure/v_layout"]
+[node name="scroll" type="ScrollContainer" parent="tabs/structure/v_layout"]
 margin_top = 42.0
 margin_right = 1000.0
-margin_bottom = 842.0
-rect_min_size = Vector2( 1000, 800 )
+margin_bottom = 522.0
+rect_min_size = Vector2( 900, 480 )
+
+[node name="properties" type="VBoxContainer" parent="tabs/structure/v_layout/scroll"]
+margin_right = 1000.0
+margin_bottom = 480.0
+rect_min_size = Vector2( 1000, 480 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
