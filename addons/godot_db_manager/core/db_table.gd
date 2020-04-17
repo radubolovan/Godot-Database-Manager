@@ -201,6 +201,15 @@ func get_prop_by_id(prop_id : int) -> Object :
 	print("ERROR: GDDBDTable::get_prop_by_id(" + str(prop_id) + ") - property with id not found")
 	return null
 
+# returns a property by name
+func get_prop_by_name(pror_name : String) -> Object :
+	for idx in range(0, m_props.size()):
+		if(m_props[idx].get_prop_name() == pror_name):
+			return m_props[idx]
+
+	print("ERROR: GDDBDTable::get_prop_by_name(" + str(pror_name) + ") - property with name not found")
+	return null
+
 # adds a row with blank data
 func add_blank_row() -> void :
 	# print("GDDBTable::add_blank_row()")
