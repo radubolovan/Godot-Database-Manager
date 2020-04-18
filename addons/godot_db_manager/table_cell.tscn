@@ -4,14 +4,17 @@
 [ext_resource path="res://addons/godot_db_manager/table_cell.gd" type="Script" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 28, 1.86734, 24, 24.1327 )
 
 [sub_resource type="AtlasTexture" id=2]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 28, 54, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=3]
+flags = 4
 atlas = ExtResource( 1 )
 region = Rect2( 28, 28, 24, 24 )
 

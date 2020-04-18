@@ -70,6 +70,7 @@ func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_au
 		cell.set_row_idx(idx)
 		cell.set_prop_type(prop_type)
 		cell.set_text("")
+		cell.refresh_width(prop_name)
 		cell.enable_autoincrement(has_autoincrement)
 		cell.connect("edit_data", self, "on_edit_data")
 		cell.connect("choose_resource", self, "on_choose_resource")
@@ -98,6 +99,7 @@ func on_add_row_data_btn_pressed() -> void:
 		cell.enable_autoincrement(db_prop.has_autoincrement())
 		if(autoincrement):
 			cell.set_text(str(row_idx+1))
+		cell.refresh_width(prop.get_prop_name())
 		cell.connect("edit_data", self, "on_edit_data")
 		cell.connect("choose_resource", self, "on_choose_resource")
 		cell.connect("choose_data", self, "on_choose_data")
@@ -161,6 +163,7 @@ func fill_data() -> void:
 			cell.set_row_idx(idx)
 			cell.set_prop_type(prop_type)
 			cell.set_text(cell_data)
+			cell.refresh_width(db_prop.get_prop_name())
 			cell.enable_autoincrement(db_prop.has_autoincrement())
 			cell.connect("edit_data", self, "on_edit_data")
 			cell.connect("choose_resource", self, "on_choose_resource")

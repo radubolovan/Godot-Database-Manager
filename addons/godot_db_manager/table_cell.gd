@@ -12,6 +12,8 @@ signal choose_resource
 signal choose_data
 signal edit_string
 
+const c_cell_min_width = 150
+
 var m_prop_id : int = -1
 var m_prop_type : int = gddb_constants.c_invalid_id
 var m_row_idx : int = -1
@@ -105,8 +107,14 @@ func set_text(text : String) -> void :
 		$CheckBox.set_pressed((text == "1"))
 
 # sets autoincrement
-func enable_autoincrement(enable : bool) -> void:
+func enable_autoincrement(enable : bool) -> void :
 	$LineEdit.set_editable(!enable)
+
+# refreshes the width by the property name
+func refresh_width(prop_name : String) -> void :
+	var size = get_custom_minimum_size()
+	size.x = max(c_cell_min_width, get_font("normal_font").get_string_size(prop_name).x + 10)
+	set_custom_minimum_size(size)
 
 # called when the checkbox is toggled/untoggled
 func on_toggle_button(enable : bool) -> void :
@@ -116,7 +124,7 @@ func on_toggle_button(enable : bool) -> void :
 	emit_signal("edit_data", m_prop_id, m_row_idx, data)
 
 # called when the button is pressed
-func on_button_pressed() -> void:
+func on_button_pressed() -> void :
 	if(m_prop_type == gddb_types.e_prop_type_resource):
 		# print("GDDBTableCell::on_button_pressed()")
 		emit_signal("choose_resource", m_prop_id, m_row_idx)
@@ -124,7 +132,7 @@ func on_button_pressed() -> void:
 		emit_signal("choose_data", m_prop_id, m_row_idx, m_prop_type)
 
 # called when the edit string button is pressed
-func on_edit_string() -> void:
+func on_edit_string() -> void :
 	emit_signal("edit_string", m_prop_id, m_row_idx, m_text)
 
 # called when edit the data
@@ -194,7 +202,7 @@ func check_integer(text : String) -> bool :
 	$LineEdit.set_cursor_position(m_text.length())
 	return false
 
-func check_float(text : String) -> bool:
+func check_float(text : String) -> bool :
 	if(text.is_valid_float()):
 		if(text.begins_with("00") || text.begins_with("01") || text.begins_with("02")
 			 || text.begins_with("03") || text.begins_with("04") || text.begins_with("05")
