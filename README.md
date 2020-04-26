@@ -1,4 +1,5 @@
 A database addon for Godot Engine.
+
 Documentation:
 - https://github.com/radubolovan/Godot-Database-Manager/tree/master/docs
 
