@@ -1,15 +1,6 @@
 A database addon for Godot Engine.
-Features:
-- create new databases
-- saves databases into JSON files
-- load databases from JSON files
-- create new tables
-- add and edit properties (columns) to tables
-- add and edit data
-
-How to install in your project:
-1) copy the "addons/godot_db_manager" directory (folder) into your project
-2) activate it in Godot Editor from "Project -> Project Settings -> Plugins"
+Documentation:
+- https://github.com/radubolovan/Godot-Database-Manager/tree/master/docs
 
 Contributing to the project:
 1) Reporting bugs:
@@ -27,7 +18,5 @@ Here is a template
 3) Ask to become a collaborator:
 - Send an e-mail to the owner of the project
 
-Current version: working on 2.0 alpha
+Current version: working on 2.0 beta
 - Warning: this is not a final(stable) version. When using this tool, make sure to backup JSON files provided by this tool.
-
-TODO: https://github.com/radubolovan/Godot-Database-Manager/blob/2.0/docs/2_0_todo.txt
