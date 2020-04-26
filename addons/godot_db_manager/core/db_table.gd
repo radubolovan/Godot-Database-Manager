@@ -343,12 +343,13 @@ func get_data_at(idx : int) -> String :
 	return m_data[idx].get_data()
 
 # returns a dictionary containing the data at index
-func get_dictionary_at(idx : int) -> String :
+func get_dictionary_at(idx : int) -> Dictionary :
+	var dict = {}
+
 	if(idx < 0 || idx >= m_data.size()):
 		print("ERROR: GDDBDTable::get_data_at( " + str(idx) + ") - max data size: " + str(m_data.size()))
-		return ""
+		return dict
 
-	var dict = {}
 	var prop_idx = idx % m_props.size()
 	var data_prop_name = m_props[prop_idx].get_prop_name()
 	dict[data_prop_name] = m_data[idx].get_data()
@@ -365,8 +366,9 @@ func get_data(prop_id : int, row_idx : int) -> String :
 	return ""
 
 # returns a dictionary containing the data from by a property id and a row index
-func get_dictionary(prop_id : int, row_idx : int) -> String :
+func get_dictionary(prop_id : int, row_idx : int) -> Dictionary :
 	var dict = {}
+
 	for idx in range(m_data.size()-1, 0, -1):
 		if(m_data[idx].get_row_idx() == row_idx && m_data[idx].get_prop_id() == prop_id):
 			var prop = get_prop_by_id(prop_id)
@@ -390,8 +392,9 @@ func get_data_at_row_idx(row_idx : int) -> Array :
 	return data
 
 # returns an array of data at row index
-func get_dictionary_at_row_idx(row_idx : int) -> Array :
+func get_dictionary_at_row_idx(row_idx : int) -> Dictionary :
 	var dict = {}
+
 	var prop_idx = 0
 	for idx in range(0, m_data.size()):
 		if(m_data[idx].get_row_idx() == row_idx):
@@ -534,7 +537,7 @@ func get_data_by_prop_name_and_data(prop_name : String, data_value : String) -> 
 
 # returns a dictionary of data by a property name and a data value
 # similar to: select * from users where user_id = 1
-func get_dictionary_by_prop_name_and_data(prop_name : String, data_value : String) -> Array :
+func get_dictionary_by_prop_name_and_data(prop_name : String, data_value : String) -> Dictionary :
 	var prop_id = -1
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_name() == prop_name):
@@ -542,6 +545,7 @@ func get_dictionary_by_prop_name_and_data(prop_name : String, data_value : Strin
 			break
 
 	var row = {}
+
 	if(prop_id == -1):
 		print("ERROR: GDDBDTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - property not found")
 		return row
