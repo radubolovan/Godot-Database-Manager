@@ -356,7 +356,7 @@ func get_dictionary_at(idx : int) -> Dictionary :
 
 	return dict
 
-# returns the data from by a property id and a row index
+# returns the data by a property id and a row index
 func get_data(prop_id : int, row_idx : int) -> String :
 	for idx in range(m_data.size()-1, 0, -1):
 		if(m_data[idx].get_row_idx() == row_idx && m_data[idx].get_prop_id() == prop_id):
@@ -365,7 +365,7 @@ func get_data(prop_id : int, row_idx : int) -> String :
 	print("ERROR: GDDBDTable::get_data(" + str(prop_id) + ", " + str(row_idx) +  ")")
 	return ""
 
-# returns a dictionary containing the data from by a property id and a row index
+# returns a dictionary containing the data by a property id and a row index
 func get_dictionary(prop_id : int, row_idx : int) -> Dictionary :
 	var dict = {}
 
@@ -391,7 +391,7 @@ func get_data_at_row_idx(row_idx : int) -> Array :
 
 	return data
 
-# returns an array of data at row index
+# returns a dictionary of data at row index
 func get_dictionary_at_row_idx(row_idx : int) -> Dictionary :
 	var dict = {}
 
