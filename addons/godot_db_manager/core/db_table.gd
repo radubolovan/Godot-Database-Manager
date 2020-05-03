@@ -575,14 +575,19 @@ func get_dictionary_by_prop_name_and_data(prop_name : String, data_value : Strin
 # clears the table's structure and data
 func clear() -> void :
 	# clear data
-	for idx in range(0, m_data.size()):
-		m_data[idx].free()
-	m_data.clear()
+	clear_data()
 
 	# clear properties
 	for idx in range(0, m_props.size()):
 		m_props[idx].free()
 	m_props.clear()
+
+# clears the table's data
+func clear_data() -> void :
+	for idx in range(0, m_data.size()):
+		m_data[idx].free()
+	m_data.clear()
+	m_rows_count = 0
 
 # dumps the table
 func dump() -> String :
