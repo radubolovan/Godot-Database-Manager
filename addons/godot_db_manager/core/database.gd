@@ -198,16 +198,16 @@ func save_db() -> void :
 
 	# print("GDDatabase::save_db() - " + m_db_name + " to: " + m_db_filepath)
 	var text = "{"
-	text += "\"" + gddb_constants.c_gddb_signature + "\":\"" + gddb_constants.c_gddb_ver + "\","
-	text += "\"db_name\":\"" + m_db_name + "\","
-	text += "\"tables\":["
+	text += "\n\t\"" + gddb_constants.c_gddb_signature + "\":\"" + gddb_constants.c_gddb_ver + "\","
+	text += "\n\t\"db_name\":\"" + m_db_name + "\","
+	text += "\n\t\"tables\":["
 	for idx in range(0, m_tables.size()):
-		text += "{"
-		text += "\"table_name\":\"" + m_tables[idx].get_table_name() + "\","
-		text += "\"props\":["
+		text += "\n\t\t{"
+		text += "\n\t\t\t\"table_name\":\"" + m_tables[idx].get_table_name() + "\","
+		text += "\n\t\t\t\"props\":["
 		for jdx in range(0, m_tables[idx].get_props_count()):
 			var db_prop = m_tables[idx].get_prop_at(jdx)
-			text += "{"
+			text += "\n\t\t\t\t\t{"
 			text += "\"name\":\"" + str(db_prop.get_prop_name()) + "\","
 
 			var prop_type = db_prop.get_prop_type()
@@ -227,9 +227,9 @@ func save_db() -> void :
 			text += "}"
 			if(jdx < m_tables[idx].get_props_count() - 1):
 				text += ","
-		text += "],"
+		text += "\n\t\t\t],"
 
-		text += "\"data\":["
+		text += "\n\t\t\t\"data\":["
 		for jdx in range(0, m_tables[idx].get_data_size()):
 			#var the_data = m_tables[idx].get_data_at(jdx)
 			#print("getting data at " + str(jdx) + " : " + the_data)
@@ -237,12 +237,12 @@ func save_db() -> void :
 			if(jdx < m_tables[idx].get_data_size() - 1):
 				text += ","
 		text += "]" # end of data
-		text += "}" # end of table
+		text += "\n\t\t}" # end of table
 
 		if(idx < m_tables.size() - 1):
 			text += ","
 
-	text += "]}"
+	text += "\n\t]\n}"
 
 	var save_file = File.new()
 	save_file.open(m_db_filepath, File.WRITE)
