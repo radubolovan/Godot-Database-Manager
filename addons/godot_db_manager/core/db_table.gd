@@ -505,72 +505,42 @@ func get_data_by_data(data_value : String, data_filter : int = gddb_types.e_data
 # returns an array of data by a property name and a data value
 # similar to: select * from users where user_id = 1
 func get_data_by_prop_name_and_data(prop_name : String, data_value : String) -> Array :
-	var prop_id = -1
+	var the_array = []
+
+	var prop_idx = -1
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_name() == prop_name):
-			prop_id = m_props[idx].get_prop_id()
+			prop_idx = idx
 			break
 
-	var row = []
-	if(prop_id == -1):
-		print("ERROR: GDDBDTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - property not found")
-		return row
+	for idx in range(0, m_rows_count):
+		var row_data = get_data_at_row_idx(idx)
+		# print("Comparing row: " + row_data[0].get_data() + ", " + row_data[1].get_data() + ", " + row_data[2].get_data() + ", " + row_data[3].get_data() + ", " + row_data[4].get_data())
+		if(row_data[prop_idx].get_data() == data_value):
+			var dict = get_dictionary_at_row_idx(idx)
+			the_array.push_back(row_data)
 
-	var row_idx = -1
-	for idx in range(0, m_data.size()):
-		if(m_data[idx].get_prop_id() == prop_id && m_data[idx].get_data() == data_value):
-			row_idx = m_data[idx].get_row_idx()
-			break
-
-	if(row_idx == -1):
-		print("ERROR: GDDBDTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - data not found")
-		return row
-
-	for idx in range(0, m_data.size()):
-		if(m_data[idx].get_row_idx() == row_idx):
-			row.push_back(m_data[idx])
-
-	if(row.size() == -1):
-		print("ERROR: GDDBDTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - data not found")
-
-	return row
+	return the_array
 
 # returns a dictionary of data by a property name and a data value
 # similar to: select * from users where user_id = 1
-func get_dictionary_by_prop_name_and_data(prop_name : String, data_value : String) -> Dictionary :
-	var prop_id = -1
+func get_dictionary_by_prop_name_and_data(prop_name : String, data_value : String, debug_info : bool = false) -> Array :
+	var the_array = []
+
+	var prop_idx = -1
 	for idx in range(0, m_props.size()):
 		if(m_props[idx].get_prop_name() == prop_name):
-			prop_id = m_props[idx].get_prop_id()
+			prop_idx = idx
 			break
 
-	var row = {}
+	for idx in range(0, m_rows_count):
+		var row_data = get_data_at_row_idx(idx)
+		# print("Comparing row: " + row_data[0].get_data() + ", " + row_data[1].get_data() + ", " + row_data[2].get_data() + ", " + row_data[3].get_data() + ", " + row_data[4].get_data())
+		if(row_data[prop_idx].get_data() == data_value):
+			var dict = get_dictionary_at_row_idx(idx)
+			the_array.push_back(get_dictionary_at_row_idx(idx))
 
-	if(prop_id == -1):
-		print("ERROR: GDDBDTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - property not found")
-		return row
-
-	var row_idx = -1
-	for idx in range(0, m_data.size()):
-		if(m_data[idx].get_prop_id() == prop_id && m_data[idx].get_data() == data_value):
-			row_idx = m_data[idx].get_row_idx()
-			break
-
-	if(row_idx == -1):
-		print("ERROR: GDDBDTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - data not found")
-		return row
-
-	var prop_idx = 0
-	for idx in range(0, m_data.size()):
-		if(m_data[idx].get_row_idx() == row_idx):
-			var data_prop_name = m_props[prop_idx].get_prop_name()
-			row[data_prop_name] = m_data[idx].get_data()
-			prop_idx += 1
-
-	if(row.size() == -1):
-		print("ERROR: GDDBDTable::get_row_by_data(" + prop_name + ", " + str(data_value) + ") - data not found")
-
-	return row
+	return the_array
 
 # clears the table's structure and data
 func clear() -> void :
