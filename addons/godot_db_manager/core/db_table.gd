@@ -524,7 +524,7 @@ func get_data_by_prop_name_and_data(prop_name : String, data_value : String) -> 
 
 # returns a dictionary of data by a property name and a data value
 # similar to: select * from users where user_id = 1
-func get_dictionary_by_prop_name_and_data(prop_name : String, data_value : String, debug_info : bool = false) -> Array :
+func get_dictionary_by_prop_name_and_data(prop_name : String, data_value : String) -> Array :
 	var the_array = []
 
 	var prop_idx = -1
