@@ -19,5 +19,4 @@ Here is a template
 3) Ask to become a collaborator:
 - Send an e-mail to the owner of the project
 
-Current version: working on 2.0 RC1
-- Warning: this is not a final(stable) version. When using this tool, make sure to backup JSON files provided by this tool.
+Current version: working on 2.0 official stable
