@@ -288,7 +288,7 @@ func load_db() -> int :
 				var table_name = tables[idx]["props"][jdx]["table_name"]
 				prop_id = table.add_table_prop(tables[idx]["props"][jdx]["name"], table_name)
 			else:
-				prop_id = table.add_prop(int(prop_type), tables[idx]["props"][jdx]["name"])
+				prop_id = table.add_prop(prop_type.to_int(), tables[idx]["props"][jdx]["name"])
 
 			var prop = table.get_prop_by_id(prop_id)
 			var enable_autoincrement = tables[idx]["props"][jdx]["auto_increment"].to_int()

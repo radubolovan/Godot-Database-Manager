@@ -316,15 +316,9 @@ func edit_data(prop_id : int, row_idx : int, data : String) -> void :
 # edits the data
 func edit_data_by_prop_name(prop_name : String, row_idx : int, data : String) -> void :
 	# print("#1: GDDBTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
-	for idx in range(0, m_data.size()):
-		# print("checking ( " + str(m_data[idx].get_row_idx()) + ", " + str(m_data[idx].get_prop_id()) + " )")
-		var prop = get_prop_at(idx)
-		if(m_data[idx].get_row_idx() == row_idx && prop.get_prop_name() == prop_name):
-			# print("#2: GDDBTable::edit_data( " + str(prop_id) + ", " + str(row_idx) + ", " + data + " )")
-			m_data[idx].set_data(data)
-			return
 
-	print("ERROR: GDDBDTable::edit_data_by_prop_name(" + prop_name + ", " + str(row_idx) + ", " + data + ") - can't find data to edit")
+	var prop_id = get_prop_by_name(prop_name).get_prop_id()
+	edit_data(prop_id, row_idx, data)
 
 # returns data count
 func get_data_size() -> int :
