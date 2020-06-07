@@ -24,7 +24,7 @@ anchor_right = 0.0
 rect_min_size = Vector2( 170, 0 )
 
 [node name="table_editor" parent="." instance=ExtResource( 4 )]
-anchor_left = 0.188889
+margin_left = 170.0
 
 [node name="dbg" parent="." instance=ExtResource( 7 )]
 
