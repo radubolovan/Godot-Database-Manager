@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://addons/godot_db_manager/debug/dbg.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=3]
 [ext_resource path="res://addons/godot_db_manager/db_interface.gd" type="Script" id=4]
 [ext_resource path="res://addons/godot_db_manager/dlgs/new_db_dlg.tscn" type="PackedScene" id=5]
@@ -8,37 +9,40 @@
 [node name="db_interface" type="Control"]
 script = ExtResource( 4 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 27.9785 ],
+"_edit_horizontal_guides_": [ 30.0, 674.0 ],
 "_edit_use_anchors_": false
 }
 
 [node name="dlg" type="WindowDialog" parent="."]
 visible = true
-margin_right = 1190.0
-margin_bottom = 655.0
+margin_right = 1147.0
+margin_bottom = 768.0
 popup_exclusive = true
 window_title = "Godot Database Manager"
+resizable = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="menu" parent="dlg" instance=ExtResource( 7 )]
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_right = 0.0
+margin_bottom = 0.0
+
 [node name="databases" type="TabContainer" parent="dlg"]
-anchor_top = 0.043
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -0.165001
+margin_top = 30.0
 tab_align = 0
 drag_to_rearrange_enabled = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="menu" parent="dlg" instance=ExtResource( 7 )]
-anchor_bottom = 0.043
-margin_bottom = -0.165001
-
 [node name="new_db_dlg" parent="dlg" instance=ExtResource( 5 )]
 visible = false
+margin_right = 3.832
 
 [node name="error_dlg" parent="dlg" instance=ExtResource( 3 )]
 visible = false
@@ -58,3 +62,5 @@ filters = PoolStringArray( "*.json" )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="dbg" parent="dlg" instance=ExtResource( 1 )]

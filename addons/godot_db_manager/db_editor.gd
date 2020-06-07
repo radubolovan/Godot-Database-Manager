@@ -17,12 +17,12 @@ func _ready() -> void :
 	set_tab_align(Tabs.ALIGN_LEFT)
 	set_tab_close_display_policy(Tabs.CLOSE_BUTTON_SHOW_ALWAYS)
 
-	$main_window/tables_panel/tables_list.connect("add_table", self, "on_add_table")
-	$main_window/tables_panel/tables_list.connect("edit_table_name", self, "on_edit_table")
-	$main_window/tables_panel/tables_list.connect("delete_table", self, "on_delete_table")
-	$main_window/tables_panel/tables_list.connect("select_table", self, "on_select_table")
+	$tables_list.connect("add_table", self, "on_add_table")
+	$tables_list.connect("edit_table_name", self, "on_edit_table")
+	$tables_list.connect("delete_table", self, "on_delete_table")
+	$tables_list.connect("select_table", self, "on_select_table")
 
-	$main_window/tables_panel/table_editor.connect("set_dirty", self, "on_set_dirty")
+	$table_editor.connect("set_dirty", self, "on_set_dirty")
 
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 
@@ -43,15 +43,15 @@ func set_database(db) -> void :
 
 	var tables_count = db.get_tables_count()
 
-	$main_window/tables_panel/table_editor.hide()
+	$table_editor.hide()
 
 	for idx in range(0, tables_count):
 		var table = db.get_table_at(idx)
-		$main_window/tables_panel/tables_list.create_table(table, idx == 0)
+		$tables_list.create_table(table, idx == 0)
 		if(idx == 0):
-			$main_window/tables_panel/table_editor.set_table(table)
-			$main_window/tables_panel/table_editor.link_props()
-		$main_window/tables_panel/table_editor.show()
+			$table_editor.set_table(table)
+			$table_editor.link_props()
+		$table_editor.show()
 
 # returns the database id
 func get_db_id() -> int :
@@ -86,9 +86,9 @@ func on_create_table(table_name : String) -> void :
 		$error_dlg.popup_centered()
 		return
 	var table = m_database.get_table_by_id(table_id)
-	$main_window/tables_panel/tables_list.create_table(table)
-	$main_window/tables_panel/table_editor.set_table(table)
-	$main_window/tables_panel/table_editor.show()
+	$tables_list.create_table(table)
+	$table_editor.set_table(table)
+	$table_editor.show()
 	m_database.set_dirty(true)
 	set_dirty(true)
 
@@ -124,7 +124,7 @@ func on_table_name_edited(table_name : String) -> void :
 	# print("GDDBEditor::on_table_name_edited(" + str(table_id) + ", " + table_name + ")")
 	$new_table_dlg.disconnect("create_new_table", self, "on_table_name_edited")
 	$new_table_dlg.connect("create_new_table", self, "on_create_table")
-	$main_window/tables_panel/tables_list.edit_table_name(table_id, table_name)
+	$tables_list.edit_table_name(table_id, table_name)
 
 	m_database.set_dirty(true)
 	set_dirty(true)
@@ -133,16 +133,16 @@ func on_table_name_edited(table_name : String) -> void :
 func on_confirm_delete_table() -> void :
 	# print("GDDBEditor::on_confirm_delete_table()")
 	var table_id = $delete_table_dlg.get_table_id()
-	var selected_table = $main_window/tables_panel/tables_list.get_selected_item()
+	var selected_table = $tables_list.get_selected_item()
 	if(null == selected_table):
 		return
 	var selected_table_id = selected_table.get_table_id()
 	m_database.delete_table_by_id(table_id)
-	$main_window/tables_panel/tables_list.delete_table(table_id)
+	$tables_list.delete_table(table_id)
 	if(selected_table_id == table_id):
-		$main_window/tables_panel/tables_list.select_item_at(0)
+		$tables_list.select_item_at(0)
 		var table = m_database.get_table_at(0)
-		$main_window/tables_panel/table_editor.set_table(table)
+		$table_editor.set_table(table)
 
 	m_database.set_dirty(true)
 	set_dirty(true)
@@ -151,8 +151,8 @@ func on_confirm_delete_table() -> void :
 func on_select_table(table_id : int) -> void :
 	var table = m_database.get_table_by_id(table_id)
 	if(null != table):
-		$main_window/tables_panel/table_editor.set_table(table)
-		$main_window/tables_panel/table_editor.link_props()
+		$table_editor.set_table(table)
+		$table_editor.link_props()
 
 # saves current database
 func save_database() -> void:

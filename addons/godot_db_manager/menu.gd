@@ -54,6 +54,7 @@ func on_about_to_show_file_menu() -> void:
 			$layout/File.get_popup().set_item_disabled(idx, !m_enable_save_db)
 		elif(item_id == e_file_save_as_id):
 			$layout/File.get_popup().set_item_disabled(idx, !m_enable_save_as_db)
+	raise()
 
 # enables / disables the possibility to create a new databbase
 func enable_file_new(enable) -> void:
@@ -88,6 +89,7 @@ func on_about_to_show_options_menu() -> void:
 		var item_id = $layout/Options.get_popup().get_item_id(idx)
 		if(item_id == e_option_autosave_on_close_id):
 			$layout/Options.get_popup().set_item_checked(idx, m_check_autosave_on_load)
+	raise()
 
 # enables / disables the possibility to autosave all databases on close
 func enable_autosave_on_close(enable) -> void:

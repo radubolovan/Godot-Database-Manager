@@ -34,15 +34,14 @@ margin_bottom = -4.0
 tab_close_display_policy = 2
 
 [node name="v_layout" type="VBoxContainer" parent="tabs/structure"]
-margin_right = 1000.0
-margin_bottom = 868.0
-rect_min_size = Vector2( 1000, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="btns" type="HBoxContainer" parent="tabs/structure/v_layout"]
-margin_right = 1000.0
+margin_right = 900.0
 margin_bottom = 20.0
 
 [node name="new_property_btn" type="Button" parent="tabs/structure/v_layout/btns"]
@@ -55,7 +54,7 @@ __meta__ = {
 
 [node name="lbls" type="HBoxContainer" parent="tabs/structure/v_layout"]
 margin_top = 24.0
-margin_right = 1000.0
+margin_right = 900.0
 margin_bottom = 38.0
 
 [node name="props_lbl" type="Label" parent="tabs/structure/v_layout/lbls"]
@@ -68,14 +67,15 @@ __meta__ = {
 
 [node name="scroll" type="ScrollContainer" parent="tabs/structure/v_layout"]
 margin_top = 42.0
-margin_right = 1000.0
+margin_right = 900.0
 margin_bottom = 522.0
 rect_min_size = Vector2( 900, 480 )
+scroll_horizontal_enabled = false
 
 [node name="properties" type="VBoxContainer" parent="tabs/structure/v_layout/scroll"]
-margin_right = 1000.0
+margin_right = 900.0
 margin_bottom = 480.0
-rect_min_size = Vector2( 1000, 480 )
+rect_min_size = Vector2( 900, 480 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

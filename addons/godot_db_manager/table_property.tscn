@@ -5,9 +5,9 @@
 [node name="table_property" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -600.0
+margin_right = 6.10352e-05
 margin_bottom = -876.0
-rect_min_size = Vector2( 1000, 24 )
+rect_min_size = Vector2( 900, 24 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 24.0 ],
