@@ -19,4 +19,4 @@ Here is a template
 3) Ask to become a collaborator:
 - Send an e-mail to the owner of the project
 
-Current version: working on 2.0 official stable
+Current version: 2.0 official stable
