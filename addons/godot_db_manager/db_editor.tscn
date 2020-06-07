@@ -21,12 +21,15 @@ __meta__ = {
 
 [node name="tables_list" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
+anchor_bottom = 1.0
+margin_right = 170.0
 rect_min_size = Vector2( 170, 0 )
 
 [node name="table_editor" parent="." instance=ExtResource( 4 )]
 margin_left = 170.0
 
 [node name="dbg" parent="." instance=ExtResource( 7 )]
+visible = false
 
 [node name="new_table_dlg" parent="." instance=ExtResource( 3 )]
 visible = false

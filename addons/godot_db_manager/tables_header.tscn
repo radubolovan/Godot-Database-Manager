@@ -21,14 +21,14 @@ atlas = ExtResource( 3 )
 region = Rect2( 80, 2, 24, 2 )
 
 [node name="tables_header" type="Control"]
-anchor_right = 0.106
-anchor_bottom = 0.033
-margin_right = -39.6
-margin_bottom = -5.7
+anchor_right = 0.188889
+anchor_bottom = 0.019
+margin_right = 6.10352e-05
+margin_bottom = -0.4
 rect_min_size = Vector2( 170, 30 )
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_use_anchors_": false,
+"_edit_use_anchors_": true,
 "_edit_vertical_guides_": [ 170.0 ]
 }
 
