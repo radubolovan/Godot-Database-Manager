@@ -3,7 +3,8 @@
 [ext_resource path="res://addons/godot_db_manager/tables_list.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot_db_manager/tables_header.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/godot_db_manager/debug/dbg.tscn" type="PackedScene" id=3]
-[ext_resource path="res://addons/godot_db_manager/assets/tex/2_0_buttons.png" type="Texture" id=4]
+[ext_resource path="res://addons/godot_db_manager/assets/tex/gui.png" type="Texture" id=4]
+
 
 [node name="tables_list" type="Control"]
 anchor_right = 0.189

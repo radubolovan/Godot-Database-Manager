@@ -2,7 +2,8 @@
 
 [ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_20.tres" type="DynamicFont" id=1]
 [ext_resource path="res://addons/godot_db_manager/tables_header.gd" type="Script" id=2]
-[ext_resource path="res://addons/godot_db_manager/assets/tex/2_0_buttons.png" type="Texture" id=3]
+[ext_resource path="res://addons/godot_db_manager/assets/tex/gui.png" type="Texture" id=3]
+
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
