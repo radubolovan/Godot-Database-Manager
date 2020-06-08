@@ -19,8 +19,8 @@ var m_is_selected = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$select_btn.connect("pressed", self, "on_select_btn_pressed")
-	$elems/edit_table_btn.connect("pressed", self, "on_edit_table_btn_pressed")
-	$elems/delete_table_btn.connect("pressed", self, "on_delete_table_btn_pressed")
+	$edit_table_btn.connect("pressed", self, "on_edit_table_btn_pressed")
+	$delete_table_btn.connect("pressed", self, "on_delete_table_btn_pressed")
 	$select.hide()
 
 # sets the table id
@@ -45,7 +45,7 @@ func is_selected():
 func set_table_name(name : String) -> void:
 	# print("GDDBTableItem::set_table_name(" + name + ")")
 	m_table_name = name
-	$elems/table_name.set_text(m_table_name)
+	$table_name.set_text(m_table_name)
 
 # returns the table name
 func get_table_name() -> String:

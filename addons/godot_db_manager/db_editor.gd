@@ -43,7 +43,7 @@ func on_resize_the_table_list(diff_x : float) -> void :
 	if(size.x > gddb_constants.c_max_tables_list_width):
 		return
 
-	$tables_list.set_size(size)
+	$tables_list.resize_content(size)
 
 	var pos = $table_editor.get_position()
 	size = $table_editor.get_size()

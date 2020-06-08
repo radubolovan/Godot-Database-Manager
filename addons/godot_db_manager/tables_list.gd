@@ -26,6 +26,7 @@ func _ready() -> void:
 
 	$tables_header.connect("add_table", self, "on_add_table")
 
+# called when the node gets an input
 func _input(event : InputEvent) -> void :
 	if(!gddb_globals.is_interface_active()):
 		return
@@ -47,6 +48,15 @@ func _input(event : InputEvent) -> void :
 		if(m_mouse_pressed):
 			var diff_x = evLocal.position.x - m_mouse_pos_pressed.x
 			emit_signal("resize_tables_list", diff_x)
+
+# custom resizing the tables list
+func resize_content(size : Vector2) -> void :
+	set_size(size)
+
+	# I have no idea why I need to do this; this should be done automatically
+	var content_size = $tables_container/tables.get_size()
+	content_size.x = size.x
+	$tables_container/tables.set_custom_minimum_size(content_size)
 
 # Called when the user presses the "add_table" button from the tables_list/header
 func on_add_table() -> void:

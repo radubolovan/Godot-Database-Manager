@@ -29,19 +29,23 @@ __meta__ = {
 }
 
 [node name="add_table_btn" type="TextureButton" parent="."]
-anchor_right = 0.15
-anchor_bottom = 0.8
-margin_bottom = -1.90735e-06
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 26.0
+margin_bottom = 26.0
 texture_normal = SubResource( 1 )
 texture_pressed = SubResource( 2 )
 texture_hover = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="tables_lbl" type="Label" parent="."]
-anchor_left = 0.187
+anchor_left = 0.165
 anchor_right = 1.0
 anchor_bottom = 0.8
-margin_left = 0.079998
-margin_bottom = -1.90735e-06
+margin_left = -0.0500259
+margin_right = -0.000152588
 custom_fonts/font = ExtResource( 1 )
 text = "Tables        "
 align = 1
