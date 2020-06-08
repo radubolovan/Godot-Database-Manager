@@ -70,12 +70,8 @@ margin_top = 42.0
 margin_right = 900.0
 margin_bottom = 522.0
 rect_min_size = Vector2( 900, 480 )
-scroll_horizontal_enabled = false
 
 [node name="properties" type="VBoxContainer" parent="tabs/structure/v_layout/scroll"]
-margin_right = 900.0
-margin_bottom = 480.0
-rect_min_size = Vector2( 900, 480 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
