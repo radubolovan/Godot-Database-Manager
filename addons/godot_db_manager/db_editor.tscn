@@ -15,15 +15,14 @@ tab_align = 0
 tab_close_display_policy = 2
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": false,
+"_edit_use_anchors_": true,
 "_edit_vertical_guides_": [ 170.0 ]
 }
 
 [node name="tables_list" parent="." instance=ExtResource( 2 )]
 anchor_right = 0.0
-anchor_bottom = 1.0
 margin_right = 170.0
-rect_min_size = Vector2( 170, 0 )
+rect_min_size = Vector2( 170, 30 )
 
 [node name="table_editor" parent="." instance=ExtResource( 4 )]
 margin_left = 170.0

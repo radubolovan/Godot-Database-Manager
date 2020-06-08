@@ -4,7 +4,6 @@
 [ext_resource path="res://addons/godot_db_manager/assets/tex/gui.png" type="Texture" id=2]
 [ext_resource path="res://addons/godot_db_manager/table_item.gd" type="Script" id=3]
 
-
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
 region = Rect2( 80, 6, 24, 4 )
@@ -34,18 +33,18 @@ atlas = ExtResource( 2 )
 region = Rect2( 54, 28, 24, 24 )
 
 [node name="table_item" type="Control"]
-anchor_right = 0.1
-anchor_bottom = 0.027
-margin_bottom = -0.300001
+anchor_right = 0.177778
+anchor_bottom = 0.015
 rect_min_size = Vector2( 160, 24 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 24.0434 ],
-"_edit_use_anchors_": false,
+"_edit_use_anchors_": true,
 "_edit_vertical_guides_": [ 160.04 ]
 }
 
 [node name="select" type="Sprite" parent="."]
+visible = false
 scale = Vector2( 6.66667, 6 )
 texture = SubResource( 1 )
 centered = false

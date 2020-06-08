@@ -20,11 +20,22 @@ func _ready() -> void:
 	$dlg/menu.connect("save_database", self, "on_menu_save_database")
 	$dlg/menu.connect("save_database_as", self, "on_menu_save_database_as")
 
+	# dialod notifications
+	$dlg.connect("about_to_show", self, "on_about_to_show")
+	$dlg.get_close_button().connect("pressed", self, "on_close")
+
 	# new database connections
 	$dlg/new_db_dlg.connect("create_new_db", self, "on_new_database")
 
 	# save / load connections
 	$dlg/load_db_dlg.connect("file_selected", self, "on_file_selected")
+
+# Called when the node is about to be shown.
+func on_about_to_show() -> void :
+	gddb_globals.set_interface_active(true)
+
+func on_close() -> void :
+	gddb_globals.set_interface_active(false)
 
 # called when creating a new database from the menu
 func on_menu_new_database() -> void:

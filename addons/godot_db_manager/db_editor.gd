@@ -17,6 +17,7 @@ func _ready() -> void :
 	set_tab_align(Tabs.ALIGN_LEFT)
 	set_tab_close_display_policy(Tabs.CLOSE_BUTTON_SHOW_ALWAYS)
 
+	$tables_list.connect("resize_tables_list", self, "on_resize_the_table_list")
 	$tables_list.connect("add_table", self, "on_add_table")
 	$tables_list.connect("edit_table_name", self, "on_edit_table")
 	$tables_list.connect("delete_table", self, "on_delete_table")
@@ -29,6 +30,27 @@ func _ready() -> void :
 	$delete_table_dlg.connect("delete_table", self, "on_confirm_delete_table")
 
 	$error_dlg.connect("confirmed", self, "on_retry_create_table")
+
+# resizing the tables list
+func on_resize_the_table_list(diff_x : float) -> void :
+	var size = $tables_list.get_size()
+	var min_size = $tables_list.get_custom_minimum_size()
+	size.x += diff_x
+
+	if(size.x < min_size.x):
+		return
+
+	if(size.x > gddb_constants.c_max_tables_list_width):
+		return
+
+	$tables_list.set_size(size)
+
+	var pos = $table_editor.get_position()
+	size = $table_editor.get_size()
+	pos.x += diff_x
+	size.x -= diff_x
+	$table_editor.set_position(pos)
+	$table_editor.set_size(size)
 
 # overrides the member from base class
 func set_name(ctrl_name) -> void :

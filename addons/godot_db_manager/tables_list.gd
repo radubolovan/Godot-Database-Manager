@@ -7,6 +7,8 @@ class_name GDDBTablesList
 tool
 extends Control
 
+signal resize_tables_list
+
 signal add_table
 signal edit_table_name
 signal delete_table
@@ -14,16 +16,37 @@ signal select_table
 
 var m_tables = []
 
+var m_mouse_pos_pressed : Vector2 = Vector2()
+var m_mouse_pressed : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	m_mouse_pos_pressed = Vector2()
+	m_mouse_pressed = false
+
 	$tables_header.connect("add_table", self, "on_add_table")
 
-"""
-func _input(event):
+func _input(event : InputEvent) -> void :
+	if(!gddb_globals.is_interface_active()):
+		return
+
+	var evLocal = $resize_ctrl.make_input_local(event)
+
 	if event is InputEventMouseButton :
 		if(event.button_index == BUTTON_LEFT):
-			print(event.position)
-"""
+			if(event.pressed):
+				var rect = Rect2(Vector2(0, 0), $resize_ctrl.get_size())
+				var inside = rect.has_point(evLocal.position)
+				if(inside):
+					m_mouse_pressed = true
+					m_mouse_pos_pressed = evLocal.position
+			else:
+				m_mouse_pressed = false
+
+	elif event is InputEventMouseMotion :
+		if(m_mouse_pressed):
+			var diff_x = evLocal.position.x - m_mouse_pos_pressed.x
+			emit_signal("resize_tables_list", diff_x)
 
 # Called when the user presses the "add_table" button from the tables_list/header
 func on_add_table() -> void:
