@@ -13,7 +13,7 @@ var m_parent_table = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$tabs/structure/v_layout/btns/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
+	$tabs/structure/btns/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
 	$tabs/data/scroll/data_holder/btns/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
 	$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(true)
 
@@ -47,7 +47,7 @@ func on_new_property_btn_pressed() -> void:
 func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -> void:
 	# print("GDDBTableEditor::add_prop_to_structure(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
 	var prop = load(gddb_constants.c_addon_main_path + "table_property.tscn").instance()
-	$tabs/structure/v_layout/scroll/properties.add_child(prop)
+	$tabs/structure/scroll/properties.add_child(prop)
 	prop.set_parent_table(m_parent_table)
 	prop.setup(prop_id, prop_type, prop_name)
 	prop.connect("edit_property", self, "on_edit_property")
@@ -87,9 +87,9 @@ func on_add_row_data_btn_pressed() -> void:
 	# add row in the interface
 	var row = HBoxContainer.new()
 	$tabs/data/scroll/data_holder/data_container.add_child(row)
-	for idx in range(0, $tabs/structure/v_layout/scroll/properties.get_child_count()):
+	for idx in range(0, $tabs/structure/scroll/properties.get_child_count()):
 		var cell = load(gddb_constants.c_addon_main_path + "table_cell.tscn").instance()
-		var prop = $tabs/structure/v_layout/scroll/properties.get_child(idx)
+		var prop = $tabs/structure/scroll/properties.get_child(idx)
 		var db_prop = m_parent_table.get_prop_by_id(idx)
 		row.add_child(cell)
 		cell.set_prop_id(idx)
@@ -173,8 +173,8 @@ func fill_data() -> void:
 # links properties
 func link_props() -> void :
 	# print("GDDBTableEditor::link_props() for table with name: " + m_parent_table.get_table_name())
-	for idx in range(0, $tabs/structure/v_layout/scroll/properties.get_child_count()):
-		var prop = $tabs/structure/v_layout/scroll/properties.get_child(idx)
+	for idx in range(0, $tabs/structure/scroll/properties.get_child_count()):
+		var prop = $tabs/structure/scroll/properties.get_child(idx)
 		prop.link()
 
 # refreshes autoincrement props
@@ -189,8 +189,8 @@ func refresh_autoincrement_props(prop_id, enable) -> void:
 # cleares current layout
 func clear_current_layout() -> void:
 	# clear structure tab
-	for idx in range(0, $tabs/structure/v_layout/scroll/properties.get_child_count()):
-		$tabs/structure/v_layout/scroll/properties.get_child(idx).queue_free()
+	for idx in range(0, $tabs/structure/scroll/properties.get_child_count()):
+		$tabs/structure/scroll/properties.get_child(idx).queue_free()
 
 	# clear data from data tab
 	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
@@ -274,8 +274,8 @@ func on_confirm_delete_property() -> void:
 			break
 
 	# delete prop from structure
-	for idx in range(0, $tabs/structure/v_layout/scroll/properties.get_child_count()):
-		var prop = $tabs/structure/v_layout/scroll/properties.get_child(idx)
+	for idx in range(0, $tabs/structure/scroll/properties.get_child_count()):
+		var prop = $tabs/structure/scroll/properties.get_child(idx)
 		if(prop.get_prop_id() == prop_id):
 			prop.queue_free()
 			break

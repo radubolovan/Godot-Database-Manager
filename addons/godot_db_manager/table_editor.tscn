@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot_db_manager/dlgs/load_res_path_dlg.tscn" type="PackedScene" id=2]
@@ -6,13 +6,14 @@
 [ext_resource path="res://addons/godot_db_manager/dlgs/data_dlg.tscn" type="PackedScene" id=4]
 [ext_resource path="res://addons/godot_db_manager/dlgs/edit_string_dlg.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/godot_db_manager/dlgs/delete_prop_dlg.tscn" type="PackedScene" id=6]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_18.tres" type="DynamicFont" id=7]
 
 [node name="table" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 584.0 ],
+"_edit_horizontal_guides_": [ 584.0, 60.0, 70.0, 100.0, 110.0 ],
 "_edit_use_anchors_": false,
 "_edit_vertical_guides_": [ 1000.47 ]
 }
@@ -33,45 +34,49 @@ margin_right = -4.0
 margin_bottom = -4.0
 tab_close_display_policy = 2
 
-[node name="v_layout" type="VBoxContainer" parent="tabs/structure"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="btns" type="HBoxContainer" parent="tabs/structure"]
+margin_right = 120.0
+margin_bottom = 28.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btns" type="HBoxContainer" parent="tabs/structure/v_layout"]
-margin_right = 900.0
-margin_bottom = 20.0
-
-[node name="new_property_btn" type="Button" parent="tabs/structure/v_layout/btns"]
-margin_right = 98.0
-margin_bottom = 20.0
+[node name="new_property_btn" type="Button" parent="tabs/structure/btns"]
+margin_right = 120.0
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 7 )
 text = "New property"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="lbls" type="HBoxContainer" parent="tabs/structure/v_layout"]
-margin_top = 24.0
-margin_right = 900.0
-margin_bottom = 38.0
+[node name="lbls" type="HBoxContainer" parent="tabs/structure"]
+margin_top = 38.0
+margin_right = 86.0
+margin_bottom = 68.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="props_lbl" type="Label" parent="tabs/structure/v_layout/lbls"]
-margin_right = 70.0
-margin_bottom = 14.0
+[node name="props_lbl" type="Label" parent="tabs/structure/lbls"]
+margin_top = 4.0
+margin_right = 86.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 7 )
 text = "Properties:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="scroll" type="ScrollContainer" parent="tabs/structure/v_layout"]
-margin_top = 42.0
-margin_right = 900.0
-margin_bottom = 522.0
-rect_min_size = Vector2( 900, 480 )
+[node name="scroll" type="ScrollContainer" parent="tabs/structure"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 78.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="properties" type="VBoxContainer" parent="tabs/structure/v_layout/scroll"]
+[node name="properties" type="VBoxContainer" parent="tabs/structure/scroll"]
 __meta__ = {
 "_edit_use_anchors_": false
 }
