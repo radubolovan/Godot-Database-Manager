@@ -19,20 +19,20 @@ var m_parent_table = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$align/prop_name.connect("text_changed", self, "on_name_changed")
+	$prop_name.connect("text_changed", self, "on_name_changed")
 
-	$align/prop_type.clear()
+	$prop_type.clear()
 	for idx in range(0, gddb_types.e_prop_types_count):
-		$align/prop_type.add_item(gddb_globals.get_data_name(idx), gddb_types.e_prop_type_bool + idx)
-	$align/prop_type.select(0)
+		$prop_type.add_item(gddb_globals.get_data_name(idx), gddb_types.e_prop_type_bool + idx)
+	$prop_type.select(0)
 
-	$align/prop_type.get_popup().connect("about_to_show", self, "on_about_to_show")
-	$align/prop_type.connect("item_selected", self, "on_type_changed")
+	$prop_type.get_popup().connect("about_to_show", self, "on_about_to_show")
+	$prop_type.connect("item_selected", self, "on_type_changed")
 
-	$align/delete_button.connect("pressed", self, "on_delete_button_pressed")
+	$delete_button.connect("pressed", self, "on_delete_button_pressed")
 
-	$align/autoincrement_btn.hide()
-	$align/autoincrement_btn.connect("toggled", self, "on_set_autoincrement")
+	$autoincrement_btn.hide()
+	$autoincrement_btn.connect("toggled", self, "on_set_autoincrement")
 
 # setup property
 func setup(prop_id : int, prop_type : int, prop_name : String) -> void:
@@ -57,13 +57,12 @@ func set_parent_table(table):
 		var tbl = db.get_table_at(idx)
 		if(tbl == m_parent_table):
 			continue
-		$align/prop_type.add_item(tbl.get_table_name(), gddb_types.e_prop_types_count + tbl.get_table_id())
+		$prop_type.add_item(tbl.get_table_name(), gddb_types.e_prop_types_count + tbl.get_table_id())
 
 # sets proprty id
 func set_prop_id(prop_id : int) -> void:
 	# print("GDDBTableProperty::set_prop_id(" + str(prop_id) + ")")
 	m_prop_id = prop_id
-	$align/prop_id.set_text(str(m_prop_id))
 
 # returns property id
 func get_prop_id() -> int:
@@ -86,17 +85,17 @@ func set_prop_type(prop_type : int) -> void:
 	select_current_prop()
 
 	if(m_prop_type == gddb_types.e_prop_type_int):
-		$align/autoincrement_btn.show()
+		$autoincrement_btn.show()
 		var prop = m_parent_table.get_prop_by_id(m_prop_id)
 		if(prop.has_autoincrement()):
-			$align/autoincrement_btn.set_pressed(true)
+			$autoincrement_btn.set_pressed(true)
 	else:
-		$align/autoincrement_btn.hide()
+		$autoincrement_btn.hide()
 
 # selects current property
 func select_current_prop() -> void:
 	if(m_prop_type < gddb_types.e_prop_types_count):
-		$align/prop_type.select(m_prop_type)
+		$prop_type.select(m_prop_type)
 
 # links property type to other tables
 func link():
@@ -110,7 +109,7 @@ func link():
 		"""
 		set_selection_by_id(m_prop_type)
 	else:
-		$align/prop_type.select(m_prop_type)
+		$prop_type.select(m_prop_type)
 
 # returns property type
 func get_prop_type() -> int:
@@ -120,7 +119,7 @@ func get_prop_type() -> int:
 func set_prop_name(prop_name : String) -> void:
 	# print("GDDBTableProperty::set_prop_name(" + prop_name + ")")
 	m_prop_name = prop_name
-	$align/prop_name.set_text(m_prop_name)
+	$prop_name.set_text(m_prop_name)
 
 # returns property name
 func get_prop_name() -> String:
@@ -133,7 +132,7 @@ func on_name_changed(new_text : String) -> void:
 
 # called when the popup from option button is about to be shown
 func on_about_to_show():
-	var selected_id = $align/prop_type.get_selected_id()
+	var selected_id = $prop_type.get_selected_id()
 	# print("GDDBTableProperty::on_about_to_show() - " + str(selected_id))
 
 	refill_list()
@@ -141,9 +140,9 @@ func on_about_to_show():
 
 # refills the list
 func refill_list() -> void :
-	$align/prop_type.clear()
+	$prop_type.clear()
 	for idx in range(0, gddb_types.e_prop_types_count):
-		$align/prop_type.add_item(gddb_globals.get_data_name(idx), gddb_types.e_prop_type_bool + idx)
+		$prop_type.add_item(gddb_globals.get_data_name(idx), gddb_types.e_prop_type_bool + idx)
 
 	if(null != m_parent_table):
 		var db = m_parent_table.get_parent_database()
@@ -157,15 +156,15 @@ func refill_list() -> void :
 			print("table name: " + table.get_table_name())
 			#"""
 			# print("GDDBTableProperty::prop_type.add_item(" + table.get_table_name() + ", " + str(gddb_types.e_prop_types_count + table.get_table_id()) + ")" )
-			$align/prop_type.add_item(table.get_table_name(), gddb_types.e_prop_types_count + table.get_table_id())
-	# $align/prop_type.select(selected_idx)
+			$prop_type.add_item(table.get_table_name(), gddb_types.e_prop_types_count + table.get_table_id())
+	# $prop_type.select(selected_idx)
 
 # sets selection
 func set_selection_by_id(selected_id : int) -> void :
 	# print("GDDBTableProperty::set_selection_by_id(" + str(selected_id) + ")")
-	for idx in range(0, $align/prop_type.get_item_count()):
-		if($align/prop_type.get_item_id(idx) == selected_id):
-			$align/prop_type.select(idx)
+	for idx in range(0, $prop_type.get_item_count()):
+		if($prop_type.get_item_id(idx) == selected_id):
+			$prop_type.select(idx)
 			break
 
 func on_set_autoincrement(enable : bool) -> void:
@@ -174,7 +173,7 @@ func on_set_autoincrement(enable : bool) -> void:
 
 # called everytime the type of the property is changed
 func on_type_changed(option_idx : int) -> void:
-	var option_id = $align/prop_type.get_item_id(option_idx)
+	var option_id = $prop_type.get_item_id(option_idx)
 	"""
 	print("GDDBTableProperty::on_type_changed(" + str(option_idx) + ")")
 	print("option_id = " + str(option_id))
@@ -184,11 +183,11 @@ func on_type_changed(option_idx : int) -> void:
 		print("GDDBTableProperty::on_type_changed(" + gddb_globals.get_data_name(option_id) + ")")
 	#"""
 	m_prop_type = option_id
-	$align/autoincrement_btn.set_pressed(false)
+	$autoincrement_btn.set_pressed(false)
 	if(m_prop_type == gddb_types.e_prop_type_int):
-		$align/autoincrement_btn.show()
+		$autoincrement_btn.show()
 	else:
-		$align/autoincrement_btn.hide()
+		$autoincrement_btn.hide()
 	emit_signal("edit_property", m_prop_id, m_prop_type, m_prop_name)
 
 # called when the delete property button is pressed
