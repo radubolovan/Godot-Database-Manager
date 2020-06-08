@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot_db_manager/dlgs/load_res_path_dlg.tscn" type="PackedScene" id=2]
@@ -7,6 +7,23 @@
 [ext_resource path="res://addons/godot_db_manager/dlgs/edit_string_dlg.tscn" type="PackedScene" id=5]
 [ext_resource path="res://addons/godot_db_manager/dlgs/delete_prop_dlg.tscn" type="PackedScene" id=6]
 [ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_18.tres" type="DynamicFont" id=7]
+[ext_resource path="res://addons/godot_db_manager/assets/tex/gui.png" type="Texture" id=8]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 8 )
+region = Rect2( 2, 2, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 8 )
+region = Rect2( 2, 54, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 8 )
+region = Rect2( 2, 28, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 8 )
+region = Rect2( 132, 2, 24, 24 )
 
 [node name="table" type="Control"]
 anchor_right = 1.0
@@ -26,6 +43,7 @@ __meta__ = {
 }
 
 [node name="structure" type="Tabs" parent="tabs"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -82,7 +100,6 @@ __meta__ = {
 }
 
 [node name="data" type="Tabs" parent="tabs"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -91,41 +108,40 @@ margin_right = -4.0
 margin_bottom = -4.0
 tab_close_display_policy = 2
 
+[node name="add_data_btn" type="TextureButton" parent="tabs/data"]
+margin_right = 24.0
+margin_bottom = 24.0
+disabled = true
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 3 )
+texture_disabled = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="scroll" type="ScrollContainer" parent="tabs/data"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 38.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="data_holder" type="VBoxContainer" parent="tabs/data/scroll"]
-margin_right = 20.0
-margin_bottom = 52.0
+margin_bottom = 28.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="btns" type="HBoxContainer" parent="tabs/data/scroll/data_holder"]
-margin_right = 20.0
-margin_bottom = 20.0
-
-[node name="add_data_btn" type="Button" parent="tabs/data/scroll/data_holder/btns"]
-margin_right = 20.0
-margin_bottom = 20.0
-disabled = true
-text = "+"
-
 [node name="data_header" type="HBoxContainer" parent="tabs/data/scroll/data_holder"]
-margin_top = 24.0
-margin_right = 20.0
-margin_bottom = 48.0
+margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 rect_clip_content = true
 
 [node name="data_container" type="VBoxContainer" parent="tabs/data/scroll/data_holder"]
-margin_top = 52.0
-margin_right = 20.0
-margin_bottom = 52.0
+margin_top = 28.0
+margin_bottom = 28.0
 
 [node name="error_dlg" parent="." instance=ExtResource( 1 )]
 visible = false

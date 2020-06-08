@@ -14,8 +14,8 @@ var m_parent_table = null
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$tabs/structure/btns/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
-	$tabs/data/scroll/data_holder/btns/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
-	$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(true)
+	$tabs/data/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
+	$tabs/data/add_data_btn.set_disabled(true)
 
 	$load_res_path_dlg.connect("file_selected", self, "on_select_res_path")
 
@@ -39,7 +39,7 @@ func on_new_property_btn_pressed() -> void:
 	add_prop_to_data(prop_id, prop_type, prop_name, false)
 
 	# enable add data btn
-	$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(false)
+	$tabs/data/add_data_btn.set_disabled(false)
 
 	emit_signal("set_dirty")
 
@@ -129,7 +129,7 @@ func fill_properties() -> void:
 		prop.set_prop_type(db_prop.get_prop_type())
 		prop.set_text(db_prop.get_prop_name())
 	if(props_count > 0):
-		$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(false)
+		$tabs/data/add_data_btn.set_disabled(false)
 
 # fills the interface with current table's data
 func fill_data() -> void:
@@ -203,7 +203,7 @@ func clear_current_layout() -> void:
 	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
 		$tabs/data/scroll/data_holder/data_header.get_child(idx).queue_free()
 
-	$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(true)
+	$tabs/data/add_data_btn.set_disabled(true)
 
 # called when a property is edited
 func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> void:
@@ -283,7 +283,7 @@ func on_confirm_delete_property() -> void:
 	# refresh the add data button
 	var props_count = m_parent_table.get_props_count()
 	if(props_count == 0):
-		$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(true)
+		$tabs/data/add_data_btn.set_disabled(true)
 
 	emit_signal("set_dirty")
 
