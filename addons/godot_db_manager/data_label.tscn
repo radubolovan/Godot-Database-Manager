@@ -1,14 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/data_label.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_18.tres" type="DynamicFont" id=2]
 
 [node name="lbl" type="Label"]
-anchor_right = 0.094
-anchor_bottom = 0.036
-margin_right = -0.400009
-margin_bottom = -0.400002
+anchor_right = 0.167
+anchor_bottom = 0.015375
+margin_right = -0.300003
+margin_bottom = -0.599998
 rect_min_size = Vector2( 150, 24 )
+custom_fonts/font = ExtResource( 2 )
+text = "ID"
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_use_anchors_": false
+"_edit_use_anchors_": true
 }
