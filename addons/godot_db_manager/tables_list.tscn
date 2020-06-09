@@ -6,14 +6,15 @@
 [ext_resource path="res://addons/godot_db_manager/assets/tex/gui.png" type="Texture" id=4]
 
 [node name="tables_list" type="Control"]
-anchor_right = 0.188889
+anchor_right = 0.2
 anchor_bottom = 1.0
-rect_min_size = Vector2( 170, 225 )
+margin_right = -9.99991
+rect_min_size = Vector2( 180, 225 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 29.9686, 584.0 ],
-"_edit_use_anchors_": true,
-"_edit_vertical_guides_": [ 170.149 ]
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [ 180.0 ]
 }
 
 [node name="tables_header" parent="." instance=ExtResource( 2 )]
