@@ -22,12 +22,13 @@ anchor_right = 1.0
 anchor_bottom = 0.0
 margin_right = -9.15527e-05
 margin_bottom = 30.0
+rect_min_size = Vector2( 180, 30 )
 
 [node name="tables_container" type="ScrollContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 32.0
-rect_min_size = Vector2( 170, 0 )
+rect_min_size = Vector2( 180, 0 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
