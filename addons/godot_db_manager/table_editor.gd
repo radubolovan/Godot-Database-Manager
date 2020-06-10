@@ -27,52 +27,55 @@ func _ready() -> void:
 
 # called when resizing a property
 func on_resize_property(prop_id : int, diff_x : float) -> void :
-	var prop_size : Vector2 = Vector2()
+	var current_prop = null
+	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
+		var prop = $tabs/data/scroll/data_holder/data_header.get_child(idx)
+		if(prop.get_prop_id() == prop_id):
+			current_prop = prop
+			break
+
+	var prop_size : Vector2 = current_prop.get_child(0).get_size()
+
+	# print("diff_x: " + str(diff_x))
+	prop_size.x += diff_x
+
+	if(prop_size.x < gddb_constants.c_min_cell_width):
+		return
+	if(prop_size.x > gddb_constants.c_max_cell_width):
+		return
+
+	# print("prop_size.x = " + str(prop_size.x))
 
 	var prop_idx = -1
 
-	var limit_cell_size_reached = false
-	var min_cell_width = $tabs/data/scroll/data_holder/data_header.get_child(0).get_custom_minimum_size().x
+	var data_size = $tabs/data/scroll.get_size()
+	data_size.x += diff_x
+	$tabs/data/scroll/data_holder/data_header.set_size(data_size)
+	# $tabs/data/scroll/data_holder/data_container.set_size(data_size)
 
 	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
 		var prop = $tabs/data/scroll/data_holder/data_header.get_child(idx)
 		if(prop.get_prop_id() == prop_id):
-			prop_size = prop.get_size()
-			prop_size.x += diff_x
-
-			if(prop_size.x < min_cell_width):
-				prop_size.x = min_cell_width
-				limit_cell_size_reached = true
-			if(prop_size.x > gddb_constants.c_max_cell_width):
-				prop_size.x = gddb_constants.c_max_cell_width
-				limit_cell_size_reached = true
-
-			prop.set_size(prop_size)
+			var current_prop_size = prop.get_custom_minimum_size()
+			current_prop_size.x += diff_x
+			prop.set_custom_minimum_size(current_prop_size)
 			prop_idx = idx
 
-		if(!limit_cell_size_reached && prop_idx != -1 && idx > prop_idx):
+		if(prop_idx != -1 && idx > prop_idx):
 			var pos = prop.get_position()
 			pos.x += diff_x
 			prop.set_position(pos)
 
-	#if(!limit_cell_size_reached):
-	#	var header_size : Vector2 = $tabs/data/scroll/data_holder/data_header.get_size()
-	#	header_size.x += diff_x
-		# $tabs/data/scroll/data_holder/data_header.set_custom_minimum_size(header_size)
-	#	$tabs/data/scroll/data_holder/data_header.set_size(header_size)
-
-		"""
-		for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
-			var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
-			for jdx in range(0, row.get_child_count()):
-				var cell = row.get_child(jdx)
-				if(cell.get_prop_id() == prop_id):
-					cell.set_size(prop_size)
-				if(jdx > prop_idx):
-					var pos = cell.get_position()
-					pos.x += diff_x
-					cell.set_position(pos)
-		"""
+	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
+		for jdx in range(0, row.get_child_count()):
+			var cell = row.get_child(jdx)
+			if(cell.get_prop_id() == prop_id):
+				cell.set_custom_minimum_size(prop_size)
+			if(jdx > prop_idx):
+				var pos = cell.get_position()
+				pos.x += diff_x
+				cell.set_position(pos)
 
 # called when the new_property button is pressed
 func on_new_property_btn_pressed() -> void:

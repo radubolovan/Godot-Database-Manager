@@ -31,14 +31,13 @@ region = Rect2( 54, 28, 24, 24 )
 
 [node name="table_item" type="Control"]
 anchor_right = 1.0
-anchor_bottom = 0.0215
-margin_right = 6.10352e-05
-margin_bottom = -0.400002
+anchor_bottom = 0.021
+margin_bottom = 0.399998
 rect_min_size = Vector2( 180, 34 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 34.0 ],
-"_edit_use_anchors_": true,
+"_edit_use_anchors_": false,
 "_edit_vertical_guides_": [ 170.0 ]
 }
 
