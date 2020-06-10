@@ -30,3 +30,6 @@ const c_addon_main_path = "res://addons/godot_db_manager/"
 
 # maximum tables list width
 const c_max_tables_list_width = 400.0
+
+# maximum cell width
+const c_max_cell_width = 300.0

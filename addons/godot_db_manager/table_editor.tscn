@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/dlgs/error_dlg.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/godot_db_manager/dlgs/load_res_path_dlg.tscn" type="PackedScene" id=2]
@@ -13,15 +13,27 @@
 atlas = ExtResource( 8 )
 region = Rect2( 2, 2, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 8 )
 region = Rect2( 2, 54, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 8 )
 region = Rect2( 2, 28, 24, 24 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 8 )
+region = Rect2( 2, 2, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 8 )
+region = Rect2( 2, 54, 24, 24 )
+
 [sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 8 )
+region = Rect2( 2, 28, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 8 )
 region = Rect2( 132, 2, 24, 24 )
 
@@ -30,7 +42,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 584.0, 60.0, 70.0, 100.0, 110.0 ],
+"_edit_horizontal_guides_": [ 584.0, 64.0, 70.0 ],
 "_edit_use_anchors_": false,
 "_edit_vertical_guides_": [ 1000.47 ]
 }
@@ -52,34 +64,25 @@ margin_right = -4.0
 margin_bottom = -4.0
 tab_close_display_policy = 2
 
-[node name="btns" type="HBoxContainer" parent="tabs/structure"]
-margin_right = 120.0
-margin_bottom = 28.0
+[node name="header" type="HBoxContainer" parent="tabs/structure"]
+margin_right = 892.0
+margin_bottom = 24.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="new_property_btn" type="Button" parent="tabs/structure/btns"]
-margin_right = 120.0
-margin_bottom = 28.0
-custom_fonts/font = ExtResource( 7 )
-text = "New property"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="new_property_btn" type="TextureButton" parent="tabs/structure/header"]
+margin_right = 24.0
+margin_bottom = 24.0
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 6 )
+texture_hover = SubResource( 7 )
 
-[node name="lbls" type="HBoxContainer" parent="tabs/structure"]
-margin_top = 38.0
-margin_right = 86.0
-margin_bottom = 68.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="props_lbl" type="Label" parent="tabs/structure/lbls"]
-margin_top = 4.0
-margin_right = 86.0
-margin_bottom = 26.0
+[node name="props_lbl" type="Label" parent="tabs/structure/header"]
+margin_left = 28.0
+margin_top = 1.0
+margin_right = 114.0
+margin_bottom = 23.0
 custom_fonts/font = ExtResource( 7 )
 text = "Properties:"
 __meta__ = {
@@ -89,7 +92,7 @@ __meta__ = {
 [node name="scroll" type="ScrollContainer" parent="tabs/structure"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 78.0
+margin_top = 30.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -104,7 +107,7 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 40.0
 margin_right = -4.0
 margin_bottom = -4.0
 tab_close_display_policy = 2
@@ -113,10 +116,10 @@ tab_close_display_policy = 2
 margin_right = 24.0
 margin_bottom = 24.0
 disabled = true
-texture_normal = SubResource( 1 )
-texture_pressed = SubResource( 2 )
-texture_hover = SubResource( 3 )
-texture_disabled = SubResource( 4 )
+texture_normal = SubResource( 2 )
+texture_pressed = SubResource( 3 )
+texture_hover = SubResource( 4 )
+texture_disabled = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

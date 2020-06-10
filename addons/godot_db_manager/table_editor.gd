@@ -13,7 +13,7 @@ var m_parent_table = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$tabs/structure/btns/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
+	$tabs/structure/header/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
 	$tabs/data/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
 	$tabs/data/add_data_btn.set_disabled(true)
 
@@ -24,6 +24,55 @@ func _ready() -> void:
 	$edit_string_dlg.connect("string_edited", self, "on_text_edited")
 
 	$delete_prop_dlg.connect("delete_prop", self, "on_confirm_delete_property")
+
+# called when resizing a property
+func on_resize_property(prop_id : int, diff_x : float) -> void :
+	var prop_size : Vector2 = Vector2()
+
+	var prop_idx = -1
+
+	var limit_cell_size_reached = false
+	var min_cell_width = $tabs/data/scroll/data_holder/data_header.get_child(0).get_custom_minimum_size().x
+
+	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
+		var prop = $tabs/data/scroll/data_holder/data_header.get_child(idx)
+		if(prop.get_prop_id() == prop_id):
+			prop_size = prop.get_size()
+			prop_size.x += diff_x
+
+			if(prop_size.x < min_cell_width):
+				prop_size.x = min_cell_width
+				limit_cell_size_reached = true
+			if(prop_size.x > gddb_constants.c_max_cell_width):
+				prop_size.x = gddb_constants.c_max_cell_width
+				limit_cell_size_reached = true
+
+			prop.set_size(prop_size)
+			prop_idx = idx
+
+		if(!limit_cell_size_reached && prop_idx != -1 && idx > prop_idx):
+			var pos = prop.get_position()
+			pos.x += diff_x
+			prop.set_position(pos)
+
+	#if(!limit_cell_size_reached):
+	#	var header_size : Vector2 = $tabs/data/scroll/data_holder/data_header.get_size()
+	#	header_size.x += diff_x
+		# $tabs/data/scroll/data_holder/data_header.set_custom_minimum_size(header_size)
+	#	$tabs/data/scroll/data_holder/data_header.set_size(header_size)
+
+		"""
+		for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
+			var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
+			for jdx in range(0, row.get_child_count()):
+				var cell = row.get_child(jdx)
+				if(cell.get_prop_id() == prop_id):
+					cell.set_size(prop_size)
+				if(jdx > prop_idx):
+					var pos = cell.get_position()
+					pos.x += diff_x
+					cell.set_position(pos)
+		"""
 
 # called when the new_property button is pressed
 func on_new_property_btn_pressed() -> void:
@@ -60,6 +109,7 @@ func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_au
 	$tabs/data/scroll/data_holder/data_header.add_child(prop)
 	prop.set_prop_id(prop_id)
 	prop.set_text(prop_name)
+	prop.connect("resize_property", self, "on_resize_property")
 
 	# add property to the existing rows
 	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
@@ -128,6 +178,7 @@ func fill_properties() -> void:
 		prop.set_prop_id(db_prop.get_prop_id())
 		prop.set_prop_type(db_prop.get_prop_type())
 		prop.set_text(db_prop.get_prop_name())
+		prop.connect("resize_property", self, "on_resize_property")
 	if(props_count > 0):
 		$tabs/data/add_data_btn.set_disabled(false)
 
