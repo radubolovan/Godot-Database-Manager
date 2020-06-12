@@ -37,3 +37,9 @@ enum {
 	e_data_filter_lequal = 4, # less or equal
 	e_data_filter_gequal = 5 # greater or equal
 }
+
+# new table dlg type
+enum {
+	e_new_dlg_type_new = 0,
+	e_new_dlg_type_edit = 1
+}

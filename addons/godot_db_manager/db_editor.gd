@@ -25,9 +25,10 @@ func _ready() -> void :
 
 	$table_editor.connect("set_dirty", self, "on_set_dirty")
 
-	$new_table_dlg.connect("create_new_table", self, "on_create_table")
-
 	$delete_table_dlg.connect("delete_table", self, "on_confirm_delete_table")
+
+	$new_table_dlg.connect("cancel_dialog", self, "on_close_new_table_dlg")
+	$new_table_dlg.get_close_button().connect("pressed", self, "on_close_new_table_dlg")
 
 	$error_dlg.connect("confirmed", self, "on_retry_create_table")
 
@@ -97,11 +98,17 @@ func set_dirty(dirty) -> void :
 
 # called when the user presses the "add_table" button from the "tables_list/tables_header"
 func on_add_table() -> void :
+	# print("GDDBEditor::on_add_table()")
+	$new_table_dlg.set_dld_type(gddb_types.e_new_dlg_type_new)
+	$new_table_dlg.set_table_id(gddb_constants.c_invalid_id)
 	$new_table_dlg.set_init_name("")
+	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 	$new_table_dlg.popup_centered()
 
 # called when the user accepts the name of the table in the "new_table_dlg"
 func on_create_table(table_name : String) -> void :
+	# print("GDDBEditor::on_create_table(" + table_name + ")")
+	$new_table_dlg.disconnect("create_new_table", self, "on_create_table")
 	var table_id = m_database.add_table(table_name)
 	if(table_id == gddb_constants.c_invalid_id):
 		$error_dlg.set_text("Table with the name \"" + table_name + "\" already exists" )
@@ -122,11 +129,20 @@ func on_retry_create_table() -> void :
 # called when the user presses the "edit_table_name" from the "tables/list/table"
 func on_edit_table(table_id : int, table_name : String) -> void :
 	# print("GDDBEditor::on_edit_table(" + str(table_id) + ", " + table_name + ")")
-	$new_table_dlg.disconnect("create_new_table", self, "on_create_table")
-	$new_table_dlg.connect("create_new_table", self, "on_table_name_edited")
+	$new_table_dlg.set_dld_type(gddb_types.e_new_dlg_type_edit)
 	$new_table_dlg.set_table_id(table_id)
 	$new_table_dlg.set_init_name(table_name)
+	$new_table_dlg.connect("create_new_table", self, "on_table_name_edited")
 	$new_table_dlg.popup_centered()
+
+# gets called when canceling the new_table_dlg
+func on_close_new_table_dlg() -> void :
+	# print("GDDBEditor::on_close_new_table_dlg()")
+	var dlg_type = $new_table_dlg.get_dlg_type()
+	if(dlg_type == gddb_types.e_new_dlg_type_new):
+		$new_table_dlg.disconnect("create_new_table", self, "on_create_table")
+	elif(dlg_type == gddb_types.e_new_dlg_type_edit):
+		$new_table_dlg.disconnect("create_new_table", self, "on_table_name_edited")
 
 # called when the user presses the "delete_table" from the "tables/list/table"
 func on_delete_table(table_id : int) -> void :
@@ -138,16 +154,15 @@ func on_delete_table(table_id : int) -> void :
 
 # called when the user accepts the name of the table in the "new_table_dlg"
 func on_table_name_edited(table_name : String) -> void :
+	# print("GDDBEditor::on_table_name_edited(" + table_name + ")")
+	$new_table_dlg.disconnect("create_new_table", self, "on_table_name_edited")
 	var table_id = $new_table_dlg.get_table_id()
 	if(!m_database.edit_table_name(table_name, table_id)):
 		$error_dlg.set_text("Table with the name \"" + table_name + "\" already exists" )
 		$error_dlg.popup_centered()
 		return
 	# print("GDDBEditor::on_table_name_edited(" + str(table_id) + ", " + table_name + ")")
-	$new_table_dlg.disconnect("create_new_table", self, "on_table_name_edited")
-	$new_table_dlg.connect("create_new_table", self, "on_create_table")
 	$tables_list.edit_table_name(table_id, table_name)
-
 	m_database.set_dirty(true)
 	set_dirty(true)
 

@@ -59,7 +59,8 @@ func resize_content(size : Vector2) -> void :
 	$tables_container/tables.set_custom_minimum_size(content_size)
 
 # Called when the user presses the "add_table" button from the tables_list/header
-func on_add_table() -> void:
+func on_add_table() -> void :
+	# print("GDDBTablesList::on_add_table()")
 	emit_signal("add_table")
 
 # creates a table
