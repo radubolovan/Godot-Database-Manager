@@ -18,7 +18,7 @@ region = Rect2( 54, 28, 24, 24 )
 
 [node name="table_property" type="Control"]
 anchor_right = 1.0
-anchor_bottom = 0.02
+margin_bottom = 15.36
 rect_min_size = Vector2( 900, 32 )
 script = ExtResource( 2 )
 __meta__ = {

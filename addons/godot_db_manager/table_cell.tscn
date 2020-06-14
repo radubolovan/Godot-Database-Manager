@@ -18,8 +18,8 @@ region = Rect2( 28, 28, 24, 24 )
 
 [node name="table_cell" type="Control"]
 anchor_right = 1.0
-anchor_bottom = 0.02
-rect_min_size = Vector2( 150, 27 )
+margin_bottom = 15.36
+rect_min_size = Vector2( 150, 32 )
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 32.0 ],
@@ -53,6 +53,7 @@ __meta__ = {
 }
 
 [node name="Button" type="Button" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 3 )
@@ -62,6 +63,7 @@ __meta__ = {
 }
 
 [node name="CheckBox" type="CheckBox" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 3 )

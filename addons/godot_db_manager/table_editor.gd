@@ -51,7 +51,6 @@ func on_resize_property(prop_id : int, diff_x : float) -> void :
 	var data_size = $tabs/data/scroll.get_size()
 	data_size.x += diff_x
 	$tabs/data/scroll/data_holder/data_header.set_size(data_size)
-	# $tabs/data/scroll/data_holder/data_container.set_size(data_size)
 
 	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
 		var prop = $tabs/data/scroll/data_holder/data_header.get_child(idx)

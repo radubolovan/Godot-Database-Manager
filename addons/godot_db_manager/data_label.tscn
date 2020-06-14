@@ -7,13 +7,13 @@
 
 [node name="lbl" type="Label"]
 anchor_right = 0.167
-anchor_bottom = 0.015
-margin_right = -0.300003
-margin_bottom = 1.90735e-06
-rect_min_size = Vector2( 150, 24 )
+margin_right = -0.300018
+margin_bottom = 11.52
+rect_min_size = Vector2( 150, 32 )
 mouse_filter = 0
 custom_fonts/font = ExtResource( 2 )
 text = "ID"
+valign = 1
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 24.0 ],

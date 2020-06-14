@@ -133,19 +133,19 @@ __meta__ = {
 }
 
 [node name="data_holder" type="VBoxContainer" parent="tabs/data/scroll"]
-margin_bottom = 28.0
+margin_bottom = 36.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="data_header" type="HBoxContainer" parent="tabs/data/scroll/data_holder"]
-margin_bottom = 24.0
-rect_min_size = Vector2( 0, 24 )
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
 rect_clip_content = true
 
 [node name="data_container" type="VBoxContainer" parent="tabs/data/scroll/data_holder"]
-margin_top = 28.0
-margin_bottom = 28.0
+margin_top = 36.0
+margin_bottom = 36.0
 
 [node name="error_dlg" parent="." instance=ExtResource( 1 )]
 visible = false
