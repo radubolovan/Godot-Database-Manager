@@ -7,6 +7,17 @@ class_name GDDBGlobals
 tool
 extends Node
 
+# a flag that tells if the tool's interface is active or not
+var m_is_interface_active : bool = false
+
+# sets the active flag
+func set_interface_active(active : bool) -> void :
+	m_is_interface_active = active
+
+# returns true if the tool's interface is active
+func is_interface_active() -> bool :
+	return m_is_interface_active
+
 # returns the name of the data type
 func get_data_name(data_type : int) -> String :
 	if(data_type == gddb_types.e_prop_type_bool):

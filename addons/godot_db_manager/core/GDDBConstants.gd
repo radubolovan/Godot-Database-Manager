@@ -27,3 +27,12 @@ const c_invalid_characters = "`~!@#$%^&*()=+[]{}\\|;:'\",<.>/?"
 
 # addon main path
 const c_addon_main_path = "res://addons/godot_db_manager/"
+
+# maximum tables list width
+const c_max_tables_list_width = 400.0
+
+# minimum cell width
+const c_min_cell_width = 150.0
+
+# maximum cell width
+const c_max_cell_width = 400.0

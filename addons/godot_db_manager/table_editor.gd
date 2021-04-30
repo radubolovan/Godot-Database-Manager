@@ -13,9 +13,9 @@ var m_parent_table = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$tabs/structure/v_layout/btns/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
-	$tabs/data/scroll/data_holder/btns/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
-	$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(true)
+	$tabs/structure/header/new_property_btn.connect("pressed", self, "on_new_property_btn_pressed")
+	$tabs/data/add_data_btn.connect("pressed", self, "on_add_row_data_btn_pressed")
+	$tabs/data/add_data_btn.set_disabled(true)
 
 	$load_res_path_dlg.connect("file_selected", self, "on_select_res_path")
 
@@ -24,6 +24,57 @@ func _ready() -> void:
 	$edit_string_dlg.connect("string_edited", self, "on_text_edited")
 
 	$delete_prop_dlg.connect("delete_prop", self, "on_confirm_delete_property")
+
+# called when resizing a property
+func on_resize_property(prop_id : int, diff_x : float) -> void :
+	var current_prop = null
+	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
+		var prop = $tabs/data/scroll/data_holder/data_header.get_child(idx)
+		if(prop.get_prop_id() == prop_id):
+			current_prop = prop
+			break
+
+	var prop_size : Vector2 = current_prop.get_child(0).get_size()
+
+	# print("diff_x: " + str(diff_x))
+	prop_size.x += diff_x
+
+	if(prop_size.x < gddb_constants.c_min_cell_width):
+		return
+	if(prop_size.x > gddb_constants.c_max_cell_width):
+		return
+
+	# print("prop_size.x = " + str(prop_size.x))
+
+	var prop_idx = -1
+
+	var data_size = $tabs/data/scroll.get_size()
+	data_size.x += diff_x
+	$tabs/data/scroll/data_holder/data_header.set_size(data_size)
+
+	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
+		var prop = $tabs/data/scroll/data_holder/data_header.get_child(idx)
+		if(prop.get_prop_id() == prop_id):
+			var current_prop_size = prop.get_custom_minimum_size()
+			current_prop_size.x += diff_x
+			prop.set_custom_minimum_size(current_prop_size)
+			prop_idx = idx
+
+		if(prop_idx != -1 && idx > prop_idx):
+			var pos = prop.get_position()
+			pos.x += diff_x
+			prop.set_position(pos)
+
+	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
+		var row = $tabs/data/scroll/data_holder/data_container.get_child(idx)
+		for jdx in range(0, row.get_child_count()):
+			var cell = row.get_child(jdx)
+			if(cell.get_prop_id() == prop_id):
+				cell.set_custom_minimum_size(prop_size)
+			if(jdx > prop_idx):
+				var pos = cell.get_position()
+				pos.x += diff_x
+				cell.set_position(pos)
 
 # called when the new_property button is pressed
 func on_new_property_btn_pressed() -> void:
@@ -39,7 +90,7 @@ func on_new_property_btn_pressed() -> void:
 	add_prop_to_data(prop_id, prop_type, prop_name, false)
 
 	# enable add data btn
-	$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(false)
+	$tabs/data/add_data_btn.set_disabled(false)
 
 	emit_signal("set_dirty")
 
@@ -47,7 +98,7 @@ func on_new_property_btn_pressed() -> void:
 func add_prop_to_structure(prop_id : int, prop_type : int, prop_name : String) -> void:
 	# print("GDDBTableEditor::add_prop_to_structure(" + str(prop_id) + ", " + str(prop_type) + ", " + prop_name + ")")
 	var prop = load(gddb_constants.c_addon_main_path + "table_property.tscn").instance()
-	$tabs/structure/v_layout/scroll/properties.add_child(prop)
+	$tabs/structure/scroll/properties.add_child(prop)
 	prop.set_parent_table(m_parent_table)
 	prop.setup(prop_id, prop_type, prop_name)
 	prop.connect("edit_property", self, "on_edit_property")
@@ -60,6 +111,7 @@ func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_au
 	$tabs/data/scroll/data_holder/data_header.add_child(prop)
 	prop.set_prop_id(prop_id)
 	prop.set_text(prop_name)
+	prop.connect("resize_property", self, "on_resize_property")
 
 	# add property to the existing rows
 	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
@@ -70,7 +122,6 @@ func add_prop_to_data(prop_id : int, prop_type : int, prop_name : String, has_au
 		cell.set_row_idx(idx)
 		cell.set_prop_type(prop_type)
 		cell.set_text("")
-		cell.refresh_width(prop_name)
 		cell.enable_autoincrement(has_autoincrement)
 		cell.connect("edit_data", self, "on_edit_data")
 		cell.connect("choose_resource", self, "on_choose_resource")
@@ -87,9 +138,9 @@ func on_add_row_data_btn_pressed() -> void:
 	# add row in the interface
 	var row = HBoxContainer.new()
 	$tabs/data/scroll/data_holder/data_container.add_child(row)
-	for idx in range(0, $tabs/structure/v_layout/scroll/properties.get_child_count()):
+	for idx in range(0, $tabs/structure/scroll/properties.get_child_count()):
 		var cell = load(gddb_constants.c_addon_main_path + "table_cell.tscn").instance()
-		var prop = $tabs/structure/v_layout/scroll/properties.get_child(idx)
+		var prop = $tabs/structure/scroll/properties.get_child(idx)
 		var db_prop = m_parent_table.get_prop_by_id(idx)
 		row.add_child(cell)
 		cell.set_prop_id(idx)
@@ -99,7 +150,6 @@ func on_add_row_data_btn_pressed() -> void:
 		cell.enable_autoincrement(db_prop.has_autoincrement())
 		if(autoincrement):
 			cell.set_text(str(row_idx+1))
-		cell.refresh_width(prop.get_prop_name())
 		cell.connect("edit_data", self, "on_edit_data")
 		cell.connect("choose_resource", self, "on_choose_resource")
 		cell.connect("choose_data", self, "on_choose_data")
@@ -128,8 +178,9 @@ func fill_properties() -> void:
 		prop.set_prop_id(db_prop.get_prop_id())
 		prop.set_prop_type(db_prop.get_prop_type())
 		prop.set_text(db_prop.get_prop_name())
+		prop.connect("resize_property", self, "on_resize_property")
 	if(props_count > 0):
-		$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(false)
+		$tabs/data/add_data_btn.set_disabled(false)
 
 # fills the interface with current table's data
 func fill_data() -> void:
@@ -163,7 +214,6 @@ func fill_data() -> void:
 			cell.set_row_idx(idx)
 			cell.set_prop_type(prop_type)
 			cell.set_text(cell_data)
-			cell.refresh_width(db_prop.get_prop_name())
 			cell.enable_autoincrement(db_prop.has_autoincrement())
 			cell.connect("edit_data", self, "on_edit_data")
 			cell.connect("choose_resource", self, "on_choose_resource")
@@ -173,8 +223,8 @@ func fill_data() -> void:
 # links properties
 func link_props() -> void :
 	# print("GDDBTableEditor::link_props() for table with name: " + m_parent_table.get_table_name())
-	for idx in range(0, $tabs/structure/v_layout/scroll/properties.get_child_count()):
-		var prop = $tabs/structure/v_layout/scroll/properties.get_child(idx)
+	for idx in range(0, $tabs/structure/scroll/properties.get_child_count()):
+		var prop = $tabs/structure/scroll/properties.get_child(idx)
 		prop.link()
 
 # refreshes autoincrement props
@@ -189,8 +239,8 @@ func refresh_autoincrement_props(prop_id, enable) -> void:
 # cleares current layout
 func clear_current_layout() -> void:
 	# clear structure tab
-	for idx in range(0, $tabs/structure/v_layout/scroll/properties.get_child_count()):
-		$tabs/structure/v_layout/scroll/properties.get_child(idx).queue_free()
+	for idx in range(0, $tabs/structure/scroll/properties.get_child_count()):
+		$tabs/structure/scroll/properties.get_child(idx).queue_free()
 
 	# clear data from data tab
 	for idx in range(0, $tabs/data/scroll/data_holder/data_container.get_child_count()):
@@ -203,7 +253,7 @@ func clear_current_layout() -> void:
 	for idx in range(0, $tabs/data/scroll/data_holder/data_header.get_child_count()):
 		$tabs/data/scroll/data_holder/data_header.get_child(idx).queue_free()
 
-	$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(true)
+	$tabs/data/add_data_btn.set_disabled(true)
 
 # called when a property is edited
 func on_edit_property(prop_id : int, prop_type : int, prop_name : String) -> void:
@@ -274,8 +324,8 @@ func on_confirm_delete_property() -> void:
 			break
 
 	# delete prop from structure
-	for idx in range(0, $tabs/structure/v_layout/scroll/properties.get_child_count()):
-		var prop = $tabs/structure/v_layout/scroll/properties.get_child(idx)
+	for idx in range(0, $tabs/structure/scroll/properties.get_child_count()):
+		var prop = $tabs/structure/scroll/properties.get_child(idx)
 		if(prop.get_prop_id() == prop_id):
 			prop.queue_free()
 			break
@@ -283,7 +333,7 @@ func on_confirm_delete_property() -> void:
 	# refresh the add data button
 	var props_count = m_parent_table.get_props_count()
 	if(props_count == 0):
-		$tabs/data/scroll/data_holder/btns/add_data_btn.set_disabled(true)
+		$tabs/data/add_data_btn.set_disabled(true)
 
 	emit_signal("set_dirty")
 

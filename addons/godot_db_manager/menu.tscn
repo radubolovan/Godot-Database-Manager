@@ -1,33 +1,36 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/menu.gd" type="Script" id=1]
-[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_16.tres" type="DynamicFont" id=3]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_18.tres" type="DynamicFont" id=2]
 
 [node name="menu" type="Control"]
 anchor_right = 1.0
-anchor_bottom = 0.0311111
+rect_min_size = Vector2( 0, 30 )
 script = ExtResource( 1 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 28.0 ],
-"_edit_use_anchors_": true
+"_edit_horizontal_guides_": [ 30.0 ],
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [ 1024.0 ]
 }
 
 [node name="layout" type="HBoxContainer" parent="."]
-margin_right = 1600.0
-margin_bottom = 28.0
+margin_right = 1024.0
+margin_bottom = 30.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="File" type="MenuButton" parent="layout"]
-margin_right = 37.0
-margin_bottom = 28.0
-custom_fonts/font = ExtResource( 3 )
+margin_right = 40.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 2 )
 text = "File"
+items = [ "New DB", null, 0, false, false, 0, 0, null, "", false, "Load DB", null, 0, false, false, 1, 0, null, "", false, "Save DB", null, 0, false, false, 2, 0, null, "", false, "Save DB As ...", null, 0, false, false, 3, 0, null, "", false ]
 
 [node name="Options" type="MenuButton" parent="layout"]
-margin_left = 41.0
-margin_right = 108.0
-margin_bottom = 28.0
-custom_fonts/font = ExtResource( 3 )
+margin_left = 44.0
+margin_right = 117.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 2 )
 text = "Options"
+items = [ "Autosave on close", null, 1, false, false, 4, 0, null, "", false ]

@@ -1,14 +1,44 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/godot_db_manager/data_label.gd" type="Script" id=1]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_18.tres" type="DynamicFont" id=2]
+[ext_resource path="res://addons/godot_db_manager/assets/tex/gui.png" type="Texture" id=3]
+[ext_resource path="res://addons/godot_db_manager/assets/tex/debug.png" type="Texture" id=4]
 
 [node name="lbl" type="Label"]
-anchor_right = 0.094
-anchor_bottom = 0.036
-margin_right = -0.400009
-margin_bottom = -0.400002
-rect_min_size = Vector2( 150, 24 )
+anchor_right = 0.167
+margin_right = -0.300018
+margin_bottom = 11.52
+rect_min_size = Vector2( 150, 32 )
+mouse_filter = 0
+custom_fonts/font = ExtResource( 2 )
+text = "ID"
+valign = 1
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 24.0 ],
+"_edit_use_anchors_": true
+}
+
+[node name="dbg" type="NinePatchRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 86, 26, 10, 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="resize_ctrl" type="NinePatchRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.0
+mouse_filter = 0
+mouse_default_cursor_shape = 10
+texture = ExtResource( 3 )
+region_rect = Rect2( 80, 12, 24, 24 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

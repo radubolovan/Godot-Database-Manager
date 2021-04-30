@@ -8,7 +8,9 @@ tool
 extends WindowDialog
 
 signal create_new_table
+signal cancel_dialog
 
+var m_dlg_type : int = gddb_types.e_new_dlg_type_new
 var m_table_id = gddb_constants.c_invalid_id
 var m_current_table_name = ""
 
@@ -19,6 +21,14 @@ func _ready():
 	$v_layout/table_info/table_edt.connect("text_changed", self, "on_text_changed")
 	$v_layout/table_info/table_edt.connect("text_entered", self, "on_text_confirmed")
 	m_current_table_name = ""
+
+# sets the type of the dialog
+func set_dld_type(dlg_type : int) -> void :
+	m_dlg_type = dlg_type
+
+# returns the dialog type
+func get_dlg_type() -> int :
+	return m_dlg_type
 
 # sets the table id
 func set_table_id(table_id : int) -> void:
@@ -66,6 +76,7 @@ func on_ok_btn_pressed() -> void:
 # called when the Cancel button is pressed
 func on_cancel_btn_pressed() -> void :
 	hide()
+	emit_signal("cancel_dialog")
 
 # handles the text in the EditLine
 func handle_table_name() -> void:

@@ -1,89 +1,109 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_16.tres" type="DynamicFont" id=1]
-[ext_resource path="res://addons/godot_db_manager/assets/tex/2_0_buttons.png" type="Texture" id=2]
+[ext_resource path="res://addons/godot_db_manager/assets/fnt/roboto_18.tres" type="DynamicFont" id=1]
+[ext_resource path="res://addons/godot_db_manager/assets/tex/gui.png" type="Texture" id=2]
 [ext_resource path="res://addons/godot_db_manager/table_item.gd" type="Script" id=3]
+[ext_resource path="res://addons/godot_db_manager/assets/tex/debug.png" type="Texture" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
-region = Rect2( 80, 6, 24, 4 )
+region = Rect2( 28, 2, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
-region = Rect2( 28, 2, 24, 24 )
+region = Rect2( 28, 54, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 2 )
-region = Rect2( 28, 54, 24, 24 )
+region = Rect2( 28, 28, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
-region = Rect2( 28, 28, 24, 24 )
+region = Rect2( 54, 2, 24, 24 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )
-region = Rect2( 54, 2, 24, 24 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
 region = Rect2( 54, 54, 24, 24 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
 region = Rect2( 54, 28, 24, 24 )
 
 [node name="table_item" type="Control"]
-anchor_right = 0.1
-anchor_bottom = 0.027
-margin_bottom = -0.300001
-rect_min_size = Vector2( 160, 24 )
+anchor_right = 1.0
+anchor_bottom = 0.021
+margin_bottom = 0.399998
+rect_min_size = Vector2( 180, 34 )
 script = ExtResource( 3 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 24.0434 ],
+"_edit_horizontal_guides_": [ 34.0 ],
 "_edit_use_anchors_": false,
-"_edit_vertical_guides_": [ 160.04 ]
+"_edit_vertical_guides_": [ 170.0 ]
 }
 
-[node name="select" type="Sprite" parent="."]
-scale = Vector2( 6.66667, 6 )
-texture = SubResource( 1 )
-centered = false
-
-[node name="elems" type="HBoxContainer" parent="."]
-margin_right = 160.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 160, 0 )
+[node name="dbg" type="NinePatchRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 38, 38, 10, 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="table_name" type="Label" parent="elems"]
-margin_top = 2.0
-margin_right = 100.0
-margin_bottom = 21.0
+[node name="select" type="NinePatchRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+region_rect = Rect2( 80, 6, 24, 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="table_name" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -6.10352e-05
+margin_bottom = -4.0
 rect_min_size = Vector2( 100, 0 )
 custom_fonts/font = ExtResource( 1 )
 text = "Table_999"
-
-[node name="edit_table_btn" type="TextureButton" parent="elems"]
-margin_left = 104.0
-margin_right = 128.0
-margin_bottom = 24.0
-texture_normal = SubResource( 2 )
-texture_pressed = SubResource( 3 )
-texture_hover = SubResource( 4 )
-
-[node name="delete_table_btn" type="TextureButton" parent="elems"]
-margin_left = 132.0
-margin_right = 156.0
-margin_bottom = 24.0
-texture_normal = SubResource( 5 )
-texture_pressed = SubResource( 6 )
-texture_hover = SubResource( 7 )
-
-[node name="select_btn" type="TextureButton" parent="."]
-margin_right = 104.0
-margin_bottom = 24.0
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="select_btn" type="TextureButton" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="edit_table_btn" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -56.0
+margin_top = 5.0
+margin_right = -32.0
+margin_bottom = -5.0
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+texture_hover = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="delete_table_btn" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -28.0
+margin_top = 5.0
+margin_right = -4.0
+margin_bottom = -5.0
+texture_normal = SubResource( 4 )
+texture_pressed = SubResource( 5 )
+texture_hover = SubResource( 6 )
