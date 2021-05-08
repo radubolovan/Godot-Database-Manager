@@ -292,10 +292,18 @@ func add_row(data_array : Array) -> void :
 
 # removes a row
 func remove_row(row_idx : int) -> void :
-	for idx in range(m_data.size()-1, 0, -1):
-		if(m_data[idx].get_row_idx() == row_idx):
-			m_data[idx].remove(idx)
-			m_rows_count -= 1
+	var to_remove : Array = []
+	for _data in m_data:
+		if _data.get_row_idx() == row_idx:
+			to_remove.append(_data)
+		if _data.get_row_idx() > row_idx:
+			_data.set_row_idx(_data.get_row_idx() - 1)
+	
+	if not to_remove.empty():
+		m_rows_count -= 1
+	
+	for rm in to_remove:
+		m_data.erase(rm)
 
 # returns the rows count
 func get_rows_count() -> int :

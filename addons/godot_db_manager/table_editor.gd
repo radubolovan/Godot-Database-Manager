@@ -154,7 +154,36 @@ func on_add_row_data_btn_pressed() -> void:
 		cell.connect("choose_resource", self, "on_choose_resource")
 		cell.connect("choose_data", self, "on_choose_data")
 		cell.connect("edit_string", self, "on_edit_string")
+	
+	var delete_btn = Button.new()
+	row.add_child(delete_btn)
+	delete_btn.text = "X"
+	delete_btn.rect_size = Vector2(20, 20)
+	delete_btn.connect("pressed", self, "delete_row", [row_idx, row])
+	
+	emit_signal("set_dirty")
 
+# removes a row from current active table
+func delete_row(row_idx : int, row : HBoxContainer) -> void:
+	m_parent_table.remove_row(row_idx)
+	
+	# get index of deleted child
+	var idx = 0
+	for child in row.get_parent().get_children():
+		if child == row:
+			break
+		idx += 1
+	
+	for i in range(idx + 1, row.get_parent().get_child_count()):
+		var node = row.get_parent().get_child(i)	# row
+		for child in node.get_children():
+			if child is Button and child.is_connected("pressed", self, "delete_row"):
+				child.disconnect("pressed", self, "delete_row")
+				child.connect("pressed", self, "delete_row", [i - 1, node])
+	
+	row.get_parent().remove_child(row)
+	row.queue_free()
+	
 	emit_signal("set_dirty")
 
 # sets the table from database
@@ -219,6 +248,12 @@ func fill_data() -> void:
 			cell.connect("choose_resource", self, "on_choose_resource")
 			cell.connect("choose_data", self, "on_choose_data")
 			cell.connect("edit_string", self, "on_edit_string")
+		
+		var delete_btn = Button.new()
+		row.add_child(delete_btn)
+		delete_btn.text = "X"
+		delete_btn.rect_size = Vector2(20, 20)
+		delete_btn.connect("pressed", self, "delete_row", [idx, row])
 
 # links properties
 func link_props() -> void :
